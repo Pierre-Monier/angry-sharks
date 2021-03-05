@@ -11,7 +11,7 @@ window.onload = function () {
         // efface les buffers de couleur et de profondeur
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         // draw
-        gl.clearColor(0, 0, 0, 1);
+        gl.clearColor(.3, .3, .3, 1);
         // dessin du fond (décommenter pour travailler dessus)
         //gl.useProgram(background.shader());
         //background.sendUniformVariables();
@@ -31,7 +31,8 @@ window.onload = function () {
         requestAnimFrame(tick, tick);
         drawScene();
     }
-    var canvas = document.getElementById("canvas");
+    var canvas = document.getElementById("final-wall");
     var gl = canvas.getContext("webgl2");
+    gl.strokeRect(20, 20, 150, 100);
     tick();
 };
