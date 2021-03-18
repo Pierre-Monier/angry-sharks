@@ -45,8 +45,8 @@
       
       float gnoise(in vec2 x) {
 	  // cette fonction calcule un gradient noise
-	  // un bruit aléatoire, lisse qui peut etre caculé
-	  // a la volé avec une petite procédure. 
+	  // un bruit alï¿½atoire, lisse qui peut etre caculï¿½
+	  // a la volï¿½ avec une petite procï¿½dure. 
 	  vec2 p = floor(x);
 	  vec2 f = fract(x);
 	  vec2 m = f*f*(3.-2.*f);
@@ -60,8 +60,8 @@
       
       float fractalNoise(in vec2 p) {
 	  // cette fonction utilise le gradient noise
-	  // pour créer un bruit fractal (qui se ressemble
-	  // à des echelles multiples)
+	  // pour crï¿½er un bruit fractal (qui se ressemble
+	  // ï¿½ des echelles multiples)
        	  const int nb = 5; // nb octave
        	  float f = uFrequency; // frequency
        	  float a = uAmplitude; // amplitude
@@ -110,7 +110,7 @@
       }
       
       void main(void) {
-	  // décalage avec la variable uOffset
+	  // dï¿½calage avec la variable uOffset
 	  vec2 tmp = vTextureCoord*2.0-vec2(1.0);
 
 	  // offset permets de faire bouger le backgroud vers le haut dans cet exemple
@@ -150,7 +150,7 @@
           // projection de la position
 	  vec3 p = aVertexPosition;
 
-	  // exemple de modification de la hauteur du modèle avec un simple timer
+	  // exemple de modification de la hauteur du modï¿½le avec un simple timer
 	  // bien pour les petits effets, mais si possible modifier directement la
 	  // matrice model en amont (dans setParameters du fichier modelObj)
 	  //p.z += 3.0*sin(timer*10.0);
@@ -171,13 +171,13 @@
           // la normale (en tout point)
 	  vec3 n = normalize(vNormal);
 
-	  // une direction de lumière quelconque
+	  // une direction de lumiï¿½re quelconque
 	  vec3 l = normalize(vec3(-1.0,0.0,1.0));
 
 	  // une couleur (ex. rouge)
 	  vec3 Kd = vec3(1.0,0.0,0.0);
 
-	  // un éclairage simple
+	  // un ï¿½clairage simple
 	  vec3 diff = Kd*max(dot(n,l),0.0);
 
 	  // que l'on affiche en sortie
@@ -225,7 +225,7 @@
 	  //     outColor = vec4(0.);
 	  // }
 	  
-	  // affichage d'un rond avec couleur paramétrée et bords lisses 
+	  // affichage d'un rond avec couleur paramï¿½trï¿½e et bords lisses 
 	  // float alpha = 1.-smoothstep(0.2,0.25,distance(vec2(.5),vTextureCoord));
 	  // outColor = vec4(alpha*maCouleur,alpha);
       }
@@ -245,7 +245,7 @@
 	  // efface les buffers de couleur et de profondeur
 	  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-	  // dessin du fond (décommenter pour travailler dessus)
+	  // dessin du fond (dï¿½commenter pour travailler dessus)
 	  gl.useProgram(background.shader());
 	  background.sendUniformVariables();
 	  background.draw();
@@ -256,11 +256,11 @@
 	  spaceship.draw();
 
 	  // test pour afficher un splat quand on appuie sur espace 
-	  gl.enable(gl.BLEND); // transparence activée 
+	  gl.enable(gl.BLEND); // transparence activï¿½e 
 	  gl.useProgram(shootSample.shader());
           shootSample.sendUniformVariables();
 	  shootSample.draw();
-	  gl.disable(gl.BLEND); // transparence désactivée 
+	  gl.disable(gl.BLEND); // transparence dï¿½sactivï¿½e 
       }
 
       // une bonne maniere de gerer les evenements claviers
@@ -303,10 +303,10 @@
 
 	  if (currentlyPressedKeys[32]) { // SPACE
 	      // exemple: comment positionner un splat devant le vaisseau
-	      var p = spaceship.getBBox(); // boite englobante du vaisseau sur l'écran
+	      var p = spaceship.getBBox(); // boite englobante du vaisseau sur l'ï¿½cran
 	      var x = (p[0][0]+p[1][0])/2;
 	      var y = p[1][1];
-	      var z = p[1][2]+0.005; // profondeur du splat (juste derrière le vaisseau)
+	      var z = p[1][2]+0.005; // profondeur du splat (juste derriï¿½re le vaisseau)
 	      
 	      shootSample.setPosition(x,y,z);
           }
@@ -323,11 +323,11 @@
       // animation 
       var lastTime = 0;
       function animate() {
-	  // fonction appelée à chaque frame, permet d'animer la scène
+	  // fonction appelï¿½e ï¿½ chaque frame, permet d'animer la scï¿½ne
           var timeNow = new Date().getTime();
           if (lastTime != 0) {
               // anime chacun des objets de la scene
-	      // si necessaire (en fonction du temps ecoulé)
+	      // si necessaire (en fonction du temps ecoulï¿½)
               var elapsed = timeNow - lastTime;
               spaceship.setParameters(elapsed);
               background.setParameters(elapsed);
@@ -350,8 +350,8 @@
           var canvas = document.getElementById("SpaceShip");
           initGL(canvas);
 
-	  // test: création d'une texture 
-	  var tex = initTexture('textures/missile.png');
+	  // test: crï¿½ation d'une texture 
+	  var tex = initTexture('./models/planes/torpedo/torpedo_flame_1.png');
 	  
           initBackgroundShader();
           initModelShader();
@@ -362,13 +362,13 @@
           spaceship = new Model('models/plane.obj');
 	  shootSample = new Splat(tex);
 	  
-          // la couleur de fond sera grise foncée
+          // la couleur de fond sera grise foncï¿½e
           gl.clearColor(0.3, 0.3, 0.3, 1.0);
 
           // active le test de profondeur 
           gl.enable(gl.DEPTH_TEST);
 
-	  // fonction de mélange utilisée pour la transparence
+	  // fonction de mï¿½lange utilisï¿½e pour la transparence
           gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
           /* Mouse and keyboard interaction functions */
