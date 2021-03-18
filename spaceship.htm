@@ -1,17 +1,15 @@
-<html>
+<html><head>
+    <title>SpaceShip</title>
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
 
-<head>
-  <title>SpaceShip</title>
-  <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <script type="text/javascript" src="gl-matrix.js"></script>
+    <script type="text/javascript" src="game-utils.js"></script>
+    <script type="text/javascript" src="fbo.js"></script>
+    <script type="text/javascript" src="background.js"></script>
+    <script type="text/javascript" src="modelObj.js"></script>
+    <script type="text/javascript" src="splat.js"></script>
 
-  <script type="text/javascript" src="gl-matrix.js"></script>
-  <script type="text/javascript" src="game-utils.js"></script>
-  <script type="text/javascript" src="fbo.js"></script>
-  <script type="text/javascript" src="background.js"></script>
-  <script type="text/javascript" src="modelObj.js"></script>
-  <script type="text/javascript" src="splat.js"></script>
-
-  <script id="background-vs" type="x-shader/x-vertex">#version 300 es
+    <script id="background-vs" type="x-shader/x-vertex">#version 300 es
       // *** le vertex shader *** 
       layout(location=0) in vec3 aVertexPosition; // la position du sommet 
       layout(location=1) in vec2 aVertexCoord; // sa coordonnee de texture 
@@ -27,7 +25,7 @@
       }
     </script>
 
-  <script id="background-fs" type="x-shader/x-fragment">#version 300 es
+    <script id="background-fs" type="x-shader/x-fragment">#version 300 es
       // *** le fragment shader ***
       precision highp float; // precision des nombres flottant
       
@@ -47,8 +45,8 @@
       
       float gnoise(in vec2 x) {
 	  // cette fonction calcule un gradient noise
-	  // un bruit alï¿½atoire, lisse qui peut etre caculï¿½
-	  // a la volï¿½ avec une petite procï¿½dure. 
+	  // un bruit aléatoire, lisse qui peut etre caculé
+	  // a la volé avec une petite procédure. 
 	  vec2 p = floor(x);
 	  vec2 f = fract(x);
 	  vec2 m = f*f*(3.-2.*f);
@@ -62,8 +60,8 @@
       
       float fractalNoise(in vec2 p) {
 	  // cette fonction utilise le gradient noise
-	  // pour crï¿½er un bruit fractal (qui se ressemble
-	  // ï¿½ des echelles multiples)
+	  // pour créer un bruit fractal (qui se ressemble
+	  // à des echelles multiples)
        	  const int nb = 5; // nb octave
        	  float f = uFrequency; // frequency
        	  float a = uAmplitude; // amplitude
@@ -83,10 +81,10 @@
 	  // le souhaitez pour fabriquer votre propre background
 
 	  // exemple avec une sinusoide
-	  //float test = 3.0*sin(p.x*1.0)*sin(p.y*1.0);
+	  float test = 3.0*sin(p.x*5.0)*sin(p.y*5.0);
 
 	  // exemple avec un bruit de perlin 
-	  float test = fractalNoise(p)*1.0+1.0;
+	  //float test = fractalNoise(p)*0.5+0.5;
 
 	  // et on peut combiner tout ce que l'on veut... 
 	  
@@ -112,7 +110,7 @@
       }
       
       void main(void) {
-	  // dï¿½calage avec la variable uOffset
+	  // décalage avec la variable uOffset
 	  vec2 tmp = vTextureCoord*2.0-vec2(1.0);
 
 	  // offset permets de faire bouger le backgroud vers le haut dans cet exemple
@@ -128,15 +126,15 @@
 	  outColor = vec4(n,1.0);
 	  
 	  // affichage d'une couleur en fonction de la hauteur
-	  vec4 c1 = vec4(1,1,1,1); // vert
-	  vec4 c2 = vec4(0,0,0,1); // blanc
+	  vec4 c1 = vec4(0,1,0,1); // vert
+	  vec4 c2 = vec4(1,1,1,1); // blanc
 	  outColor = mix(c1,c2,d); // interpolation entre c1 et c2 en fonction de la profondeur
 	  
       }
       
     </script>
 
-  <script id="model-vs" type="x-shader/x-vertex">#version 300 es
+    <script id="model-vs" type="x-shader/x-vertex">#version 300 es
       // *** le vertex shader *** 
       layout(location=0) in vec3 aVertexPosition;
       layout(location=1) in vec3 aVertexNormal;
@@ -152,7 +150,7 @@
           // projection de la position
 	  vec3 p = aVertexPosition;
 
-	  // exemple de modification de la hauteur du modï¿½le avec un simple timer
+	  // exemple de modification de la hauteur du modèle avec un simple timer
 	  // bien pour les petits effets, mais si possible modifier directement la
 	  // matrice model en amont (dans setParameters du fichier modelObj)
 	  //p.z += 3.0*sin(timer*10.0);
@@ -162,7 +160,7 @@
       }
     </script>
 
-  <script id="model-fs" type="x-shader/x-fragment">#version 300 es
+    <script id="model-fs" type="x-shader/x-fragment">#version 300 es
       // *** le fragment shader ***
       precision mediump float; // precision des nombres flottant
       
@@ -173,13 +171,13 @@
           // la normale (en tout point)
 	  vec3 n = normalize(vNormal);
 
-	  // une direction de lumiï¿½re quelconque
+	  // une direction de lumière quelconque
 	  vec3 l = normalize(vec3(-1.0,0.0,1.0));
 
 	  // une couleur (ex. rouge)
 	  vec3 Kd = vec3(1.0,0.0,0.0);
 
-	  // un ï¿½clairage simple
+	  // un éclairage simple
 	  vec3 diff = Kd*max(dot(n,l),0.0);
 
 	  // que l'on affiche en sortie
@@ -187,7 +185,7 @@
       }
     </script>
 
-  <script id="splat-vs" type="x-shader/x-vertex">#version 300 es
+    <script id="splat-vs" type="x-shader/x-vertex">#version 300 es
       // *** le vertex shader *** 
       layout(location=0) in vec3 aVertexPosition; // la position du sommet 
       layout(location=1) in vec2 aVertexCoord; // sa coordonnee de texture 
@@ -204,7 +202,7 @@
       }
     </script>
 
-  <script id="splat-fs" type="x-shader/x-fragment">#version 300 es
+    <script id="splat-fs" type="x-shader/x-fragment">#version 300 es
       // *** le fragment shader ***
       precision highp float; // precision des nombres flottant
 
@@ -218,9 +216,8 @@
 	  // affichage d'une texture
 	  vec2 coord = vTextureCoord;
 	  outColor = texture(uTex,coord);
-    outColor = vec4(vTextureCoord.x,0,0,1);
 
-	  // aaffichage d'un rond bleu
+	  // affichage d'un rond bleu
 	  // float test = distance(vec2(.5),vTextureCoord);
 	  // if(test<0.1) {
 	  //     outColor = vec4(0.,0.,1.,1.);
@@ -228,172 +225,170 @@
 	  //     outColor = vec4(0.);
 	  // }
 	  
-	  // affichage d'un rond avec couleur paramï¿½trï¿½e et bords lisses 
+	  // affichage d'un rond avec couleur paramétrée et bords lisses 
 	  // float alpha = 1.-smoothstep(0.2,0.25,distance(vec2(.5),vTextureCoord));
 	  // outColor = vec4(alpha*maCouleur,alpha);
       }
     </script>
 
 
-  <script type="text/javascript">
+    <script type="text/javascript">
 
-    var background;
-    var spaceship;
-    var shootSample;
+      var background;
+      var spaceship;
+      var shootSample;
+      
+      function drawScene() {
+	  // initialisation du viewport
+	  gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+	  
+	  // efface les buffers de couleur et de profondeur
+	  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    function drawScene() {
-      // initialisation du viewport
-      gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+	  // dessin du fond (décommenter pour travailler dessus)
+	  gl.useProgram(background.shader());
+	  background.sendUniformVariables();
+	  background.draw();
 
-      // efface les buffers de couleur et de profondeur
-      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	  // dessin du vaisseau
+	  gl.useProgram(spaceship.shader());
+          spaceship.sendUniformVariables();
+	  spaceship.draw();
 
-      // dessin du fond (dï¿½commenter pour travailler dessus)
-      gl.useProgram(background.shader());
-      background.sendUniformVariables();
-      background.draw();
-
-      // dessin du vaisseau
-      gl.useProgram(spaceship.shader());
-      spaceship.sendUniformVariables();
-      spaceship.draw();
-
-      // test pour afficher un splat quand on appuie sur espace 
-      gl.enable(gl.BLEND); // transparence activï¿½e 
-      gl.useProgram(shootSample.shader());
-      shootSample.sendUniformVariables();
-      shootSample.draw();
-      gl.disable(gl.BLEND); // transparence dï¿½sactivï¿½e 
-    }
-
-    // une bonne maniere de gerer les evenements claviers
-    var currentlyPressedKeys = {};
-
-    function handleKeyDown(event) {
-      currentlyPressedKeys[event.keyCode] = true;
-    }
-
-
-    function handleKeyUp(event) {
-      currentlyPressedKeys[event.keyCode] = false;
-    }
-
-    function handleKeys() {
-      // vous pouvez utiliser ce genre de fonction
-      // pour faire bouger votre vaisseau
-      // par exemple :
-
-      if (currentlyPressedKeys[68]) { // D
-        spaceship.move(1, 0);
+	  // test pour afficher un splat quand on appuie sur espace 
+	  gl.enable(gl.BLEND); // transparence activée 
+	  gl.useProgram(shootSample.shader());
+          shootSample.sendUniformVariables();
+	  shootSample.draw();
+	  gl.disable(gl.BLEND); // transparence désactivée 
       }
 
-      if (currentlyPressedKeys[81]) { // Q
-        spaceship.move(-1, 0);
+      // une bonne maniere de gerer les evenements claviers
+      var currentlyPressedKeys = {};
+
+      function handleKeyDown(event) {
+          currentlyPressedKeys[event.keyCode] = true;
       }
 
-      if (currentlyPressedKeys[90]) { // Z
-        spaceship.move(0, 1);
+
+      function handleKeyUp(event) {
+          currentlyPressedKeys[event.keyCode] = false;
       }
 
-      if (currentlyPressedKeys[83]) { // S
-        spaceship.move(0, -1);
+      function handleKeys() {
+	  // vous pouvez utiliser ce genre de fonction
+	  // pour faire bouger votre vaisseau
+	  // par exemple :
+	  
+	  if (currentlyPressedKeys[68]) { // D
+              spaceship.move(1,0);
+          }
+
+	  if (currentlyPressedKeys[81]) { // Q
+              spaceship.move(-1,0);
+          }
+
+	  if (currentlyPressedKeys[90]) { // Z
+              spaceship.move(0,1);
+          }
+
+	  if (currentlyPressedKeys[83]) { // S
+              spaceship.move(0,-1);
+          }
+
+	  if (currentlyPressedKeys[77]) { // M
+	      // juste un test pour supprimer un splat (tir)
+              shootSample.clear();
+          }
+
+	  if (currentlyPressedKeys[32]) { // SPACE
+	      // exemple: comment positionner un splat devant le vaisseau
+	      var p = spaceship.getBBox(); // boite englobante du vaisseau sur l'écran
+	      var x = (p[0][0]+p[1][0])/2;
+	      var y = p[1][1];
+	      var z = p[1][2]+0.005; // profondeur du splat (juste derrière le vaisseau)
+	      
+	      shootSample.setPosition(x,y,z);
+          }
+	  
       }
 
-      if (currentlyPressedKeys[77]) { // M
-        // juste un test pour supprimer un splat (tir)
-        shootSample.clear();
+      function mouseMove(event) {
+	  // recup evenement souris 
+          //var newx = 2.0*(event.clientX/gl.viewportWidth)-1.0;
+          //var newy = -(2.0*(event.clientY/gl.viewportHeight)-1.0);
       }
 
-      if (currentlyPressedKeys[32]) { // SPACE
-        // exemple: comment positionner un splat devant le vaisseau
-        var p = spaceship.getBBox(); // boite englobante du vaisseau sur l'ï¿½cran
-        var x = (p[0][0] + p[1][0]) / 2;
-        var y = p[1][1];
-        var z = p[1][2] + 0.005; // profondeur du splat (juste derriï¿½re le vaisseau)
 
-        shootSample.setPosition(x, y, z);
+      // animation 
+      var lastTime = 0;
+      function animate() {
+	  // fonction appelée à chaque frame, permet d'animer la scène
+          var timeNow = new Date().getTime();
+          if (lastTime != 0) {
+              // anime chacun des objets de la scene
+	      // si necessaire (en fonction du temps ecoulé)
+              var elapsed = timeNow - lastTime;
+              spaceship.setParameters(elapsed);
+              background.setParameters(elapsed);
+	      shootSample.setParameters(elapsed);
+	      
+          }
+          lastTime = timeNow;
       }
 
-    }
-
-    function mouseMove(event) {
-      // recup evenement souris 
-      //var newx = 2.0*(event.clientX/gl.viewportWidth)-1.0;
-      //var newy = -(2.0*(event.clientY/gl.viewportHeight)-1.0);
-    }
-
-
-    // animation 
-    var lastTime = 0;
-    function animate() {
-      // fonction appelÃ©e Ã  chaque frame, permet d'animer la scï¿½ne
-      var timeNow = new Date().getTime();
-      if (lastTime != 0) {
-        // anime chacun des objets de la scene
-        // si necessaire (en fonction du temps ecoulÃ©)
-        var elapsed = timeNow - lastTime;
-        spaceship.setParameters(elapsed);
-        background.setParameters(elapsed);
-        shootSample.setParameters(elapsed);
-
+      function tick() {
+          requestAnimFrame(tick);
+          handleKeys();
+          drawScene();
+          animate();
       }
-      lastTime = timeNow;
-    }
-
-    function tick() {
-      requestAnimFrame(tick);
-      handleKeys();
-      drawScene();
-      animate();
-    }
 
 
-    function webGLStart() {
-      // initialisation du canvas et des objets OpenGL
-      var canvas = document.getElementById("SpaceShip");
-      initGL(canvas);
+      function webGLStart() {
+          // initialisation du canvas et des objets OpenGL
+          var canvas = document.getElementById("SpaceShip");
+          initGL(canvas);
 
-      // test: crï¿½ation d'une texture 
-      var tex = initTexture('textures/missile.png');
+	  // test: création d'une texture 
+	  var tex = initTexture('textures/missile.png');
+	  
+          initBackgroundShader();
+          initModelShader();
+	  initSplatShader();
+	  
+          //heightfield = new Heightfield();
+          background = new Background();
+          spaceship = new Model('models/plane.obj');
+	  shootSample = new Splat(tex);
+	  
+          // la couleur de fond sera grise foncée
+          gl.clearColor(0.3, 0.3, 0.3, 1.0);
 
-      initBackgroundShader();
-      initModelShader();
-      initSplatShader();
+          // active le test de profondeur 
+          gl.enable(gl.DEPTH_TEST);
 
-      //heightfield = new Heightfield();
-      background = new Background();
-      spaceship = new Model('models/plane.obj');
-      shootSample = new Splat(tex);
+	  // fonction de mélange utilisée pour la transparence
+          gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-      // la couleur de fond sera grise foncï¿½e
-      gl.clearColor(1.3, 1.3, 1.3, 1.0);
+          /* Mouse and keyboard interaction functions */
+          //canvas.addEventListener('mousedown', tbMouseDown, true);
+          //canvas.addEventListener('mousemove', mouseMove, true);
+          //canvas.addEventListener('mouseup', tbMouseUp, true);    
+          document.onkeydown = handleKeyDown;
+          document.onkeyup = handleKeyUp;
 
-      // active le test de profondeur 
-      gl.enable(gl.DEPTH_TEST);
-
-      // fonction de mï¿½lange utilisï¿½e pour la transparence
-      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-
-      /* Mouse and keyboard interaction functions */
-      //canvas.addEventListener('mousedown', tbMouseDown, true);
-      //canvas.addEventListener('mousemove', mouseMove, true);
-      //canvas.addEventListener('mouseup', tbMouseUp, true);    
-      document.onkeydown = handleKeyDown;
-      document.onkeyup = handleKeyUp;
-
-      // dessine la scene
-      tick();
-    }
-
-
-  </script>
+          // dessine la scene
+          tick();
+      }
 
 
-</head>
+    </script>
 
 
-<body onload="webGLStart();">
-  <canvas id="SpaceShip" style="border: none;" width="800" height="800"></canvas>
-</body>
+  </head>
 
-</html>
+
+  <body onload="webGLStart();">
+    <canvas id="SpaceShip" style="border: none;" width="800" height="800"></canvas>
+</body></html>
