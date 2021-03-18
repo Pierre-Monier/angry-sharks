@@ -121,27 +121,71 @@ Model.prototype.setParameters = function(elapsed) {
     // fonction appelée à chaque frame.
     // mise à jour de la matrice modèle avec les paramètres de transformation
     // les matrices view et projection ne changent pas
+    if (this.loaded) {
+        var rMat = mat4.rotate(mat4.identity(),this.rotation,[0,1,0]);
+        var tMat = mat4.translate(mat4.identity(),[this.position[0],this.position[1],this.position[2]]);
+        var sMat = mat4.scale(mat4.identity(),[this.scale,this.scale,this.scale]);
 
+        // on applique les transformations successivement
+        this.modelMatrix = mat4.identity();
+        this.modelMatrix = mat4.multiply(sMat,this.modelMatrix);
+        this.modelMatrix = mat4.multiply(rMat,this.modelMatrix);
+        this.modelMatrix = mat4.multiply(tMat,this.modelMatrix);
+
+        this.acc += 0.01;
+    }
     // creation des matrices rotation/translation/scaling
-    var rMat = mat4.rotate(mat4.identity(),this.rotation,[0,1,0]);
-    var tMat = mat4.translate(mat4.identity(),[this.position[0],this.position[1],this.position[2]]);
-    var sMat = mat4.scale(mat4.identity(),[this.scale,this.scale,this.scale]);
 
-    // on applique les transformations successivement
-    this.modelMatrix = mat4.identity();
-    this.modelMatrix = mat4.multiply(sMat,this.modelMatrix);
-    this.modelMatrix = mat4.multiply(rMat,this.modelMatrix);
-    this.modelMatrix = mat4.multiply(tMat,this.modelMatrix);
-
-    this.acc += 0.01;
 }    
 
 Model.prototype.move = function(x,y) {
-    // faire bouger votre vaisseau ici. Exemple :
-    this.rotation += x*0.05; // permet de tourner autour de l'axe Y 
-    this.position[0] += x*0.1; // translation gauche/droite
-    this.position[1] += y*0.1; // translation haut/bas
-    
+    switch (true) {
+        //droite
+        case x === 1 && y === 0:
+            this.moveDroite();
+            break;
+
+        // gauche
+        case x === -1 && y === 0:
+            this.moveGauche();
+            break;
+
+        // haut
+        case x === 0 && y === 1:
+            this.moveHaut();
+            break;
+
+        // bas
+        case x === 0 && y === -1:
+            this.moveBas();
+            break;
+    }
+}
+
+Model.prototype.moveDroite = function() {
+    if (this.position[0] < 3) {
+        // this.rotation += 0.05;
+        this.position[0] += 0.1;
+    }
+}
+
+Model.prototype.moveGauche = function() {
+    if (this.position[0] > -3) {
+        // this.rotation += x*0.05;
+        this.position[0] -= 0.1;
+    }
+}
+
+Model.prototype.moveHaut = function() {
+    if (this.position[1] < 3) {
+        this.position[1] += 0.1;
+    }
+}
+
+Model.prototype.moveBas = function() {
+    if (this.position[1] > -3) {
+        this.position[1] -= 0.1;
+    }
 }
 
 Model.prototype.getBBox = function() {
