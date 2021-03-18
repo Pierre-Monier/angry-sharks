@@ -86,6 +86,7 @@ Splat.prototype.initParameters = function() {
     this.position = [0.0,0.0,0.0];
     this.couleur = [1,0,0];
     this.time = 0.0;
+    this.isOutSide = false;
 }
 
 Splat.prototype.setPosition = function(x,y,z) {
@@ -95,7 +96,7 @@ Splat.prototype.setPosition = function(x,y,z) {
 Splat.prototype.setParameters = function(elapsed) {
     this.time += 0.01*elapsed;
     // on peut animer les splats ici. Par exemple : 
-    this.position[1] += 0.03; // permet de déplacer le splat vers le haut au fil du temps
+    this.position[0] += 0.03; // permet de déplacer le splat vers le haut au fil du temps
     //this.position[0] += 0.02*Math.sin(this.time); // permet de déplacer le splat sur l'axe X
 }
 
@@ -116,6 +117,7 @@ Splat.prototype.sendUniformVariables = function() {
 Splat.prototype.draw = function() {
     // dessin du splat 
     if(this.loaded) {
+    this.isOutSide = (this.position[0] > 3);
 	gl.bindVertexArray(this.vao);
 	gl.drawElements(gl.TRIANGLES, this.triangles.numItems, gl.UNSIGNED_SHORT, 0);
 	gl.bindVertexArray(null);
