@@ -107,9 +107,13 @@ Splat.prototype.sendUniformVariables = function() {
 	gl.uniform3fv(splatShader.positionUniform,this.position);
 	gl.uniform3fv(splatShader.couleurUniform,this.couleur);
 
-	// how to send a texture: 
+	// how to send a texture:
+    // associe la texture à l'unité de texture 0
+    // Si plusieur texture juste change d'unité de texture
 	gl.activeTexture(gl.TEXTURE0);
+	// Pour faire des animations, changé l'identifiant (this.splatTexture)
 	gl.bindTexture(gl.TEXTURE_2D,this.splatTexture);
+	//
 	gl.uniform1i(splatShader.texUniform, 0);
     }
 }
