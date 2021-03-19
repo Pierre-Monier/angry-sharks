@@ -8,7 +8,7 @@ var pMatrix; // projection matrix
 function initGL(canvas) {
     try {
         gl = canvas.getContext("webgl2");
-        gl.viewportWidth = canvas.width;
+        gl.viewportWidth = canvas.width ;
         gl.viewportHeight = canvas.height;
     } catch (e) {
     }
