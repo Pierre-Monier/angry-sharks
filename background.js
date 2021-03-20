@@ -86,7 +86,7 @@ Background.prototype.initParameters = function() {
 Background.prototype.setParameters = function(elapsed) {
     // animer le fond en modifiant la variable offset
     // par exemple :
-    this.offset[1] += 0.005;
+    this.offset[0] += 0.005;
     this.timer += 0.005;
     //this.persistence = 0.5 + 0.2*Math.sin(this.timer);
     //this.frequency = 4.0 - 2.0*Math.sin(this.timer);

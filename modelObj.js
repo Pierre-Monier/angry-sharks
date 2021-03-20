@@ -107,13 +107,13 @@ Model.prototype.initParameters = function() {
     this.viewMatrix = mat4.lookAt([0,0,10],[0,0,0],[-10,0,0]);
 
     // matrice de projection perspective classique
-    this.projMatrix = mat4.perspective(45.0,1,0.1,30);
+    this.projMatrix = mat4.perspective(45.0,2,0.1,30);
 
     // on utilise des variables pour se rappeler quelles sont les transformations courantes
     // rotation, translation, scaling de l'objet
     this.position = [0,0,0]; // position de l'objet dans l'espace 
     this.rotation = 99; // angle de rotation en radian autour de l'axe Y
-    this.scale = 0.2; // mise à l'echelle (car l'objet est trop  gros par défaut)
+    this.scale = 0.1; // mise à l'echelle (car l'objet est trop  gros par défaut)
 
     this.acc = 0.0;
 }
@@ -164,30 +164,30 @@ Model.prototype.move = function(x,y) {
 }
 
 Model.prototype.moveDroite = function() {
-    if (this.position[1] < 3) {
+    if (this.position[1] < 7.8) {
         this.position[1] += 0.1;
     }
 }
 
 Model.prototype.moveGauche = function() {
-    if (this.position[1] > -3) {
+    if (this.position[1] > -7.8) {
         this.position[1] -= 0.1;
     }
     
 }
 
 Model.prototype.moveHaut = function() {
-    if (this.position[0] > -3) {
+    if (this.position[0] > -3.8) {
         this.position[0] -= 0.1;
     }
-    this.rotation -= 1000000;
+    this.rotation += 100;
 }
 
 Model.prototype.moveBas = function() {
-    if (this.position[0] < 3) {
+    if (this.position[0] < 3.8) {
         this.position[0] += 0.1;
     }
-    this.rotation += 1000000;
+    this.rotation -= 100;
 }
 
 Model.prototype.getBBox = function() {

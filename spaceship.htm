@@ -82,6 +82,7 @@
 	  // le souhaitez pour fabriquer votre propre background
 
 	  // exemple avec une sinusoide
+
 	  // float test = 3.0*sin(p.x*5.0)*sin(p.y*5.0);
 
 	  // exemple avec un bruit de perlin 
@@ -423,10 +424,25 @@
 
     </script>
 
+    <style type="text/css">
+        body {
+            text-align : center;
+            margin : 0;
 
-  </head>
+        }
+        #SpaceShip {
+            border : none;
+            width : 100%;
+            height : 100%;
+
+        }
+    </style>
 
 
-  <body onload="webGLStart();">
-    <canvas id="SpaceShip" style="border: none;" width="800" height="800"></canvas>
-</body></html>
+</head>
+
+
+<body onload="webGLStart();">
+    <canvas id="SpaceShip" width="1080" height="720"></canvas>
+</body>
+</html>
