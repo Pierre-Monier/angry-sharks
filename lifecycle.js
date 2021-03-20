@@ -9,12 +9,12 @@ function startGame(init = true) {
 
     initBackgroundShader();
     initModelShader();
-    Rocket.initSplatShader();
+    Sprite.initShader();
 
     //heightfield = new Heightfield();
     background = new Background();
     hero = new Hero(new Model(getHeroModel()));
-
+    mob = new Mob();
     // la couleur de fond sera noire
     gl.clearColor(0, 0, 0, 1.0);
 

@@ -1,19 +1,24 @@
-<html><head>
-    <title>SpaceShip</title>
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<html>
 
-    <script type="text/javascript" src="gl-matrix.js"></script>
-    <script type="text/javascript" src="game-utils.js"></script>
-    <script type="text/javascript" src="fbo.js"></script>
-    <script type="text/javascript" src="background.js"></script>
-    <script type="text/javascript" src="modelObj.js"></script>
-    <script type="text/javascript" src="rocket.js"></script>
-    <script type="text/javascript" src="hero.js"></script>
-    <script type="text/javascript" src="event.js"></script>
-    <script type="text/javascript" src="lifecycle.js"></script>
-    <script type="text/javascript" src="game-loop.js"></script>
+<head>
+  <title>SpaceShip</title>
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252">
 
-    <script id="background-vs" type="x-shader/x-vertex">#version 300 es
+  <script type="text/javascript" src="gl-matrix.js"></script>
+  <script type="text/javascript" src="game-utils.js"></script>
+  <script type="text/javascript" src="fbo.js"></script>
+  <script type="text/javascript" src="background.js"></script>
+  <script type="text/javascript" src="modelObj.js"></script>
+  <script type="text/javascript" src="sprite.js"></script>
+  <script type="text/javascript" src="rocket.js"></script>
+  <script type="text/javascript" src="mob.js"></script>
+  <script type="text/javascript" src="hero.js"></script>
+  <script type="text/javascript" src="event.js"></script>
+  <script type="text/javascript" src="lifecycle.js"></script>
+  <script type="text/javascript" src="game-loop.js"></script>
+
+
+  <script id="background-vs" type="x-shader/x-vertex">#version 300 es
       // *** le vertex shader *** 
       layout(location=0) in vec3 aVertexPosition; // la position du sommet 
       layout(location=1) in vec2 aVertexCoord; // sa coordonnee de texture 
@@ -29,7 +34,7 @@
       }
     </script>
 
-    <script id="background-fs" type="x-shader/x-fragment">#version 300 es
+  <script id="background-fs" type="x-shader/x-fragment">#version 300 es
       // *** le fragment shader ***
       precision highp float; // precision des nombres flottant
       
@@ -139,7 +144,7 @@
       
     </script>
 
-    <script id="model-vs" type="x-shader/x-vertex">#version 300 es
+  <script id="model-vs" type="x-shader/x-vertex">#version 300 es
       // *** le vertex shader *** 
       layout(location=0) in vec3 aVertexPosition;
       layout(location=1) in vec3 aVertexNormal;
@@ -165,7 +170,7 @@
       }
     </script>
 
-    <script id="model-fs" type="x-shader/x-fragment">#version 300 es
+  <script id="model-fs" type="x-shader/x-fragment">#version 300 es
       // *** le fragment shader ***
       precision mediump float; // precision des nombres flottant
       
@@ -190,7 +195,7 @@
       }
     </script>
 
-    <script id="splat-vs" type="x-shader/x-vertex">#version 300 es
+  <script id="splat-vs" type="x-shader/x-vertex">#version 300 es
       // *** le vertex shader *** 
       layout(location=0) in vec3 aVertexPosition; // la position du sommet 
       layout(location=1) in vec2 aVertexCoord; // sa coordonnee de texture 
@@ -207,7 +212,7 @@
       }
     </script>
 
-    <script id="splat-fs" type="x-shader/x-fragment">#version 300 es
+  <script id="splat-fs" type="x-shader/x-fragment">#version 300 es
       // *** le fragment shader ***
       precision highp float; // precision des nombres flottant
 
@@ -237,33 +242,36 @@
     </script>
 
 
-    <script type="text/javascript">
-      let background;
-      let hero;
+  <script type="text/javascript">
+    let background;
+    let hero;
+    let mob
 
-      document.onkeydown = startGame;
-    </script>
+    document.onkeydown = startGame;
+  </script>
 
-    <style type="text/css">
-        body {
-            text-align : center;
-            margin : 0;
+  <style type="text/css">
+    body {
+      text-align: center;
+      margin: 0;
 
-        }
-        #SpaceShip {
-            border : none;
-            width : 100%;
-            height : 100%;
+    }
 
-        }
-    </style>
+    #SpaceShip {
+      border: none;
+      width: 100%;
+      height: 100%;
+
+    }
+  </style>
 </head>
 
 
 <body>
-    <canvas id="SpaceShip" width="1080" height="720" style="display: none"></canvas>
-    <div id="menu">
-        <p>Press a key to play</p>
-    </div>
+  <canvas id="SpaceShip" width="1080" height="720" style="display: none"></canvas>
+  <div id="menu">
+    <p>Press a key to play</p>
+  </div>
 </body>
+
 </html>

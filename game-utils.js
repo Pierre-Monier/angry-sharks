@@ -8,7 +8,7 @@ var pMatrix; // projection matrix
 function initGL(canvas) {
     try {
         gl = canvas.getContext("webgl2");
-        gl.viewportWidth = canvas.width ;
+        gl.viewportWidth = canvas.width;
         gl.viewportHeight = canvas.height;
     } catch (e) {
     }
@@ -17,15 +17,15 @@ function initGL(canvas) {
     }
 }
 
-window.requestAnimFrame = (function() {
-  return window.requestAnimationFrame ||
-         window.webkitRequestAnimationFrame ||
-         window.mozRequestAnimationFrame ||
-         window.oRequestAnimationFrame ||
-         window.msRequestAnimationFrame ||
-         function(/* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
-           window.setTimeout(callback, 1000/60);
-         };
+window.requestAnimFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (/* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+            window.setTimeout(callback, 1000 / 60);
+        };
 })();
 
 // charge et compile les shaders
@@ -65,10 +65,10 @@ function getShader(gl, id) {
 }
 
 
-function initShaders(vsId,fsId) {
+function initShaders(vsId, fsId) {
     // recupere les vertex et fragment shaders 
-    var fragmentShader = getShader(gl,fsId);
-    var vertexShader = getShader(gl,vsId);
+    var fragmentShader = getShader(gl, fsId);
+    var vertexShader = getShader(gl, vsId);
 
     // cree le programme et lui associe les vertex/fragments
     var shaderProgram = gl.createProgram();
@@ -76,7 +76,7 @@ function initShaders(vsId,fsId) {
     gl.attachShader(shaderProgram, fragmentShader);
     gl.linkProgram(shaderProgram);
 
-    if (!gl.getProgramParameter(shaderProgram,gl.LINK_STATUS)) {
+    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
         alert("Could not initialise shaders");
     }
 
@@ -101,11 +101,14 @@ function handleLoadedTexture(texture) {
 function initTexture(filename) {
     const texture = gl.createTexture();
     texture.image = new Image();
+    texture.isLoaded = false;
 
     texture.image.onload = function () {
         handleLoadedTexture(texture)
         texture.width = this.width;
         texture.height = this.height;
+
+        texture.isLoaded = true;
     }
 
     texture.image.src = filename;
@@ -130,11 +133,15 @@ function mvPopMatrix() {
 }
 
 function degToRad(degrees) {
-        return degrees * Math.PI / 180;
+    return degrees * Math.PI / 180;
 }
 
 function getSplatTexture() {
     return initTexture('./models/planes/torpedo/torpedo.png')
+}
+
+function getMobTexture() {
+    return initTexture('./models/planes/plane_1/plane_1_blue.png')
 }
 
 function getHeroModel() {

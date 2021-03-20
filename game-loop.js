@@ -15,6 +15,12 @@ function draw() {
     hero.model.sendUniformVariables();
     hero.model.draw();
 
+    // dessin du mob, test
+    mob.setPosition(0, 0, 0);
+    gl.useProgram(Sprite.shader);
+    mob.sendUniformVariables();
+    mob.draw();
+
     // test pour afficher un splat quand on appuie sur espace
     gl.enable(gl.BLEND); // transparence activ�e
     hero.shoots.forEach((rocket, index) => {
