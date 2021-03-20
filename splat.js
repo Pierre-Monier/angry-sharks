@@ -1,4 +1,4 @@
-var splatShader;
+let splatShader;
     
 function initSplatShader() {
     splatShader = initShaders("splat-vs","splat-fs");

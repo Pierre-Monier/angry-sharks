@@ -8,6 +8,7 @@
     <script type="text/javascript" src="background.js"></script>
     <script type="text/javascript" src="modelObj.js"></script>
     <script type="text/javascript" src="splat.js"></script>
+    <script type="text/javascript" src="hero.js"></script>
 
     <script id="background-vs" type="x-shader/x-vertex">#version 300 es
       // *** le vertex shader *** 
@@ -235,16 +236,51 @@
     <script type="text/javascript">
 
       var background;
-      let spaceship;
+      let hero;
       const shoots = [];
 
       function getSplatTexture() {
           return initTexture('./models/planes/torpedo/torpedo.png')
       }
 
-      function getHeroTexture() {
+      function getHeroModel() {
           // return './models/planes/plane_3/plane_3_red.png';
           return './models/plane.obj';
+      }
+
+      function drawGame() {
+          // dessin du fond (d�commenter pour travailler dessus)
+          gl.useProgram(background.shader());
+          background.sendUniformVariables();
+          background.draw();
+
+          // dessin du vaisseau
+          gl.useProgram(hero.model.shader());
+          hero.model.sendUniformVariables();
+          hero.model.draw();
+
+          // test pour afficher un splat quand on appuie sur espace
+          gl.enable(gl.BLEND); // transparence activ�e
+          shoots.forEach((splat, index) => {
+              if (splat.isOutSide) {
+                  splat.clear();
+                  shoots.splice(index, 1);
+              } else {
+                  gl.useProgram(splat.shader());
+                  splat.sendUniformVariables();
+                  splat.draw();
+              }
+
+          })
+          gl.disable(gl.BLEND);
+      }
+
+      function drawMenu() {
+        console.log("You died, press enter to play");
+        tmp = new Splat(initTexture('./models/planes/torpedo/torpedo.png'));
+        gl.useProgram(tmp.shader());
+        tmp.sendUniformVariables();
+        tmp.draw();
       }
 
       function drawScene() {
@@ -254,41 +290,23 @@
           // efface les buffers de couleur et de profondeur
           gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-          // dessin du fond (d�commenter pour travailler dessus)
-          gl.useProgram(background.shader());
-          background.sendUniformVariables();
-          background.draw();
-
-          // dessin du vaisseau
-          gl.useProgram(spaceship.shader());
-          spaceship.sendUniformVariables();
-          spaceship.draw();
-
-          // test pour afficher un splat quand on appuie sur espace
-          gl.enable(gl.BLEND); // transparence activ�e
-              shoots.forEach((splat, index) => {
-                  if (splat.isOutSide) {
-                      splat.clear();
-                      shoots.splice(index, 1);
-                  } else {
-                      gl.useProgram(splat.shader());
-                      splat.sendUniformVariables();
-                      splat.draw();
-                  }
-
-              })
-          gl.disable(gl.BLEND); // transparence d�sactiv�e
+          if (hero.life > 0) {
+              drawGame()
+          } else {
+              drawMenu()
+          }
       }
 
       function heroShoot() {
           // exemple: comment positionner un splat devant le vaisseau
-          const p = spaceship.getBBox(); // boite englobante du vaisseau sur l'�cran
+          const p = hero.model.getBBox(); // boite englobante du vaisseau sur l'�cran
           const x = (p[0][0]+p[1][0])/2;
           const y = p[1][1];
           const z = p[1][2]+0.005;
 
           shoots.push(new Splat(getSplatTexture()));
           shoots[shoots.length -1].setPosition(x,y,z);
+          hero.life -= 1;
       }
 
       // une bonne maniere de gerer les evenements claviers
@@ -306,27 +324,34 @@
           currentlyPressedKeys[event.keyCode] = false;
       }
 
-      function handleKeys() {
-          // vous pouvez utiliser ce genre de fonction
-          // pour faire bouger votre vaisseau
-          // par exemple :
-
+      function handleGameKeys() {
           if (currentlyPressedKeys[68]) { // D
-              spaceship.move(1, 0);
+              hero.model.moveDroite();
           }
 
           if (currentlyPressedKeys[81]) { // Q
-              spaceship.move(-1, 0);
+              hero.model.moveGauche();
           }
 
           if (currentlyPressedKeys[90]) { // Z
-              spaceship.move(0, 1);
+              hero.model.moveHaut();
           }
 
           if (currentlyPressedKeys[83]) { // S
-              spaceship.move(0, -1);
+              hero.model.moveBas();
           }
       }
+
+      function handleKeys() {
+          if (hero.life > 0) {
+              handleGameKeys()
+          } else if (currentlyPressedKeys[13]) { // enter
+              console.log('hero.life', hero.life);
+              hero.life = 5;
+              webGLStart(false);
+          }
+      }
+
 
       function mouseMove(event) {
 	  // recup evenement souris 
@@ -335,19 +360,19 @@
       }
 
       // animation 
-      var lastTime = 0;
+      let lastTime = 0;
       function animate() {
 	  // fonction appel�e � chaque frame, permet d'animer la sc�ne
-          var timeNow = new Date().getTime();
-          if (lastTime != 0) {
-              // anime chacun des objets de la scene
+          const timeNow = new Date().getTime();
+          if (lastTime !== 0) {
+          // anime chacun des objets de la scene
 	      // si necessaire (en fonction du temps ecoul�)
-              var elapsed = timeNow - lastTime;
-              spaceship.setParameters(elapsed);
+              const elapsed = timeNow - lastTime;
+              hero.model.setParameters(elapsed);
               background.setParameters(elapsed);
 	      shoots.forEach((splat) => splat.setParameters(elapsed));
-	      
           }
+
           lastTime = timeNow;
       }
 
@@ -359,9 +384,9 @@
       }
 
 
-      function webGLStart() {
+      function webGLStart(init = true) {
           // initialisation du canvas et des objets OpenGL
-          var canvas = document.getElementById("SpaceShip");
+          const canvas = document.getElementById("SpaceShip");
           initGL(canvas);
 
           initBackgroundShader();
@@ -370,11 +395,11 @@
 	  
           //heightfield = new Heightfield();
           background = new Background();
-          spaceship = new Model(getHeroTexture());
+          hero = new Hero(new Model(getHeroModel()));
           shoots.push(new Splat(getSplatTexture()));
 	  
           // la couleur de fond sera grise fonc�e
-          gl.clearColor(0.3, 0.3, 0.3, 1.0);
+          gl.clearColor(0, 0, 0, 1.0);
 
           // active le test de profondeur 
           gl.enable(gl.DEPTH_TEST);
@@ -390,7 +415,9 @@
           document.onkeyup = handleKeyUp;
 
           // dessine la scene
-          tick();
+          if (init) {
+            tick();
+          }
       }
 
 
