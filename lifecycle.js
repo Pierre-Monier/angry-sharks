@@ -9,7 +9,7 @@ function startGame(init = true) {
 
     initBackgroundShader();
     initModelShader();
-    initSplatShader();
+    Rocket.initSplatShader();
 
     //heightfield = new Heightfield();
     background = new Background();

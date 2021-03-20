@@ -17,16 +17,15 @@ function draw() {
 
     // test pour afficher un splat quand on appuie sur espace
     gl.enable(gl.BLEND); // transparence activ�e
-    hero.shoots.forEach((splat, index) => {
-        if (splat.isOutSide) {
-            splat.clear();
+    hero.shoots.forEach((rocket, index) => {
+        if (rocket.isOutSide) {
+            rocket.clear();
             hero.shoots.splice(index, 1);
         } else {
-            gl.useProgram(splat.shader());
-            splat.sendUniformVariables();
-            splat.draw();
+            gl.useProgram(Rocket.shader);
+            rocket.sendUniformVariables();
+            rocket.draw();
         }
-
     })
     gl.disable(gl.BLEND);
 }
@@ -42,7 +41,7 @@ function animate() {
         const elapsed = timeNow - lastTime;
         hero.model.setParameters(elapsed);
         background.setParameters(elapsed);
-        hero.shoots.forEach((splat) => splat.setParameters(elapsed));
+        hero.shoots.forEach((rocket) => rocket.setParameters(elapsed));
     }
 
     lastTime = timeNow;
