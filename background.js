@@ -12,8 +12,6 @@ function initBackgroundShader() {
     backgroundShader.amplitudeUniform = gl.getUniformLocation(backgroundShader, "uAmplitude");
     backgroundShader.frequencyUniform = gl.getUniformLocation(backgroundShader, "uFrequency");
     backgroundShader.persistenceUniform = gl.getUniformLocation(backgroundShader, "uPersistence");
-
-    console.log("background shader initialized");
 }
 
 function Background() {
@@ -66,8 +64,6 @@ function Background() {
     this.triangles.numItems = 6;
 
     gl.bindVertexArray(null);
-
-    console.log("background initialized");
 }
 
 Background.prototype.shader = function() {

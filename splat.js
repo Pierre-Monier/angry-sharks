@@ -10,8 +10,6 @@ function initSplatShader() {
     splatShader.positionUniform = gl.getUniformLocation(splatShader, "uPosition");
     splatShader.texUniform = gl.getUniformLocation(splatShader, "uTex");
     splatShader.couleurUniform = gl.getUniformLocation(splatShader, "maCouleur");
-    
-    console.log("splat shader initialized");
 }
 
 function Splat(splatTexture) {
@@ -23,7 +21,7 @@ function Splat(splatTexture) {
     var wo2 = 0.2*this.width;
     var ho2 = 0.2*this.height;
 
-    // un tableau contenant les positions des sommets (sur CPU donc)
+    // un tableau contenant les positions des sommets (sur GPU donc)
     var vertices = [
 	-wo2,-ho2, -0.8,
 	wo2,-ho2, -0.8,
@@ -71,8 +69,6 @@ function Splat(splatTexture) {
     gl.bindVertexArray(null);
 
     this.loaded = true;
-    
-    console.log("splat initialized");
 }
 
 Splat.prototype.shader = function() {

@@ -13,7 +13,6 @@ function initModelShader() {
     modelShader.projMatrixUniform = gl.getUniformLocation(modelShader, "uProjMatrix");
     modelShader.timerUniform = gl.getUniformLocation(modelShader, "timer");
 
-    console.log("model shader initialized");
 }
 
 function Model(filename) {

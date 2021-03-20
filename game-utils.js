@@ -132,3 +132,11 @@ function mvPopMatrix() {
 function degToRad(degrees) {
         return degrees * Math.PI / 180;
 }
+
+function getSplatTexture() {
+    return initTexture('./models/planes/torpedo/torpedo.png')
+}
+
+function getHeroModel() {
+    return './models/plane.obj';
+}
