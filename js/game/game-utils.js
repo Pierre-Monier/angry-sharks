@@ -144,6 +144,11 @@ function getMobTexture() {
     return initTexture('./models/planes/plane_1/plane_1_blue.png')
 }
 
+function getLifeTexture() {
+    return initTexture('./textures/missile.png')
+}
+
 function getHeroModel() {
     return './models/plane.obj';
 }
+

@@ -11,11 +11,11 @@ class Sprite {
     time;
     loaded = false;
 
-    constructor(getTexture) {
+    constructor(getTexture, defaultParams = Sprite.defaultParams) {
         this.texture = getTexture();
 
         // might be a problem
-        this.initParameters();
+        this.initParameters(defaultParams);
 
         this.vao = gl.createVertexArray();
         gl.bindVertexArray(this.vao);
@@ -28,14 +28,23 @@ class Sprite {
         this.loaded = true;
     }
 
-    initParameters() {
+    static defaultParams = {
+        width: 0.2,
+        height: 0.2,
+        position: [0.0, 0.0, 0.0],
+        couleur: [1, 0, 0],
+        time: 0.0,
+        isOutSide: false
+    }
+
+    initParameters(defaultParams) {
         // paramètres par défaut d'un splat (taille, position, couleur)
-        this.width = 0.2;
-        this.height = 0.2;
-        this.position = [0.0, 0.0, 0.0];
-        this.couleur = [1, 0, 0];
-        this.time = 0.0;
-        this.isOutSide = false;
+        this.width = defaultParams.width;
+        this.height = defaultParams.height;
+        this.position = defaultParams.position;
+        this.couleur = defaultParams.couleur;
+        this.time = defaultParams.time;
+        this.isOutSide = defaultParams.isOutSide;
     }
 
     static initShader() {
@@ -97,6 +106,31 @@ class Sprite {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.trianglesBuffer);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(tri), gl.STATIC_DRAW);
         this.trianglesBuffer.numItems = 6;
+    }
+
+    sendUniformVariables(callBack) {
+        // envoie des variables au shader (position du splat, couleur, texture)
+        // fonction appelée à chaque frame, avant le dessin du splat
+        if (this.loaded) {
+            gl.uniform3fv(Rocket.shader.positionUniform, this.position);
+            gl.uniform3fv(Rocket.shader.couleurUniform, this.couleur);
+
+            // how to send a texture:
+            // associe la texture à l'unité de texture 0
+            // Si plusieur texture juste change d'unité de texture
+
+            gl.activeTexture(gl.TEXTURE0);
+            // Pour faire des animations, changé l'identifiant (this.splatTexture)
+            if (this.texture.isLoaded) {
+                gl.bindTexture(gl.TEXTURE_2D, this.texture);
+            }
+            //
+            gl.uniform1i(Rocket.shader.texUniform, 0);
+
+            if (callBack) {
+                callBack()
+            }
+        }
     }
 
     setPosition(x, y, z) {

@@ -15,11 +15,17 @@ function draw() {
     hero.model.sendUniformVariables();
     hero.model.draw();
 
-    // dessin du mob, test
-    mob.setPosition(0, 0, 0);
+    // charge le shader des sprites
     gl.useProgram(Sprite.shader);
+    // dessin du mob,
     mob.sendUniformVariables();
     mob.draw();
+
+    // dessin de la vie
+    hero.lives.forEach((life) => {
+        life.sendUniformVariables();
+        life.draw();
+    })
 
     // test pour afficher un splat quand on appuie sur espace
     gl.enable(gl.BLEND); // transparence activ�e
@@ -28,7 +34,6 @@ function draw() {
             rocket.clear();
             hero.shoots.splice(index, 1);
         } else {
-            gl.useProgram(Rocket.shader);
             rocket.sendUniformVariables();
             rocket.draw();
         }
@@ -54,7 +59,7 @@ function animate() {
 }
 
 function tick() {
-    if (hero.life > 0) {
+    if (hero.getLives() > 0) {
         requestAnimFrame(tick);
         handleKeys();
         draw();

@@ -5,7 +5,6 @@ function handleKeyDown(event) {
         hero.shoot();
     } else if (event.keyCode === 13) {
         const canvas = document.getElementById('SpaceShip')
-        hero.life = 5;
         canvas.setAttribute('style', 'display: block');
         startGame();
     } else {
@@ -35,8 +34,8 @@ function handleKeys() {
     }
 
     if (currentlyPressedKeys[80]) { // P
-        console.log('hero.life', hero.life);
-        hero.life -= 1;
+        console.log('hero.life', hero.getLives());
+        hero.looseLife();
     }
 }
 

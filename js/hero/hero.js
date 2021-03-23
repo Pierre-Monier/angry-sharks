@@ -1,10 +1,22 @@
 class Hero {
     model;
     shoots = [];
-    life = 5;
+    lives;
 
     constructor(model) {
         this.model = model;
+        this.loadLives();
+    }
+
+    loadLives() {
+        const lives = [];
+        for (let i = 0; i < 5; i++) {
+            const life = new Life();
+            life.setPosition((life.position[0] - (i * 0.1)), life.position[1], life.position[2]);
+            lives.push(life);
+        }
+
+        this.lives = lives;
     }
 
     shoot() {
@@ -20,5 +32,13 @@ class Hero {
             this.shoots.push(rocket);
             this.shoots[this.shoots.length - 1].setPosition(x, y, z);
         }
+    }
+
+    looseLife() {
+        this.lives.pop();
+    }
+
+    getLives() {
+        return this.lives.length;
     }
 }
