@@ -112,8 +112,8 @@ class Sprite {
         // envoie des variables au shader (position du splat, couleur, texture)
         // fonction appelée à chaque frame, avant le dessin du splat
         if (this.loaded) {
-            gl.uniform3fv(Rocket.shader.positionUniform, this.position);
-            gl.uniform3fv(Rocket.shader.couleurUniform, this.couleur);
+            gl.uniform3fv(Sprite.shader.positionUniform, this.position);
+            gl.uniform3fv(Sprite.shader.couleurUniform, this.couleur);
 
             // how to send a texture:
             // associe la texture à l'unité de texture 0
@@ -138,11 +138,13 @@ class Sprite {
     }
 
     draw() {
+        gl.enable(gl.BLEND); // transparence activ�e
         if (this.loaded) {
             gl.bindVertexArray(this.vao);
             gl.drawElements(gl.TRIANGLES, this.trianglesBuffer.numItems, gl.UNSIGNED_SHORT, 0);
             gl.bindVertexArray(null);
         }
+        gl.disable(gl.BLEND);
     }
 
     clear() {

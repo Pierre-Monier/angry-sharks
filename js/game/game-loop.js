@@ -5,11 +5,6 @@ function draw() {
     // efface les buffers de couleur et de profondeur
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    // dessin du fond (d�commenter pour travailler dessus)
-    gl.useProgram(background.shader());
-    background.sendUniformVariables();
-    background.draw();
-
     // dessin du vaisseau
     gl.useProgram(hero.model.shader());
     hero.model.sendUniformVariables();
@@ -28,7 +23,6 @@ function draw() {
     })
 
     // test pour afficher un splat quand on appuie sur espace
-    gl.enable(gl.BLEND); // transparence activ�e
     hero.shoots.forEach((rocket, index) => {
         if (rocket.isOutSide) {
             rocket.clear();
@@ -38,7 +32,8 @@ function draw() {
             rocket.draw();
         }
     })
-    gl.disable(gl.BLEND);
+
+    bgParallax.draw();
 }
 
 // animation

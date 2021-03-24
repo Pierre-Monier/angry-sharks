@@ -1,4 +1,4 @@
-function startGame(init = true) {
+function startGame() {
     const menu = document.getElementById("menu");
     menu.setAttribute('style', 'display: none');
 
@@ -15,8 +15,9 @@ function startGame(init = true) {
     background = new Background();
     hero = new Hero(new Model(getHeroModel()));
     mob = new Mob();
+    bgParallax = new BackgroundParallaxe();
     // la couleur de fond sera noire
-    gl.clearColor(0, 0, 0, 1.0);
+    gl.clearColor(99 / 255, 206 / 255, 255 / 255, 1);
 
     // active le test de profondeur
     gl.enable(gl.DEPTH_TEST);

@@ -148,6 +148,14 @@ function getLifeTexture() {
     return initTexture('./textures/missile.png')
 }
 
+function getMountainsTexture() {
+    return initTexture('./models/sky_background/parallax_parts/mountains/farground_mountains.png')
+}
+
+function getFarGroundCloudTexture() {
+    return initTexture('./models/sky_background/parallax_parts/farground_cloud_1.png')
+}
+
 function getHeroModel() {
     return './models/plane.obj';
 }
