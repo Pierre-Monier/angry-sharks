@@ -34,7 +34,6 @@ function handleKeys() {
     }
 
     if (currentlyPressedKeys[80]) { // P
-        console.log('hero.life', hero.getLives());
         hero.looseLife();
     }
 }

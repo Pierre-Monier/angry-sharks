@@ -154,4 +154,17 @@ class Sprite {
         gl.deleteVertexArray(this.vao);
         this.loaded = false;
     }
+
+    collision(other)
+    {
+        let x1 = this.position[0];
+        let x2 = other.position[0];
+        let y1 = this.position[1];
+        let y2 = other.position[1];
+
+        return x1 < x2 + other.width &&
+            x1 + this.width > x2 &&
+            y1 < y2 + other.height &&
+            y1 + this.height > y2;
+    }
 }

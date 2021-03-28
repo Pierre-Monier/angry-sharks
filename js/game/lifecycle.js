@@ -14,7 +14,7 @@ function startGame() {
     //heightfield = new Heightfield();
     background = new Background();
     hero = new Hero(new Model(getHeroModel()));
-    mob = new Mob();
+    badGuyGenerator = new BadGuyGenerator();
     bgParallax = new BackgroundParallaxe();
     // la couleur de fond sera noire
     gl.clearColor(99 / 255, 206 / 255, 255 / 255, 1);
