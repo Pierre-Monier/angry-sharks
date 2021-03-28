@@ -13,13 +13,15 @@ function draw() {
     // charge le shader des sprites
     gl.useProgram(Sprite.shader);
 
-    // dessin du mob,
+    // dessin des enemy,
     badGuyGenerator.badGuys.forEach((badGuy, index) => {
         if (badGuy.life > 0) {
             badGuy.sprite.sendUniformVariables();
             badGuy.sprite.draw();
         } else {
             hero.addPoints(badGuy.points);
+            score.updateScore(hero.points);
+
             badGuy.sprite.clear();
             badGuyGenerator.badGuys.splice(index, 1);
         }
@@ -32,7 +34,7 @@ function draw() {
         life.draw();
     })
 
-    // test pour afficher un splat quand on appuie sur espace
+    // dessin des rockets
     hero.shoots.forEach((rocket, index) => {
         if (rocket.isOutSide) {
             rocket.clear();
@@ -42,6 +44,12 @@ function draw() {
             rocket.draw();
         }
     })
+
+    // dessin du score
+    score.sprites.forEach((number) => {
+        number.sendUniformVariables();
+        number.draw();
+    });
 
     checkCollision();
 
@@ -74,11 +82,12 @@ function checkCollision() {
         })
     })
 
+    // on doit résoudre le problème des collision 2d / 3d :/
     // badGuyGenerator.badGuys.forEach((badGuy) => {
-        // if (badGuy.sprite.collision(hero.model)) {
-        //     hero.life -= 1;
-        //     console.log('BadGuy collision with Hero')
-        // }
+    // if (badGuy.sprite.collision(hero.model)) {
+    //     hero.life -= 1;
+    //     console.log('BadGuy collision with Hero')
+    // }
     // })
 }
 
