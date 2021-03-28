@@ -47,6 +47,17 @@ class Sprite {
         this.isOutSide = defaultParams.isOutSide;
     }
 
+    getParams() {
+        return  {
+            width: this.width,
+            height: this.height,
+            position: this.position,
+            couleur: this.couleur,
+            time: this.time,
+            isOutSide: this.isOutSide
+        }
+    }
+
     static initShader() {
         Sprite.shader = initShaders("splat-vs", "splat-fs");
 

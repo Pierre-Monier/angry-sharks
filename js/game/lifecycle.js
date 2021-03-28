@@ -17,6 +17,7 @@ function startGame() {
     badGuyGenerator = new BadGuyGenerator();
     bgParallax = new BackgroundParallaxe();
     score = new Score();
+    bonus = new Bonus();
 
     // la couleur de fond sera noire
     gl.clearColor(99 / 255, 206 / 255, 255 / 255, 1);
