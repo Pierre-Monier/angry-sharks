@@ -197,7 +197,6 @@ Model.prototype.moveGauche = function () {
 
 }
 
-<<<<<<< Updated upstream:js/hero/modelObj.js
 Model.prototype.moveHaut = function () {
     if (this.position[0] > -3.8) {
         this.position[0] -= 0.1;
