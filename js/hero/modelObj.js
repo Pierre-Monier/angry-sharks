@@ -128,7 +128,7 @@ Model.prototype.setParameters = function (elapsed) {
         // Faire des loopings
         var aMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
         // Position dans l'espace
-        var tMat = mat4.translate(mat4.identity(), [this.position[0], this.position[1], this.position[2]]);
+        var tMat = mat4.translate(mat4.identity(), [this.position[0], this.position[1]+=0.01, this.position[2]]);
         //var tMat = mat4.translate(mat4.identity(),[this.position[0],this.position[1],this.position[2]]);
         // Gérer la taille de l'avion
         var sMat = mat4.scale(mat4.identity(), [this.scale, this.scale, this.scale]);
@@ -140,6 +140,7 @@ Model.prototype.setParameters = function (elapsed) {
         this.modelMatrix = mat4.multiply(rMat, this.modelMatrix);
         this.modelMatrix = mat4.multiply(tMat, this.modelMatrix);
         this.acc += 10;
+        this.ava
         // if (this.angle * Math.PI/180 < 0.5) {
         //     this.position[0] += 0.02 * Math.cos(this.angle * Math.PI/180);
         //     this.position[1] += 0.02 * Math.sin(this.angle * Math.PI/180);
