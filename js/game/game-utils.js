@@ -136,6 +136,10 @@ function degToRad(degrees) {
     return degrees * Math.PI / 180;
 }
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 function getSplatTexture() {
     return initTexture('./models/planes/torpedo/torpedo.png')
 }
@@ -154,6 +158,18 @@ function getMountainsTexture() {
 
 function getFarGroundCloudTexture() {
     return initTexture('./models/sky_background/parallax_parts/farground_cloud_1.png')
+}
+
+function getSlowEnemyBonusTexture() {
+    return initTexture('./textures/score/0.png')
+}
+
+function getInvincibleBonusTexure() {
+    return initTexture('./textures/score/1.png')
+}
+
+function getKillEnemyBonusTexture() {
+    return initTexture('./textures/score/2.png')
 }
 
 function getHeroModel() {
