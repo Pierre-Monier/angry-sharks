@@ -33,8 +33,17 @@ function draw() {
     // dessin des enemy,
     badGuyGenerator.badGuys.forEach((badGuy, index) => {
         if (badGuy.life > 0) {
+            badGuy.sprite.setParameters();
             badGuy.sprite.sendUniformVariables();
             badGuy.sprite.draw();
+
+            console.log(badGuy.sprite.isOutSide)
+            // if(badGuy.sprite.isOutSide) {
+            //     hero.removePoints(badGuy.points);
+            //     score.updateScore(hero.points);
+            //     badGuy.sprite.clear();
+            //     badGuyGenerator.badGuys.splice(index, 1);
+            // }
         } else {
             hero.addPoints(badGuy.points);
             score.updateScore(hero.points);

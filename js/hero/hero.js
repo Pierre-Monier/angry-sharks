@@ -47,4 +47,8 @@ class Hero {
     addPoints(points) {
         this.points += points;
     }
+
+    removePoints(points) {
+        this.points -= points;
+    }
 }
