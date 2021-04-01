@@ -127,21 +127,12 @@ Model.prototype.setParameters = function (elapsed) {
     if (this.loaded) {
         // Faire des tonneaux
         const phi = (this.angle + 90) * (Math.PI / 180);
-        var direction = 1;
-        if (this.flag == 0) {
-            direction = Math.cos(phi)/Math.sin(phi);
-        } else {
-            direction = Math.sin(phi)/Math.cos(phi); 
-        }
-    
         
         var rotateMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
         // Faire des loopings
         var loopingMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
         // Position dans l'espace
         var positionMat = mat4.translate(mat4.identity(), [this.position[0], this.position[1], this.position[2]]);
-        //var tMat = mat4.translate(mat4.identity(),[this.position[0],this.position[1],this.position[2]]);
-        var avanceMat = mat4.translate(mat4.identity(), [this.position[0], this.position[1], this.position[2]]);
         // Gérer la taille de l'avion
         var sMat = mat4.scale(mat4.identity(), [this.scale, this.scale, this.scale]);
         // on applique les transformations successivement

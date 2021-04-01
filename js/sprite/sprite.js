@@ -32,6 +32,7 @@ class Sprite {
         width: 0.2,
         height: 0.2,
         position: [0.0, 0.0, 0.0],
+        angle : 0,
         couleur: [1, 0, 0],
         time: 0.0,
         isOutSide: false
@@ -42,6 +43,7 @@ class Sprite {
         this.width = defaultParams.width;
         this.height = defaultParams.height;
         this.position = defaultParams.position;
+        this.angle = defaultParams.angle;
         this.couleur = defaultParams.couleur;
         this.time = defaultParams.time;
         this.isOutSide = defaultParams.isOutSide;
@@ -57,6 +59,7 @@ class Sprite {
         Sprite.shader.positionUniform = gl.getUniformLocation(Sprite.shader, "uPosition");
         Sprite.shader.texUniform = gl.getUniformLocation(Sprite.shader, "uTex");
         Sprite.shader.couleurUniform = gl.getUniformLocation(Sprite.shader, "maCouleur");
+        
     }
 
     initVertexBuffer() {
@@ -113,6 +116,7 @@ class Sprite {
         // fonction appelée à chaque frame, avant le dessin du splat
         if (this.loaded) {
             gl.uniform3fv(Sprite.shader.positionUniform, this.position);
+            gl.uniform3fv(Sprite.shader.angle, this.angle);
             gl.uniform3fv(Sprite.shader.couleurUniform, this.couleur);
 
             // how to send a texture:
