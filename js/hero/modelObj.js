@@ -115,6 +115,7 @@ Model.prototype.initParameters = function () {
     this.scale = 0.1; // mise à l'echelle (car l'objet est trop  gros par défaut)
     this.angle = 0;
     this.slope = 2;
+    this.flag = 0;
 
     this.acc = 0.0;
 }
@@ -126,26 +127,33 @@ Model.prototype.setParameters = function (elapsed) {
     if (this.loaded) {
         // Faire des tonneaux
         const phi = (this.angle + 90) * (Math.PI / 180);
-        const direction = Math.cos(phi)/Math.sin(phi);
+        var direction = 1;
+        if (this.flag == 0) {
+            direction = Math.cos(phi)/Math.sin(phi);
+        } else {
+            const phi = (this.angle - 90) * (Math.PI / 180);
+            direction = Math.sin(phi)/Math.cos(phi); 
+        }
+        console.log('flag',this.flag);
+    
         
         var rotateMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
         // Faire des loopings
         var loopingMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
         // Position dans l'espace
-        var positionMat = mat4.translate(mat4.identity(), [(this.position[0]*direction, (this.position[1]*direction, this.position[2]]);
+        var positionMat = mat4.translate(mat4.identity(), [(this.position[0]), (this.position[1]), this.position[2]]);
         //var tMat = mat4.translate(mat4.identity(),[this.position[0],this.position[1],this.position[2]]);
-        console.log(direction);
-       var avanceMat = mat4.translate(mat4.identity(), [(this.position[0]*direction)+0.01, (this.position[1]*direction)+0.01, this.position[2]]);
+        var avanceMat = mat4.translate(mat4.identity(), [(this.position[0]*direction), (this.position[1]*direction), this.position[2]]);
         // Gérer la taille de l'avion
         var sMat = mat4.scale(mat4.identity(), [this.scale, this.scale, this.scale]);
         // on applique les transformations successivement
         this.modelMatrix = mat4.identity();
         this.modelMatrix = mat4.multiply(sMat, this.modelMatrix);
-      //  this.modelMatrix = mat4.multiply(avanceMat, this.modelMatrix);
-        this.modelMatrix = mat4.multiply(loopingMat, this.modelMatrix);
-
-        this.modelMatrix = mat4.multiply(rotateMat, this.modelMatrix);
         this.modelMatrix = mat4.multiply(positionMat, this.modelMatrix);
+        this.modelMatrix = mat4.multiply(loopingMat, this.modelMatrix);
+        this.modelMatrix = mat4.multiply(rotateMat, this.modelMatrix);
+        this.modelMatrix = mat4.multiply(avanceMat, this.modelMatrix);
+        
         
         
         // m = ( yB − yA ) ÷ ( xB − xA )
@@ -188,8 +196,7 @@ function doLooping(model, angle, position ) {
 Model.prototype.moveDroite = function() {
     if (this.position[1] < 7.8) {
         this.angle -= 2;
-        // this.position[0] += 0.02 * Math.cos(this.angle * Math.PI/180);
-        // this.position[1] += 0.02 * Math.sin(this.angle * Math.PI/180);
+        this.flag = 0;
         //this.position[1] -= 0.02*Math.sin(this.angle); 
     }
 }
@@ -197,8 +204,7 @@ Model.prototype.moveDroite = function() {
 Model.prototype.moveGauche = function () {
     if (this.position[1] > -7.8) {
         this.angle += 2;
-        // this.position[0] -= 0.02 * Math.cos(this.angle * Math.PI/180);
-        // this.position[1] -= 0.02 * Math.sin(this.angle * Math.PI/180);
+        this.flag = 1;
     }
 
 }
