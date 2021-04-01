@@ -114,6 +114,7 @@ Model.prototype.initParameters = function () {
     this.rotation = 99; // angle de rotation en radian autour de l'axe Y
     this.scale = 0.1; // mise à l'echelle (car l'objet est trop  gros par défaut)
     this.angle = 0;
+    this.slope = 2;
 
     this.acc = 0.0;
 }
@@ -124,15 +125,15 @@ Model.prototype.setParameters = function (elapsed) {
     // les matrices view et projection ne changent pas
     if (this.loaded) {
         // Faire des tonneaux
+        const phi = (this.angle + 90) * (Math.PI / 180);
         var rMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
         // Faire des loopings
         var aMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
         // Position dans l'espace
-        var tMat = mat4.translate(mat4.identity(), [this.position[0], this.position[1]+=0.01, this.position[2]]);
+        var tMat = mat4.translate(mat4.identity(), [this.position[0] * Math.cos(phi), this.position[1]*Math.sin(phi), this.position[2]]);
         //var tMat = mat4.translate(mat4.identity(),[this.position[0],this.position[1],this.position[2]]);
         // Gérer la taille de l'avion
         var sMat = mat4.scale(mat4.identity(), [this.scale, this.scale, this.scale]);
-
         // on applique les transformations successivement
         this.modelMatrix = mat4.identity();
         this.modelMatrix = mat4.multiply(sMat, this.modelMatrix);
@@ -140,16 +141,12 @@ Model.prototype.setParameters = function (elapsed) {
         this.modelMatrix = mat4.multiply(rMat, this.modelMatrix);
         this.modelMatrix = mat4.multiply(tMat, this.modelMatrix);
         this.acc += 10;
-        this.ava
-        // if (this.angle * Math.PI/180 < 0.5) {
-        //     this.position[0] += 0.02 * Math.cos(this.angle * Math.PI/180);
-        //     this.position[1] += 0.02 * Math.sin(this.angle * Math.PI/180);
-        // } else {
-        //     this.position[0] -= 0.02 * Math.cos(this.angle * Math.PI/180);
-        //     this.position[1] -= 0.02 * Math.sin(this.angle * Math.PI/180);
-        // }
-    }
+
+        console.log(this.angle);
+
+        this.slope = (this.position[0] - this.position[1]);
     // creation des matrices rotation/translation/scaling
+    }
 
 }
 
@@ -165,10 +162,10 @@ Model.prototype.move = function (x, y) {
             this.moveGauche();
             break;
 
-        // haut
-        // case x === 0 && y === 1:
-        //     this.moveHaut();
-        //     break;
+        //haut
+        case x === 0 && y === 1:
+            this.moveHaut();
+            break;
 
         // // basqqq
         // case x === 0 && y === -1:
@@ -182,27 +179,25 @@ function doLooping(model, angle, position ) {
 
 Model.prototype.moveDroite = function() {
     if (this.position[1] < 7.8) {
-        this.angle -= 1;
-        this.position[0] += 0.02 * Math.cos(this.angle * Math.PI/180);
-        this.position[1] += 0.02 * Math.sin(this.angle * Math.PI/180);
+        this.angle -= 2;
+        // this.position[0] += 0.02 * Math.cos(this.angle * Math.PI/180);
+        // this.position[1] += 0.02 * Math.sin(this.angle * Math.PI/180);
         //this.position[1] -= 0.02*Math.sin(this.angle); 
     }
 }
 
 Model.prototype.moveGauche = function () {
     if (this.position[1] > -7.8) {
-        this.angle += 1;
-        this.position[0] -= 0.02 * Math.cos(this.angle * Math.PI/180);
-        this.position[1] -= 0.02 * Math.sin(this.angle * Math.PI/180);
+        this.angle += 2;
+        // this.position[0] -= 0.02 * Math.cos(this.angle * Math.PI/180);
+        // this.position[1] -= 0.02 * Math.sin(this.angle * Math.PI/180);
     }
 
 }
 
 Model.prototype.moveHaut = function () {
-    if (this.position[0] > -3.8) {
-        this.position[0] -= 0.1;
-    }
-    this.rotation += 100;
+        this.position[0] += 0.02;
+        this.position[1] += 0.02;
 }
 
 Model.prototype.moveBas = function () {
@@ -211,20 +206,6 @@ Model.prototype.moveBas = function () {
     }
     this.rotationQ -= 100;
 }
-// Model.prototype.moveHaut = function() {
-//     if (this.position[0] > -3.8) {
-//         this.position[0] -= 0.1;
-
-//     }
-//     //this.rotation += 100;
-// }
-
-// Model.prototype.moveBas = function() {
-//     if (this.position[0] < 3.8) {
-//         this.position[0] += 0.1;
-//     }
-//     //this.rotation -= 100;
-// }
 
 Model.prototype.getBBox = function () {
     return [this.bbminP, this.bbmaxP];
