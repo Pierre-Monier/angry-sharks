@@ -126,25 +126,33 @@ Model.prototype.setParameters = function (elapsed) {
     if (this.loaded) {
         // Faire des tonneaux
         const phi = (this.angle + 90) * (Math.PI / 180);
-        var rMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
+        const direction = Math.cos(phi)/Math.sin(phi);
+        
+        var rotateMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
         // Faire des loopings
-        var aMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
+        var loopingMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
         // Position dans l'espace
-        var tMat = mat4.translate(mat4.identity(), [this.position[0] * Math.cos(phi), this.position[1]*Math.sin(phi), this.position[2]]);
+        var positionMat = mat4.translate(mat4.identity(), [(this.position[0]*direction, (this.position[1]*direction, this.position[2]]);
         //var tMat = mat4.translate(mat4.identity(),[this.position[0],this.position[1],this.position[2]]);
+        console.log(direction);
+       var avanceMat = mat4.translate(mat4.identity(), [(this.position[0]*direction)+0.01, (this.position[1]*direction)+0.01, this.position[2]]);
         // Gérer la taille de l'avion
         var sMat = mat4.scale(mat4.identity(), [this.scale, this.scale, this.scale]);
         // on applique les transformations successivement
         this.modelMatrix = mat4.identity();
         this.modelMatrix = mat4.multiply(sMat, this.modelMatrix);
-        this.modelMatrix = mat4.multiply(aMat, this.modelMatrix);
-        this.modelMatrix = mat4.multiply(rMat, this.modelMatrix);
-        this.modelMatrix = mat4.multiply(tMat, this.modelMatrix);
+      //  this.modelMatrix = mat4.multiply(avanceMat, this.modelMatrix);
+        this.modelMatrix = mat4.multiply(loopingMat, this.modelMatrix);
+
+        this.modelMatrix = mat4.multiply(rotateMat, this.modelMatrix);
+        this.modelMatrix = mat4.multiply(positionMat, this.modelMatrix);
+        
+        
+        // m = ( yB − yA ) ÷ ( xB − xA )
+
         this.acc += 10;
 
         console.log(this.angle);
-
-        this.slope = (this.position[0] - this.position[1]);
     // creation des matrices rotation/translation/scaling
     }
 
