@@ -68,6 +68,7 @@ class Sprite {
         Sprite.shader.positionUniform = gl.getUniformLocation(Sprite.shader, "uPosition");
         Sprite.shader.texUniform = gl.getUniformLocation(Sprite.shader, "uTex");
         Sprite.shader.couleurUniform = gl.getUniformLocation(Sprite.shader, "maCouleur");
+        
     }
 
     initVertexBuffer() {
