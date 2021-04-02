@@ -33,11 +33,10 @@ function draw() {
     // dessin des enemy,
     badGuyGenerator.badGuys.forEach((badGuy, index) => {
         if (badGuy.life > 0) {
-            badGuy.sprite.setParameters();
             badGuy.sprite.sendUniformVariables();
             badGuy.sprite.draw();
 
-            console.log(badGuy.sprite.isOutSide)
+            // BadGuy shouldn't go outside the map
             // if(badGuy.sprite.isOutSide) {
             //     hero.removePoints(badGuy.points);
             //     score.updateScore(hero.points);
@@ -53,7 +52,6 @@ function draw() {
             badGuy.sprite.clear();
             badGuyGenerator.badGuys.splice(index, 1);
         }
-
     });
 
     //dessin des bonus
@@ -69,7 +67,6 @@ function draw() {
     });
 
     checkCollision();
-
     bgParallax.draw();
 }
 
@@ -99,10 +96,10 @@ function checkCollision() {
         })
     })
 
-    // on doit résoudre le problème des collision 2d / 3d :/
     badGuyGenerator.badGuys.forEach((badGuy) => {
         if (hero.collision2d(badGuy.sprite)) {
-            hero.life -= 1;
+            // hero.life -= 1;
+            badGuy.life = 0;
             console.log('BadGuy collision with Hero')
         }
     })
