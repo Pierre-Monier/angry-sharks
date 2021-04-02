@@ -126,6 +126,9 @@ Model.prototype.setParameters = function (elapsed) {
     // les matrices view et projection ne changent pas
     if (this.loaded) {
         // Faire des tonneaux
+        if (this.angle == 360 || this.angle == -360) {
+            this.angle = 0;
+        }
         const phi = (this.angle + 90) * (Math.PI / 180);
         
         

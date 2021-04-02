@@ -29,9 +29,22 @@ class Hero {
     // exemple: comment positionner un rocket devant le vaisseau
     const p = hero.model.getBBox(); // boite englobante du vaisseau sur l'�cran
 
+    console.log(hero.model.angle);
+    console.log("ANGLE   ", hero.model.angle);
     const x = (p[1][0] + p[1][0]) / 2.1;
-    const y = (p[1][1] + p[1][1]) / 2.1;
-    const z = p[1][2]+ 0.005;
+    let y;
+    if (
+      (hero.model.angle <= 90 && hero.model.angle >= -90) ||
+      (hero.model.angle <= 360 &&
+        hero.model.angle >= 280 ||
+        hero.model.angle >= -360 &&
+        hero.model.angle <= -280)
+    ) {
+        y = p[1][1] - 0.1;
+    } else {
+        y = p[1][1] + 0.1;
+    }
+    const z = p[1][2] + 0.005;
 
     const rocket = new Rocket();
 
