@@ -5,7 +5,9 @@ class Rocket extends Sprite {
     constructor() {
         const params = {
             ...Sprite.defaultParams,
-            position: [10, 0, 0],
+            width : 0.1,
+            height : 0.15,
+            position: [1, 0, 0],
         }
         super(getSplatTexture, params);
     }
@@ -19,8 +21,8 @@ class Rocket extends Sprite {
     setParameters(elapsed) {
         //this.time += 0.01 * elapsed;
         // on peut animer les splats ici. Par exemple :
-        this.position[0] += 0.08 * Math.sin(this.phi); // permet de déplacer le splat vers le haut au fil du temps
-        this.position[1] -= 0.08 * Math.cos(this.phi);
+        this.position[0] += 0.04 * Math.sin(this.phi); // permet de déplacer le splat dans la direction ou il est tiré
+        this.position[1] -= 0.04 * Math.cos(this.phi);
         //this.position[0] += 0.02*Math.sin(this.time); // permet de déplacer le splat sur l'axe X
     }
 
