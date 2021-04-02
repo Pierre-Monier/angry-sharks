@@ -113,6 +113,9 @@ Model.prototype.initParameters = function () {
     this.position = [0, 0, 1]; // position de l'objet dans l'espace 
     this.rotation = 99; // angle de rotation en radian autour de l'axe Y
     this.scale = 0.1; // mise à l'echelle (car l'objet est trop  gros par défaut)
+    this.angle = 0;
+    this.slope = 2;
+    this.flag = 0;
 
     this.acc = 0.0;
 }
@@ -122,19 +125,36 @@ Model.prototype.setParameters = function (elapsed) {
     // mise à jour de la matrice modèle avec les paramètres de transformation
     // les matrices view et projection ne changent pas
     if (this.loaded) {
-        var rMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
-        var tMat = mat4.translate(mat4.identity(), [this.position[0], this.position[1], this.position[2]]);
+        // Faire des tonneaux
+        const phi = (this.angle + 90) * (Math.PI / 180);
+        
+        var rotateMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
+        // Faire des loopings
+        var loopingMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
+        // Position dans l'espace
+        var positionMat = mat4.translate(mat4.identity(), [this.position[0], this.position[1], this.position[2]]);
+        // Gérer la taille de l'avion
         var sMat = mat4.scale(mat4.identity(), [this.scale, this.scale, this.scale]);
-
         // on applique les transformations successivement
         this.modelMatrix = mat4.identity();
+        this.modelMatrix = mat4.multiply(loopingMat, this.modelMatrix);
+        
+        this.modelMatrix = mat4.multiply(rotateMat, this.modelMatrix);
         this.modelMatrix = mat4.multiply(sMat, this.modelMatrix);
-        this.modelMatrix = mat4.multiply(rMat, this.modelMatrix);
-        this.modelMatrix = mat4.multiply(tMat, this.modelMatrix);
+        this.modelMatrix = mat4.multiply(positionMat, this.modelMatrix);
+        
 
-        this.acc += 0.01;
-    }
+        this.position[0] = this.position[0] + 0.05*Math.cos(phi);
+        this.position[1] = this.position[1] + 0.05*Math.sin(phi);
+
+        
+        
+        
+        // m = ( yB − yA ) ÷ ( xB − xA )
+
+        this.acc += 10;
     // creation des matrices rotation/translation/scaling
+    }
 
 }
 
@@ -150,43 +170,44 @@ Model.prototype.move = function (x, y) {
             this.moveGauche();
             break;
 
-        // haut
+        //haut
         case x === 0 && y === 1:
             this.moveHaut();
             break;
 
-        // bas
-        case x === 0 && y === -1:
-            this.moveBas();
-            break;
+        // // basqqq
+        // case x === 0 && y === -1:
+        //     this.moveBas();
+        //     break;
     }
 }
 
-Model.prototype.moveDroite = function () {
+function doLooping(model, angle, position ) {
+}
+
+Model.prototype.moveDroite = function() {
     if (this.position[1] < 7.8) {
-        this.position[1] += 0.1;
+        this.angle -= 5; 
     }
 }
 
 Model.prototype.moveGauche = function () {
     if (this.position[1] > -7.8) {
-        this.position[1] -= 0.1;
+        this.angle += 5;
     }
 
 }
 
 Model.prototype.moveHaut = function () {
-    if (this.position[0] > -3.8) {
-        this.position[0] -= 0.1;
-    }
-    this.rotation += 100;
+        this.position[0] += 0.02;
+        this.position[1] += 0.02;
 }
 
 Model.prototype.moveBas = function () {
     if (this.position[0] < 3.8) {
         this.position[0] += 0.1;
     }
-    this.rotation -= 100;
+    this.rotationQ -= 100;
 }
 
 Model.prototype.getBBox = function () {
@@ -312,7 +333,6 @@ Model.prototype.load = function (filename) {
                     new Float32Array(arrayNormal)
                 ]
                 instance.handleLoadedObject(objData);
-
             }
         }
     };

@@ -2,10 +2,12 @@ class Hero {
     model;
     shoots = [];
     lives;
+    points;
 
     constructor(model) {
         this.model = model;
         this.loadLives();
+        this.points = 0;
     }
 
     loadLives() {
@@ -40,5 +42,9 @@ class Hero {
 
     getLives() {
         return this.lives.length;
+    }
+
+    addPoints(points) {
+        this.points += points;
     }
 }

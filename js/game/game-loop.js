@@ -12,9 +12,6 @@ function draw() {
 
     // charge le shader des sprites
     gl.useProgram(Sprite.shader);
-    // dessin du mob,
-    mob.sendUniformVariables();
-    mob.draw();
 
     // dessin de la vie
     hero.lives.forEach((life) => {
@@ -22,7 +19,7 @@ function draw() {
         life.draw();
     })
 
-    // test pour afficher un splat quand on appuie sur espace
+    // dessin des rockets
     hero.shoots.forEach((rocket, index) => {
         if (rocket.isOutSide) {
             rocket.clear();
@@ -32,6 +29,37 @@ function draw() {
             rocket.draw();
         }
     })
+
+    // dessin des enemy,
+    badGuyGenerator.badGuys.forEach((badGuy, index) => {
+        if (badGuy.life > 0) {
+            badGuy.sprite.sendUniformVariables();
+            badGuy.sprite.draw();
+        } else {
+            hero.addPoints(badGuy.points);
+            score.updateScore(hero.points);
+
+            bonus.shuffleGetBonus(badGuy.sprite.getParams())
+
+            badGuy.sprite.clear();
+            badGuyGenerator.badGuys.splice(index, 1);
+        }
+
+    });
+
+    //dessin des bonus
+    bonus.bonuses.forEach((bonu) => {
+        bonu.sprite.sendUniformVariables();
+        bonu.sprite.draw();
+    })
+
+    // dessin du score
+    score.sprites.forEach((number) => {
+        number.sendUniformVariables();
+        number.draw();
+    });
+
+    checkCollision();
 
     bgParallax.draw();
 }
@@ -52,6 +80,41 @@ function animate() {
 
     lastTime = timeNow;
 }
+
+function checkCollision() {
+    hero.shoots.forEach((shoot) => {
+        badGuyGenerator.badGuys.forEach((badGuy) => {
+            if (shoot.collision(badGuy.sprite)) {
+                badGuy.life -= 1;
+            }
+        })
+    })
+
+    // on doit résoudre le problème des collision 2d / 3d :/
+    // badGuyGenerator.badGuys.forEach((badGuy) => {
+    // if (badGuy.sprite.collision(hero.model)) {
+    //     hero.life -= 1;
+    //     console.log('BadGuy collision with Hero')
+    // }
+    // })
+
+    // The hero/bonus collision, but we can't handle 2d/3d collision right now
+    // bonus.bonuses.forEach((bonus) => {
+    //     if (bonus.sprite.collision(hero.model)) {
+    //         switch (bonus.tag) {
+    //             case "invincible":
+    //                 break
+    //             case "kill-enemy":
+    //                 break
+    //             case "slow-enemy":
+    //                 break
+    //             default:
+    //                 break;
+    //         }
+    //     }
+    // })
+}
+
 
 function tick() {
     if (hero.getLives() > 0) {
