@@ -151,6 +151,7 @@ Model.prototype.setParameters = function (elapsed) {
         this.modelMatrix = mat4.multiply(positionMat, this.modelMatrix);
         
 
+        // Le poisson avance tout seul en fonction de son angle
         this.position[0] = this.position[0] + 0.05*Math.cos(phi);
         this.position[1] = this.position[1] + 0.05*Math.sin(phi);
 
@@ -206,13 +207,12 @@ Model.prototype.moveGauche = function () {
 }
 
 Model.prototype.moveHaut = function () {
-        this.position[0] += 0.02;
-        this.position[1] += 0.02;
+        //this.position[0] += 0.02;
 }
 
 Model.prototype.moveBas = function () {
     if (this.position[0] < 3.8) {
-        this.position[0] += 0.1;
+        this.position[0] += 1;
     }
     this.rotationQ -= 100;
 }
