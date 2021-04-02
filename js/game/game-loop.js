@@ -91,12 +91,12 @@ function checkCollision() {
     })
 
     // on doit résoudre le problème des collision 2d / 3d :/
-    // badGuyGenerator.badGuys.forEach((badGuy) => {
-    // if (badGuy.sprite.collision(hero.model)) {
-    //     hero.life -= 1;
-    //     console.log('BadGuy collision with Hero')
-    // }
-    // })
+    badGuyGenerator.badGuys.forEach((badGuy) => {
+        if (hero.collision2d(badGuy.sprite)) {
+            hero.life -= 1;
+            console.log('BadGuy collision with Hero')
+        }
+    })
 
     // The hero/bonus collision, but we can't handle 2d/3d collision right now
     // bonus.bonuses.forEach((bonus) => {
