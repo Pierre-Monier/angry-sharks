@@ -141,7 +141,7 @@ function getRandomInt(max) {
 }
 
 function getSplatTexture() {
-    return initTexture('./models/planes/torpedo/torpedo.png')
+    return initTexture('./models/Bonus/Spnning-Orb/Blue/frame-1.png')
 }
 
 function getMobTexture() {
@@ -149,7 +149,7 @@ function getMobTexture() {
 }
 
 function getLifeTexture() {
-    return initTexture('./textures/missile.png')
+    return initTexture('./models/lives/heart-pixel-art.png')
 }
 
 function getMountainsTexture() {
