@@ -63,5 +63,10 @@ class Hero {
             x1 + width > x2 &&
             y1 < y2 + height &&
             y1 + height > y2;
+
+    }
+
+    removePoints(points) {
+        this.points -= points;
     }
 }
