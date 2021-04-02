@@ -111,7 +111,9 @@ Model.prototype.initParameters = function () {
     // on utilise des variables pour se rappeler quelles sont les transformations courantes
     // rotation, translation, scaling de l'objet
     this.position = [0, 0, 1]; // position de l'objet dans l'espace 
-    this.rotation = 99; // angle de rotation en radian autour de l'axe Y
+    this.rotationX = 0; // angle de rotation en radian autour de l'axe Y
+    this.rotationY = 99; // angle de rotation en radian autour de l'axe Y
+    this.rotationZ = 99; // angle de rotation en radian autour de l'axe Y
     this.scale = 0.1; // mise à l'echelle (car l'objet est trop  gros par défaut)
     this.angle = 0;
     this.slope = 2;
@@ -128,7 +130,10 @@ Model.prototype.setParameters = function (elapsed) {
         // Faire des tonneaux
         const phi = (this.angle + 90) * (Math.PI / 180);
         
-        var rotateMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
+        
+        var rotateXMat = mat4.rotate(mat4.identity(), this.rotationX, [1, 0, 0]);
+        var rotateYMat = mat4.rotate(mat4.identity(), this.rotationY, [0, 1, 0]);
+        var rotateZMat = mat4.rotate(mat4.identity(), this.rotationZ, [0, 0, 1]);
         // Faire des loopings
         var loopingMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
         // Position dans l'espace
@@ -139,7 +144,9 @@ Model.prototype.setParameters = function (elapsed) {
         this.modelMatrix = mat4.identity();
         this.modelMatrix = mat4.multiply(loopingMat, this.modelMatrix);
         
-        this.modelMatrix = mat4.multiply(rotateMat, this.modelMatrix);
+        this.modelMatrix = mat4.multiply(rotateXMat, this.modelMatrix);
+        this.modelMatrix = mat4.multiply(rotateYMat, this.modelMatrix);
+        this.modelMatrix = mat4.multiply(rotateZMat, this.modelMatrix);
         this.modelMatrix = mat4.multiply(sMat, this.modelMatrix);
         this.modelMatrix = mat4.multiply(positionMat, this.modelMatrix);
         

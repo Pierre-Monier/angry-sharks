@@ -173,6 +173,6 @@ function getKillEnemyBonusTexture() {
 }
 
 function getHeroModel() {
-    return './models/plane.obj';
+    return './models/fish_exported/BlueGoldfish.obj';
 }
 
