@@ -187,16 +187,13 @@ function doLooping(model, angle, position ) {
 
 Model.prototype.moveDroite = function() {
     if (this.position[1] < 7.8) {
-        this.angle -= 5;
-        this.flag = 0;
-        //this.position[1] -= 0.02*Math.sin(this.angle); 
+        this.angle -= 5; 
     }
 }
 
 Model.prototype.moveGauche = function () {
     if (this.position[1] > -7.8) {
         this.angle += 5;
-        this.flag = 1;
     }
 
 }
