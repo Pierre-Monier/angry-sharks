@@ -3,11 +3,13 @@ class Hero {
   shoots = [];
   lives;
   points;
+  isOutside;
 
   constructor(model) {
     this.model = model;
     this.loadLives();
     this.points = 0;
+    this.isOutside = false;
   }
 
   loadLives() {
@@ -26,16 +28,10 @@ class Hero {
   }
 
   shoot() {
-    const p = hero.model.getBBox(); // boite englobante du vaisseau sur l'�cran
-    const x = (p[1][0] + p[1][0]) / 2.1;
-    const y = (p[1][1] + p[1][1]) / 2.1;
-    const z = p[1][2] + 0.005;
-
     const rocket = new Rocket();
-
     if (rocket.loaded) {
       this.shoots.push(rocket);
-      this.shoots[this.shoots.length - 1].setPosition(x, y, z);
+      rocket.position = hero.model.getModelHead();
     }
   }
 
@@ -68,7 +64,17 @@ class Hero {
 
   }
 
-  removePoints(points) {
-    this.points -= points;
+  checkIsOutside() {
+    if (this.model.loaded && this.model.isOutside() && !this.isOutside) {
+      this.isOutside = true;
+      const inter = setInterval(() => {
+        if (this.model.isOutside()) {
+          this.looseLife()
+        } else {
+          this.isOutside = false;
+          clearInterval(inter)
+        }
+      }, 1000)
+    }
   }
 }

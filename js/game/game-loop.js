@@ -9,6 +9,7 @@ function draw() {
     gl.useProgram(hero.model.shader());
     hero.model.sendUniformVariables();
     hero.model.draw();
+    hero.checkIsOutside();
 
     // charge le shader des sprites
     gl.useProgram(Sprite.shader);

@@ -127,7 +127,6 @@ Model.prototype.setParameters = function (elapsed) {
     // mise à jour de la matrice modèle avec les paramètres de transformation
     // les matrices view et projection ne changent pas
     if (this.loaded) {
-        // Faire des tonneaux
         const phi = (this.angle + 90) * (Math.PI / 180);
 
         var rotateMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
@@ -146,29 +145,40 @@ Model.prototype.setParameters = function (elapsed) {
 
 
         // Le poisson avance tout seul en fonction de son angle
-        console.log('x : ', this.position[1], ' mib : ', Math.abs(this.angle % 360));
-
-        if (this.isModelMovableOnX()) {
-            this.position[1] += 0.05 * Math.sin(phi);
-        }
-
-        if (this.isModelMovableOnY()) {
-            this.position[0] += 0.05 * Math.cos(phi);
-        }
-
+        this.position[1] += 0.05 * Math.sin(phi);
+        this.position[0] += 0.05 * Math.cos(phi);
         this.acc += 10;
         // creation des matrices rotation/translation/scaling
     }
 }
 
-Model.prototype.isModelMovableOnX = function () {
-    return (((Math.abs(this.angle % 360) < 90 || Math.abs(this.angle % 360) > 270) && this.position[1] < 7)
-        || (Math.abs(this.angle % 360) > 90 && Math.abs(this.angle % 360) < 270 && this.position[1] > -7));
+Model.prototype.isOutside = function () {
+    return this.position[1] > 7 || this.position[1] < -7 || this.position[0] > 3.5 || this.position[0] < -3.5
 }
 
-Model.prototype.isModelMovableOnY = function () {
-    return ((Math.abs(this.angle % 360) > 180 && this.position[0] < 3.5)
-        || (Math.abs(this.angle % 360) < 180 && this.position[0] > -3.5));
+Model.prototype.getModelHead = function () {
+    const p = this.getBBox(); // boite englobante du vaisseau sur l'�cran
+    const angle = this.angle % 360;
+
+    const x = (angle >= -90 && angle <= 45 || angle >= 90 && angle <= 180 || angle >= 280 || angle <= -280) ?
+        p[1][0] + 0.02
+        :
+        p[1][0] - 0.02
+
+    const y = (
+        (angle <= 90 && angle >= -90) ||
+        (angle <= 360 &&
+            angle >= 280 ||
+            angle >= -360 &&
+            angle <= -280)
+    ) ?
+        p[1][1] - 0.1
+        :
+        p[1][1] + 0.1
+
+    const z = p[1][2] + 0.005;
+
+    return [x, y, z]
 }
 
 Model.prototype.move = function (x, y) {
