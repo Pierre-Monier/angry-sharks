@@ -125,16 +125,7 @@ function mvPushMatrix() {
     mvMatrixStack.push(copy);
 }
 
-function mvPopMatrix() {
-    if (mvMatrixStack.length == 0) {
-        throw "Invalid popMatrix!";
-    }
-    mvMatrix = mvMatrixStack.pop();
-}
 
-function degToRad(degrees) {
-    return degrees * Math.PI / 180;
-}
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));

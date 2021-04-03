@@ -1,31 +1,41 @@
 class Mob extends Sprite {
     isOutSide;
+    xMove;
+    yMove;
+    static EDGES = {
+        top: -1,
+        bottom: 1,
+        right: 1,
+        left: -1
+    }
+    speed;
 
-    constructor() {
-        // avec cet objet on peut configurer un sprite
-        const params = {
-            width: 0.2,
-            height: 0.2,
-            position: [0.0, 0.0, 0.0],
-            couleur: [1, 0, 0],
-            time: 0.0,
-            isOutSide: false
-        }
-
-        super(getMobTexture, params);
+    constructor(getTexture, spriteParams) {
+        super(getTexture, spriteParams);
+        this.xMove = (Math.random() * (Mob.EDGES.right - Mob.EDGES.left) + Mob.EDGES.left) / 100
+        this.yMove = (Math.random() * (Mob.EDGES.bottom - Mob.EDGES.top) + Mob.EDGES.top) / 100
+        this.speed = 1;
     }
 
-    setParameters(elapsed) {
-        //this.time += 0.01 * elapsed;
-        // on peut animer les splats ici. Par exemple :
-        //this.position[0] += 0.08; // permet de déplacer le splat vers le haut au fil du temps
-        this.position[0] -= 0.02; // permet de déplacer le splat sur l'axe X
+    setParameters() {
+        this.position[0] += this.xMove * this.speed;
+        this.position[1] += this.yMove * this.speed;
     }
 
     draw() {
         if (this.loaded) {
-            this.isOutSide = (this.position[0] < 3);
+            this.handleRandomMovement()
         }
         super.draw();
+    }
+
+    handleRandomMovement() {
+        if (this.position[0] > Mob.EDGES.right || this.position[0] < Mob.EDGES.left) {
+            this.xMove = -this.xMove;
+            this.isOutSide = true
+        } else if (this.position[1] > Mob.EDGES.bottom || this.position[1] < Mob.EDGES.top) {
+            this.yMove = -this.yMove;
+            this.isOutSide = true
+        }
     }
 }

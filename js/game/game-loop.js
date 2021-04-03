@@ -34,21 +34,10 @@ function draw() {
     // dessin des enemy,
     badGuyGenerator.badGuys.forEach((badGuy, index) => {
         if (badGuy.life > 0) {
-            badGuy.sprite.sendUniformVariables();
-            badGuy.sprite.draw();
-
-            // BadGuy shouldn't go outside the map
-            // if(badGuy.sprite.isOutSide) {
-            //     hero.removePoints(badGuy.points);
-            //     score.updateScore(hero.points);
-            //     badGuy.sprite.clear();
-            //     badGuyGenerator.badGuys.splice(index, 1);
-            // }
+            badGuy.drawWithMovement();
         } else {
             hero.addPoints(badGuy.points);
             score.updateScore(hero.points);
-
-            bonus.shuffleGetBonus(badGuy.sprite.getParams())
 
             badGuy.sprite.clear();
             badGuyGenerator.badGuys.splice(index, 1);
@@ -56,9 +45,15 @@ function draw() {
     });
 
     //dessin des bonus
-    bonus.bonuses.forEach((bonu) => {
-        bonu.sprite.sendUniformVariables();
-        bonu.sprite.draw();
+    bonus.bonuses.forEach((bonusItem, index) => {
+        if (bonusItem.sprite.position[1] < 1 && !bonusItem.isTaken) {
+            bonusItem.sprite.position[1] += 0.002;
+            bonusItem.sprite.sendUniformVariables();
+            bonusItem.sprite.draw();
+        } else {
+            bonusItem.sprite.clear();
+            bonus.bonuses.slice(index, 1);
+        }
     })
 
     // dessin du score
@@ -92,34 +87,42 @@ function checkCollision() {
     hero.shoots.forEach((shoot) => {
         badGuyGenerator.badGuys.forEach((badGuy) => {
             if (shoot.collision(badGuy.sprite)) {
-                badGuy.life -= 1;
+                badGuy.slowSpeed()
             }
         })
     })
 
     badGuyGenerator.badGuys.forEach((badGuy) => {
         if (hero.collision2d(badGuy.sprite)) {
-            // hero.life -= 1;
-            badGuy.life = 0;
-            console.log('BadGuy collision with Hero')
+            if (hero.state >= badGuy.state) {
+                badGuy.life--;
+            } else {
+                hero.looseLife();
+            }
         }
     })
 
-    // The hero/bonus collision, but we can't handle 2d/3d collision right now
-    // bonus.bonuses.forEach((bonus) => {
-    //     if (bonus.sprite.collision(hero.model)) {
-    //         switch (bonus.tag) {
-    //             case "invincible":
-    //                 break
-    //             case "kill-enemy":
-    //                 break
-    //             case "slow-enemy":
-    //                 break
-    //             default:
-    //                 break;
-    //         }
-    //     }
-    // })
+    // The hero/bonus collision
+    bonus.bonuses.forEach((bonusItem) => {
+        if (hero.collision2d(bonusItem.sprite)) {
+            console.log('BONUS collision with HERO', bonus)
+            switch (bonusItem.tag) {
+                case "invincible":
+                    console.log('Hero took an invicible bonus')
+                    break
+                case "kill-enemy":
+                    console.log('Hero took a kill-enemy bonus')
+                    break
+                case "slow-enemy":
+                    console.log('Hero took a slow enemy bonus')
+                    break
+                default:
+                    break;
+            }
+
+            bonusItem.isTaken = true;
+        }
+    })
 }
 
 

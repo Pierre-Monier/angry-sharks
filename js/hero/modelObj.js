@@ -1,5 +1,11 @@
 var modelShader;
 
+const edges = {
+    top: -3.5,
+    bottom: 3.5,
+    right: 7,
+    left: -7
+}
 
 function initModelShader() {
     modelShader = initShaders("model-vs", "model-fs");
@@ -153,7 +159,7 @@ Model.prototype.setParameters = function (elapsed) {
 }
 
 Model.prototype.isOutside = function () {
-    return this.position[1] > 7 || this.position[1] < -7 || this.position[0] > 3.5 || this.position[0] < -3.5
+    return this.position[1] > edges.right || this.position[1] < edges.left || this.position[0] > edges.bottom || this.position[0] < edges.top
 }
 
 Model.prototype.getModelHead = function () {

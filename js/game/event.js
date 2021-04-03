@@ -21,16 +21,8 @@ function handleKeys() {
         hero.model.moveGauche();
     }
 
-    if (currentlyPressedKeys[90]) { // Z
-        hero.model.moveHaut();
-    }
-
-    if (currentlyPressedKeys[83]) { // S
-        hero.model.moveBas();
-    }
-
     if (currentlyPressedKeys[80]) { // P
-        hero.looseLife();
+        console.log('dev testing over here')
     }
 }
 

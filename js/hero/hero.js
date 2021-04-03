@@ -4,12 +4,17 @@ class Hero {
   lives;
   points;
   isOutside;
+  isHited;
+  state;
+
 
   constructor(model) {
     this.model = model;
     this.loadLives();
     this.points = 0;
     this.isOutside = false;
+    this.isHited = false
+    this.state = 1;
   }
 
   loadLives() {
@@ -36,7 +41,13 @@ class Hero {
   }
 
   looseLife() {
-    this.lives.pop();
+    if (!this.isHited) {
+      this.isHited = true;
+      this.lives.pop();
+      setTimeout(() => {
+        this.isHited = false;
+      }, 500);
+    }
   }
 
   getLives() {
@@ -45,8 +56,34 @@ class Hero {
 
   addPoints(points) {
     this.points += points;
+    this.updateHeroState();
   }
 
+  updateHeroState() {
+    switch (true) {
+      case (this.points > 50 && this.points < 150 && this.state !== 2):
+        this.state = 2;
+        this.model.scale += 0.1;
+        break;
+
+      case (this.points > 150 && this.points < 250 && this.state !== 3):
+        this.state = 3;
+        this.model.scale += 0.1;
+        break;
+
+
+      case (this.points > 250 && this.points < 350 && this.state !== 4):
+        // In this state we can do boss fight
+        this.state = 4;
+        this.model.scale += 0.1;
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  // THIS can be improve
   collision2d(other) {
     const box = this.model.getBBox();
     let x1 = box[0][0];
@@ -54,8 +91,8 @@ class Hero {
     let y1 = box[1][1];
     let y2 = other.position[1];
 
-    let width = box[1][0] - this.model.getBBox()[0][0];
-    let height = this.model.getBBox()[1][1] - this.model.getBBox()[0][1];
+    let width = Math.abs(box[1][0] - box[0][0] + 0.1);
+    let height = Math.abs(box[1][1] - box[0][1] + 0.1);
 
     return x1 < x2 + width &&
       x1 + width > x2 &&
