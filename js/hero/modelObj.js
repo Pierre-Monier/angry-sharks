@@ -138,6 +138,11 @@ Model.prototype.setParameters = function (elapsed) {
         var rotateMat = mat4.rotate(mat4.identity(), this.rotation, [0, 1, 0]);
         // Faire des loopings
         var loopingMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
+
+        // limitation de la position
+        this.position[0] = Math.min(Math.max(this.position[0], -3.5), 3.5);
+        this.position[1] = Math.min(Math.max(this.position[1], -7.25), 7.25);
+
         // Position dans l'espace
         var positionMat = mat4.translate(mat4.identity(), [this.position[0], this.position[1], this.position[2]]);
         // Gérer la taille de l'avion
