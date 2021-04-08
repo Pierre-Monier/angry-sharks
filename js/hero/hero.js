@@ -100,18 +100,4 @@ class Hero {
       y1 + height > y2;
 
   }
-
-  checkIsOutside() {
-    if (this.model.loaded && this.model.isOutside() && !this.isOutside) {
-      this.isOutside = true;
-      const inter = setInterval(() => {
-        if (this.model.isOutside()) {
-          this.looseLife()
-        } else {
-          this.isOutside = false;
-          clearInterval(inter)
-        }
-      }, 1000)
-    }
-  }
 }
