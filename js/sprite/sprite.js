@@ -9,6 +9,7 @@ class Sprite {
     height;
     position;
     time;
+    offset = 0;
     loaded = false;
 
     constructor(getTexture, defaultParams = Sprite.defaultParams) {
@@ -34,7 +35,8 @@ class Sprite {
         position: [0.0, 0.0, 0.0],
         couleur: [1, 0, 0],
         time: 0.0,
-        isOutSide: false
+        isOutSide: false,
+        offset: 0
     }
 
     initParameters(defaultParams) {
@@ -66,6 +68,7 @@ class Sprite {
 
         // adresse des variables uniform dans le shader
         Sprite.shader.positionUniform = gl.getUniformLocation(Sprite.shader, "uPosition");
+        Sprite.shader.xOffset = gl.getUniformLocation(Sprite.shader, "xOffset");
         Sprite.shader.texUniform = gl.getUniformLocation(Sprite.shader, "uTex");
         Sprite.shader.couleurUniform = gl.getUniformLocation(Sprite.shader, "maCouleur");
         
@@ -125,6 +128,7 @@ class Sprite {
         // fonction appelée à chaque frame, avant le dessin du splat
         if (this.loaded) {
             gl.uniform3fv(Sprite.shader.positionUniform, this.position);
+            gl.uniform1f(Sprite.shader.xOffset, this.offset);
             gl.uniform3fv(Sprite.shader.couleurUniform, this.couleur);
 
             // how to send a texture:
