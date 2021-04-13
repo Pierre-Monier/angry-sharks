@@ -150,13 +150,13 @@ class Sprite {
     }
 
     draw() {
-        gl.enable(gl.BLEND); // transparence activ�e
         if (this.loaded) {
+            gl.enable(gl.BLEND); // transparence activ�e
             gl.bindVertexArray(this.vao);
             gl.drawElements(gl.TRIANGLES, this.trianglesBuffer.numItems, gl.UNSIGNED_SHORT, 0);
             gl.bindVertexArray(null);
+            gl.disable(gl.BLEND);
         }
-        gl.disable(gl.BLEND);
     }
 
     clear() {

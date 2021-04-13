@@ -15,22 +15,28 @@ function initBackgroundShader() {
 }
 
 class BackgroundParallaxe {
-    mountains;
-    fargroundCloud;
+    layer0;
+    layer1;
+    layer2;
 
     constructor() {
-        this.mountains = new Mountains();
-        this.fargroundCloud = new FarGroundCloud();
+        this.layer0 = new BackgroundLayer(getBG0Texture);
+        this.layer1 = new BackgroundLayer(getBG1Texture);
+        this.layer2 = new BackgroundLayer(getBG2Texture);
     }
 
     draw() {
         gl.useProgram(Sprite.shader);
-        // dessin du mob,
-        this.mountains.sendUniformVariables();
-        this.mountains.draw();
+        
+        this.layer2.sendUniformVariables();
+        this.layer2.draw();
 
-        this.fargroundCloud.sendUniformVariables();
-        this.fargroundCloud.draw();
+        this.layer1.sendUniformVariables();
+        this.layer1.draw();
+
+        this.layer0.sendUniformVariables();
+        this.layer0.draw();
+
     }
 }
 

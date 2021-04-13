@@ -89,8 +89,8 @@ function handleLoadedTexture(texture) {
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     // consome plein de ressource, à éviter
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     // La texture est maintenant chargé par la carte graphique
@@ -143,24 +143,28 @@ function getLifeTexture() {
     return initTexture('./models/lives/heart-pixel-art.png')
 }
 
-function getMountainsTexture() {
-    return initTexture('./models/sky_background/parallax_parts/mountains/farground_mountains.png')
+function getBG0Texture() {
+    return initTexture('./textures/underwater-fantasy-files/PNG/layers/far.png')
 }
 
-function getFarGroundCloudTexture() {
-    return initTexture('./models/sky_background/parallax_parts/farground_cloud_1.png')
+function getBG1Texture() {
+    return initTexture('./textures/underwater-fantasy-files/PNG/layers/sand.png')
+}
+
+function getBG2Texture() {
+    return initTexture('./textures/underwater-fantasy-files/PNG/layers/foreground-merged.png')
 }
 
 function getSlowEnemyBonusTexture() {
-    return initTexture('./textures/score/0.png')
+    return initTexture('./textures/bubble.png')
 }
 
 function getInvincibleBonusTexure() {
-    return initTexture('./textures/score/1.png')
+    return initTexture('./textures/bubble.png')
 }
 
 function getKillEnemyBonusTexture() {
-    return initTexture('./textures/score/2.png')
+    return initTexture('./textures/bubble.png')
 }
 
 function getHeroModel() {

@@ -19,14 +19,16 @@ function startGame() {
     score = new Score();
     bonus = new Bonus();
 
-    // la couleur de fond sera noire
-    gl.clearColor(99 / 255, 206 / 255, 255 / 255, 1);
+    // la couleur de fond
+    gl.clearColor(62 / 255, 121 / 255, 221 / 255, 1);
 
     // active le test de profondeur
     gl.enable(gl.DEPTH_TEST);
 
     // fonction de m�lange utilis�e pour la transparence
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    //gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
     /* Mouse and keyboard interaction functions */
     //canvas.addEventListener('mousedown', tbMouseDown, true);

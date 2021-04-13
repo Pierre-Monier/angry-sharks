@@ -20,6 +20,8 @@ function draw() {
         life.draw();
     })
 
+    bgParallax.draw();
+
     // dessin des rockets
     hero.shoots.forEach((rocket, index) => {
         if (rocket.isOutSide) {
@@ -63,7 +65,6 @@ function draw() {
     });
 
     checkCollision();
-    bgParallax.draw();
 }
 
 // animation
