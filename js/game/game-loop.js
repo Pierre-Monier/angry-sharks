@@ -94,7 +94,7 @@ function checkCollision() {
         badGuyGenerator.badGuys.forEach((badGuy) => {
             if (shoot.collision(badGuy.sprite)) {
                 if (hero.isShooting) {
-                    badGuy.life--;
+                    badGuyGenerator.removeBadGuyLife(badGuy);
                 } else {
                     badGuy.slowSpeed()
                 }
@@ -105,7 +105,7 @@ function checkCollision() {
     badGuyGenerator.badGuys.forEach((badGuy) => {
         if (hero.collision2d(badGuy.sprite)) {
             if (hero.state >= badGuy.state) {
-                badGuy.life--;
+                badGuyGenerator.removeBadGuyLife(badGuy);
             } else {
                 hero.looseLife();
             }

@@ -1,11 +1,11 @@
-class BadGuyGenerator {
+class BadGuyManager {
     badGuys;
     areSlowed;
 
     constructor() {
         this.badGuys = [];
         this.areSlowed = false;
-        // setInterval(() => { this.generateBadGuy() }, 1000);
+        setInterval(() => { this.generateBadGuy() }, 1000);
     }
 
     generateBadGuy() {
@@ -48,6 +48,10 @@ class BadGuyGenerator {
             });
             this.areSlowed = false;
         }, Bonus.slowBonusDuration)
+    }
+
+    removeBadGuyLife(badGuy) {
+        badGuy.life--;
     }
 
     getX() {

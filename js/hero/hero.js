@@ -46,6 +46,7 @@ class Hero {
     if (!this.isHited && !this.isInvincible) {
       this.isHited = true;
       this.lives.pop();
+      soundpool.heroDammage.play();
       setTimeout(() => {
         this.isHited = false;
       }, 500);

@@ -14,10 +14,11 @@ function startGame() {
     //heightfield = new Heightfield();
     background = new Background();
     hero = new Hero(new Model(getHeroModel()));
-    badGuyGenerator = new BadGuyGenerator();
+    badGuyGenerator = new BadGuyManager();
     bgParallax = new BackgroundParallaxe();
     score = new Score();
     bonus = new Bonus();
+    soundpool = new Soundpool();
 
     // la couleur de fond sera noire
     gl.clearColor(99 / 255, 206 / 255, 255 / 255, 1);
