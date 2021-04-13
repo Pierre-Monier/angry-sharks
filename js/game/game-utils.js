@@ -156,15 +156,19 @@ function getBG2Texture() {
 }
 
 function getSlowEnemyBonusTexture() {
-    return initTexture('./textures/bubble.png')
+    return initTexture('./models/Bonus/slowBonus.png')
 }
 
 function getInvincibleBonusTexure() {
-    return initTexture('./textures/bubble.png')
+    return initTexture('./models/Bonus/shieldBonus.png')
 }
 
 function getKillEnemyBonusTexture() {
-    return initTexture('./textures/bubble.png')
+    return initTexture('./models/Bonus/gunBonus.png')
+}
+
+function getBubbleBonusTextures() {
+    return initTexture('./models/Bonus/bubble.png')   
 }
 
 function getHeroModel() {

@@ -3,12 +3,14 @@ class Bonus {
     displayedBonuses;
     data = [
         (params) => { return { tag: 'slow-enemy', sprite: new Sprite(getSlowEnemyBonusTexture, params), isTaken: false, duration: Bonus.slowBonusDuration } },
-        (params) => { return { 'tag': 'invincible', sprite: new Sprite(getInvincibleBonusTexure, params), isTaken: false, duration: Bonus.invincibleBonusDuration } },
-        (params) => { return { 'tag': 'kill-enemy', sprite: new Sprite(getKillEnemyBonusTexture, params), isTaken: false, duration: Bonus.killEnemyBonusDuration } },
+        (params) => { return { tag: 'invincible', sprite: new Sprite(getInvincibleBonusTexure, params), isTaken: false, duration: Bonus.invincibleBonusDuration } },
+        (params) => { return { tag: 'kill-enemy', sprite: new Sprite(getKillEnemyBonusTexture, params), isTaken: false, duration: Bonus.killEnemyBonusDuration } },
+        (params) => { return { tag: 'bubble', sprite: new Sprite(getBubbleBonusTexture, params), isTaken: false, duration: Bonus.bubbleBonusDuration } },
     ]
     static invincibleBonusDuration = 5000;
     static killEnemyBonusDuration = 5000;
     static slowBonusDuration = 5000;
+    static bubbleBonusDuration = 0;
 
     constructor() {
         this.bonuses = [];
