@@ -5,6 +5,7 @@ class Hero {
   points;
   isOutside;
   isHited;
+  isInvincible;
   state;
 
 
@@ -14,6 +15,7 @@ class Hero {
     this.points = 0;
     this.isOutside = false;
     this.isHited = false
+    this.isShooting = false;
     this.state = 1;
   }
 
@@ -33,7 +35,7 @@ class Hero {
   }
 
   shoot() {
-    const rocket = new Rocket();
+    const rocket = new Rocket(this.isShooting);
     if (rocket.loaded) {
       this.shoots.push(rocket);
       rocket.position = hero.model.getModelHead();
@@ -41,7 +43,7 @@ class Hero {
   }
 
   looseLife() {
-    if (!this.isHited) {
+    if (!this.isHited && !this.isInvincible) {
       this.isHited = true;
       this.lives.pop();
       setTimeout(() => {
@@ -98,6 +100,15 @@ class Hero {
       x1 + width > x2 &&
       y1 < y2 + height &&
       y1 + height > y2;
+  }
 
+  addInvincibleBonus() {
+    this.isInvincible = true;
+    setTimeout(() => this.isInvincible = false, Bonus.invincibleBonusDuration)
+  }
+
+  addShootingBonus() {
+    this.isShooting = true;
+    setTimeout(() => this.isShooting = false, Bonus.killEnemyBonusDuration)
   }
 }

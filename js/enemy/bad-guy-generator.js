@@ -1,10 +1,11 @@
 class BadGuyGenerator {
     badGuys;
+    areSlowed;
 
     constructor() {
         this.badGuys = [];
-        setInterval(() => {this.generateBadGuy()}, 10000);
-        this.generateBadGuy()
+        this.areSlowed = false;
+        setInterval(() => { this.generateBadGuy() }, 1000);
     }
 
     generateBadGuy() {
@@ -12,6 +13,9 @@ class BadGuyGenerator {
         if (enemy) {
             console.log('enemy', enemy)
             enemy.sprite.position = [Math.random() - 0.5, Math.random() - 0.5, 0];
+            if (this.areSlowed) {
+                enemy.sprite.speed = 0.3;
+            }
             this.badGuys.push(enemy);
         }
     }
@@ -28,6 +32,22 @@ class BadGuyGenerator {
             default:
                 break;
         }
+    }
+
+    slowEnemies() {
+        this.badGuys.forEach((badGuy) => {
+            badGuy.sprite.speed = 0.3;
+            badGuy.isSlowed = true;
+        });
+        this.areSlowed = true;
+
+        setTimeout(() => {
+            this.badGuys.forEach((badGuy) => {
+                badGuy.sprite.speed = 1;
+                badGuy.isSlowed = false;
+            });
+            this.areSlowed = false;
+        }, Bonus.slowBonusDuration)
     }
 
     getX() {
