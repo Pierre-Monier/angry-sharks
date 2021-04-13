@@ -5,7 +5,7 @@ class BadGuyGenerator {
     constructor() {
         this.badGuys = [];
         this.areSlowed = false;
-        setInterval(() => { this.generateBadGuy() }, 1000);
+        // setInterval(() => { this.generateBadGuy() }, 1000);
     }
 
     generateBadGuy() {

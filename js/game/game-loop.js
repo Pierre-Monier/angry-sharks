@@ -50,8 +50,9 @@ function draw() {
             bonusItem.sprite.sendUniformVariables();
             bonusItem.sprite.draw();
         } else {
+            console.log('bonus needed to be cleared');
             bonusItem.sprite.clear();
-            bonus.bonuses.slice(index, 1);
+            bonus.bonuses = bonus.bonuses.slice(index + 1, 1);
         }
     })
 
@@ -114,6 +115,7 @@ function checkCollision() {
     // The hero/bonus collision
     bonus.bonuses.forEach((bonusItem) => {
         if (hero.collision2d(bonusItem.sprite)) {
+            console.log('Collision with bonus', bonus.bonuses);
             switch (bonusItem.tag) {
                 case "slow-enemy":
                     if (!badGuyGenerator.areSlowed) {
