@@ -3,8 +3,8 @@ var modelShader;
 const edges = {
     top: -3.5,
     bottom: 3.5,
-    right: 7,
-    left: -7
+    right: 7.25,
+    left: -7.25
 }
 
 function initModelShader() {
@@ -18,7 +18,6 @@ function initModelShader() {
     modelShader.viewMatrixUniform = gl.getUniformLocation(modelShader, "uViewMatrix");
     modelShader.projMatrixUniform = gl.getUniformLocation(modelShader, "uProjMatrix");
     modelShader.timerUniform = gl.getUniformLocation(modelShader, "timer");
-
 }
 
 function Model(filename) {
@@ -140,8 +139,8 @@ Model.prototype.setParameters = function (elapsed) {
         var loopingMat = mat4.rotate(mat4.identity(), this.angle * (Math.PI / 180), [1, 0, 0]);
 
         // limitation de la position
-        this.position[0] = Math.min(Math.max(this.position[0], -3.5), 3.5);
-        this.position[1] = Math.min(Math.max(this.position[1], -7.25), 7.25);
+        this.position[0] = Math.min(Math.max(this.position[0], edges.top), edges.bottom);
+        this.position[1] = Math.min(Math.max(this.position[1], edges.left), edges.right);
 
         // Position dans l'espace
         var positionMat = mat4.translate(mat4.identity(), [this.position[0], this.position[1], this.position[2]]);
@@ -203,11 +202,6 @@ Model.prototype.move = function (x, y) {
         case x === -1 && y === 0:
             this.moveGauche();
             break;
-
-        //haut
-        case x === 0 && y === 1:
-            this.moveHaut();
-            break;
     }
 }
 
@@ -217,10 +211,6 @@ Model.prototype.moveDroite = function () {
 
 Model.prototype.moveGauche = function () {
     this.angle += 5;
-}
-
-Model.prototype.moveHaut = function () {
-    //this.position[0] += 0.02;
 }
 
 Model.prototype.getBBox = function () {

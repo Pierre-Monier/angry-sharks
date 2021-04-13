@@ -9,7 +9,6 @@ function draw() {
     gl.useProgram(hero.model.shader());
     hero.model.sendUniformVariables();
     hero.model.draw();
-    hero.checkIsOutside();
 
     // charge le shader des sprites
     gl.useProgram(Sprite.shader);
@@ -53,9 +52,16 @@ function draw() {
             bonusItem.sprite.sendUniformVariables();
             bonusItem.sprite.draw();
         } else {
+            console.log('bonus needed to be cleared');
             bonusItem.sprite.clear();
-            bonus.bonuses.slice(index, 1);
+            bonus.bonuses = bonus.bonuses.slice(index + 1, 1);
         }
+    })
+
+    // dessin des bonus en cours
+    bonus.displayedBonuses.forEach((bonusItem) => {
+        bonusItem.sprite.sendUniformVariables();
+        bonusItem.sprite.draw();
     })
 
     // dessin du score
@@ -88,7 +94,11 @@ function checkCollision() {
     hero.shoots.forEach((shoot) => {
         badGuyGenerator.badGuys.forEach((badGuy) => {
             if (shoot.collision(badGuy.sprite)) {
-                badGuy.slowSpeed()
+                if (hero.isShooting) {
+                    badGuyGenerator.removeBadGuyLife(badGuy);
+                } else {
+                    badGuy.slowSpeed()
+                }
             }
         })
     })
@@ -96,7 +106,7 @@ function checkCollision() {
     badGuyGenerator.badGuys.forEach((badGuy) => {
         if (hero.collision2d(badGuy.sprite)) {
             if (hero.state >= badGuy.state) {
-                badGuy.life--;
+                badGuyGenerator.removeBadGuyLife(badGuy);
             } else {
                 hero.looseLife();
             }
@@ -106,16 +116,25 @@ function checkCollision() {
     // The hero/bonus collision
     bonus.bonuses.forEach((bonusItem) => {
         if (hero.collision2d(bonusItem.sprite)) {
-            console.log('BONUS collision with HERO', bonus)
+            console.log('Collision with bonus', bonus.bonuses);
             switch (bonusItem.tag) {
+                case "slow-enemy":
+                    if (!badGuyGenerator.areSlowed) {
+                        bonus.addDisplayedBonus(0);
+                        badGuyGenerator.slowEnemies();
+                    }
+                    break
                 case "invincible":
-                    console.log('Hero took an invicible bonus')
+                    if (!hero.isInvincible) {
+                        bonus.addDisplayedBonus(1)
+                        hero.addInvincibleBonus();
+                    }
                     break
                 case "kill-enemy":
-                    console.log('Hero took a kill-enemy bonus')
-                    break
-                case "slow-enemy":
-                    console.log('Hero took a slow enemy bonus')
+                    if (!hero.isShooting) {
+                        bonus.addDisplayedBonus(2)
+                        hero.addShootingBonus();
+                    }
                     break
                 default:
                     break;

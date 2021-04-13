@@ -12,10 +12,11 @@
   <script type="text/javascript" src="js/sprite/sprite.js"></script>
   <script type="text/javascript" src="js/sprite/rocket.js"></script>
   <script type="text/javascript" src="js/sprite/life.js"></script>
+  <script type="text/javascript" src="js/game/soundpool.js"></script>
   <script type="text/javascript" src="js/game/bonus.js"></script>
   <script type="text/javascript" src="js/game/score.js"></script>
   <script type="text/javascript" src="js/enemy/boss.js"></script>
-  <script type="text/javascript" src="js/enemy/bad-guy-generator.js"></script>
+  <script type="text/javascript" src="js/enemy/bad-guy-manager.js"></script>
   <script type="text/javascript" src="js/enemy/bad-fish.js"></script>
   <script type="text/javascript" src="js/enemy/bad-fish-1.js"></script>
   <script type="text/javascript" src="js/enemy/bad-fish-2.js"></script>
@@ -259,7 +260,8 @@
     let bgParallax;
     let score;
     let bonus;
-    
+    let soundpool;
+
     document.onkeydown = startGame;
   </script>
       

@@ -2,14 +2,17 @@ class Rocket extends Sprite {
     isOutSide;
     phi = (hero.model.angle + 90) * (Math.PI / 180);
 
-    constructor() {
+
+    constructor(isShooting) {
         const params = {
             ...Sprite.defaultParams,
             width: 0.1,
             height: 0.15,
             position: [1, 0, 0],
         }
-        super(getSplatTexture, params);
+
+        const texture = isShooting ? getMobTexture : getSplatTexture
+        super(texture, params);
     }
 
     setParameters() {
