@@ -25,8 +25,7 @@ class Bonus {
         }
 
         setTimeout(() => {
-            this.bonuses.push(this.data[2](params));
-            // this.bonuses.push(this.data[this.selectBonusIndex()](params));
+            this.bonuses.push(this.data[this.selectBonusIndex()](params));
             this.bonusLoop()
         }, timeout)
     }

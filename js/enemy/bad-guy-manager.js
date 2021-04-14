@@ -12,16 +12,27 @@ class BadGuyManager {
     generateBadGuy() {
         const enemy = this.getEnemy();
         if (enemy) {
-            enemy.sprite.position = [Math.random() - 0.5, Math.random() - 0.5, 0];
+
+            // enemy.sprite.position = [Math.random() - 0.5, Math.random() - 0.5, 0];
+
+            console.log('enemy', enemy)
+            var x = Math.random();
+            console.log("x gen",x);
+            if (x < 0.5) {
+                x = x - 2;
+            } else {
+                x = x +1;
+            }
+            enemy.sprite.position = [x, Math.random(), 0];
             if (this.areSlowed) {
                 enemy.sprite.speed = 0.3;
             }
             this.badGuys.push(enemy);
         }
 
-        // setTimeout(() => {
-        //     this.generateBadGuy();
-        // }, this.getEnemyGenerationDelay())
+        setTimeout(() => {
+            this.generateBadGuy();
+        }, this.getEnemyGenerationDelay())
     }
 
     getEnemyGenerationDelay() {
@@ -38,8 +49,6 @@ class BadGuyManager {
     }
 
     getEnemy() {
-        return new NaziShark()
-
         const x = this.getX()
         switch (true) {
             case x <= 33:
