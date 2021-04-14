@@ -1,5 +1,6 @@
 class Mob extends Sprite {
     isOutSide;
+    isInside;
     xMove;
     yMove;
     static EDGES = {
@@ -23,8 +24,16 @@ class Mob extends Sprite {
     }
 
     draw() {
+        console.log(this.isInside);
+        if (this.isInside == undefined && this.position[0] < Mob.EDGES.right && this.position[0] > Mob.EDGES.left && this.position[1] < Mob.EDGES.bottom && this.position[1] > Mob.EDGES.top) {
+            console.log("allo");
+            this.isInside = true;
+        } 
         if (this.loaded) {
-            this.handleRandomMovement()
+            if (this.isInside) {
+                console.log("isInside");
+                this.handleRandomMovement()
+            }
         }
         super.draw();
     }

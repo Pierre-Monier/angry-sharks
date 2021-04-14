@@ -12,7 +12,14 @@ class BadGuyManager {
         const enemy = this.getEnemy();
         if (enemy) {
             console.log('enemy', enemy)
-            enemy.sprite.position = [Math.random() - 0.5, Math.random() - 0.5, 0];
+            var x = Math.random();
+            console.log("x gen",x);
+            if (x < 0.0) {
+                x = x - 1;
+            } else {
+                x = x +1;
+            }
+            enemy.sprite.position = [x, Math.random(), 0];
             if (this.areSlowed) {
                 enemy.sprite.speed = 0.3;
             }

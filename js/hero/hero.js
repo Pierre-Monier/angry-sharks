@@ -133,4 +133,10 @@ class Hero {
 
     hero.model.draw();
   }
+
+  addBubbleBonus() {
+    console.log("TAKE THE BUBBLE");
+    this.addPoints(25);
+  }
+  
 }
