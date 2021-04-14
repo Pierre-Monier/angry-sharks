@@ -38,6 +38,7 @@ function draw() {
         } else {
             hero.addPoints(badGuy.points);
             badGuy.sprite.clear();
+            badGuy.damageSprite.clear();
             badGuyGenerator.badGuys.splice(index, 1);
         }
     });
@@ -92,7 +93,7 @@ function checkCollision() {
         badGuyGenerator.badGuys.forEach((badGuy) => {
             if (shoot.collision(badGuy.sprite)) {
                 if (hero.isShooting) {
-                    badGuyGenerator.removeBadGuyLife(badGuy);
+                    badGuy.looseLife();
                 } else {
                     badGuy.slowSpeed()
                 }
@@ -102,10 +103,10 @@ function checkCollision() {
 
     badGuyGenerator.badGuys.forEach((badGuy) => {
         if (hero.collision2d(badGuy.sprite)) {
-            if (hero.state >= badGuy.state) {
-                badGuyGenerator.removeBadGuyLife(badGuy);
+            if (badGuy.isEatable) {
+                badGuy.looseLife();
             } else {
-                hero.looseLife();
+                // hero.looseLife();
             }
         }
     })

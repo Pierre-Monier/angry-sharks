@@ -125,7 +125,7 @@ Model.prototype.initParameters = function () {
 
     this.position = [0, 0, 1]; // position de l'objet dans l'espace
     this.rotation = 99; // angle de rotation en radian autour de l'axe Y
-    this.scale = 0.1; // mise à l'echelle (car l'objet est trop  gros par défaut)
+    this.scale = 0.05; // mise à l'echelle (car l'objet est trop  gros par défaut)
     // for collision we can't init to 0, but we use % 360 so it's ok
     this.angle = 360;
     this.slope = 2;

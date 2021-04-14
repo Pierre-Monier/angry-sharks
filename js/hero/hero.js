@@ -66,21 +66,12 @@ class Hero {
 
   updateHeroState() {
     switch (true) {
-      case (this.points > 50 && this.points < 150 && this.state !== 2):
+      case (this.points > 1000 && this.points < 2000 && this.state !== 2):
         this.state = 2;
-        this.model.scale += 0.01;
         break;
 
-      case (this.points > 150 && this.points < 250 && this.state !== 3):
+      case (this.points > 2000 && this.points < 3000 && this.state !== 3):
         this.state = 3;
-        this.model.scale += 0.01;
-        break;
-
-
-      case (this.points > 250 && this.points < 350 && this.state !== 4):
-        // In this state we can do boss fight
-        this.state = 4;
-        this.model.scale += 0.01;
         break;
 
       default:

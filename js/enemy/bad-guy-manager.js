@@ -5,30 +5,49 @@ class BadGuyManager {
     constructor() {
         this.badGuys = [];
         this.areSlowed = false;
-        setInterval(() => { this.generateBadGuy() }, 1000);
+        // setInterval(() => { this.generateBadGuy() }, 1000);
+        this.generateBadGuy()
     }
 
     generateBadGuy() {
         const enemy = this.getEnemy();
         if (enemy) {
-            console.log('enemy', enemy)
             enemy.sprite.position = [Math.random() - 0.5, Math.random() - 0.5, 0];
             if (this.areSlowed) {
                 enemy.sprite.speed = 0.3;
             }
             this.badGuys.push(enemy);
         }
+
+        // setTimeout(() => {
+        //     this.generateBadGuy();
+        // }, this.getEnemyGenerationDelay())
+    }
+
+    getEnemyGenerationDelay() {
+        switch (hero.state) {
+            case 1:
+                return 3000;
+            case 2:
+                return 2500;
+            case 3:
+                return 2000;
+            default:
+                break;
+        }
     }
 
     getEnemy() {
+        return new NaziShark()
+
         const x = this.getX()
         switch (true) {
             case x <= 33:
-                return new BadFish1()
+                return new Seahorse()
             case x <= 66:
-                return new BadFish2()
+                return new Shark()
             case x <= 100:
-                return new BadFish3()
+                return new NaziShark()
             default:
                 break;
         }
@@ -50,20 +69,16 @@ class BadGuyManager {
         }, Bonus.slowBonusDuration)
     }
 
-    removeBadGuyLife(badGuy) {
-        badGuy.life--;
-    }
-
     getX() {
         switch (hero.state) {
             case 1:
                 return Math.random() * (50 - 1) + 1
             case 2:
-                return Math.random() * (70 - 20) + 20
+                return Math.random() * (70 - 1) + 1
             case 3:
-                return Math.random() * (100 - 33) + 33
+                return Math.random() * (100 - 1) + 1
             default:
-                return 101;
+                break;
         }
     }
 }

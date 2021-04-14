@@ -7,8 +7,8 @@ class Bonus {
         (params) => { return { tag: 'kill-enemy', sprite: new Sprite(getKillEnemyBonusTexture, params), isTaken: false, duration: Bonus.killEnemyBonusDuration } },
         (params) => { return { tag: 'bubble', sprite: new Sprite(getBubbleBonusTexture, params), isTaken: false } },
     ]
-    static invincibleBonusDuration = 5000;
-    static killEnemyBonusDuration = 5000;
+    static invincibleBonusDuration = 10000;
+    static killEnemyBonusDuration = 2500;
     static slowBonusDuration = 5000;
 
     constructor() {
@@ -25,7 +25,8 @@ class Bonus {
         }
 
         setTimeout(() => {
-            this.bonuses.push(this.data[this.selectBonusIndex()](params));
+            this.bonuses.push(this.data[2](params));
+            // this.bonuses.push(this.data[this.selectBonusIndex()](params));
             this.bonusLoop()
         }, timeout)
     }
