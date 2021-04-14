@@ -37,8 +37,6 @@ function draw() {
             badGuy.drawWithMovement();
         } else {
             hero.addPoints(badGuy.points);
-            score.updateScore(hero.points);
-
             badGuy.sprite.clear();
             badGuyGenerator.badGuys.splice(index, 1);
         }
@@ -125,15 +123,18 @@ function checkCollision() {
                     break
                 case "invincible":
                     if (!hero.isInvincible) {
-                        bonus.addDisplayedBonus(1)
+                        bonus.addDisplayedBonus(1);
                         hero.addInvincibleBonus();
                     }
                     break
                 case "kill-enemy":
                     if (!hero.isShooting) {
-                        bonus.addDisplayedBonus(2)
+                        bonus.addDisplayedBonus(2);
                         hero.addShootingBonus();
                     }
+                    break
+                case "bubble":
+                    hero.addBubbleBonus();
                     break
                 default:
                     break;
