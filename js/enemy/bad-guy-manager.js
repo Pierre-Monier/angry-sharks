@@ -14,8 +14,8 @@ class BadGuyManager {
             console.log('enemy', enemy)
             var x = Math.random();
             console.log("x gen",x);
-            if (x < 0.0) {
-                x = x - 1;
+            if (x < 0.5) {
+                x = x - 2;
             } else {
                 x = x +1;
             }
