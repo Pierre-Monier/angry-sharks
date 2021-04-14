@@ -141,8 +141,16 @@ function getSeaHorseTexture() {
     return initTexture('./textures/seahorse.gif')
 }
 
+function getReverseSeaHorseTexture() {
+    return initTexture('./textures/reverse_seahorse.gif')
+}
+
 function getSharkTexture() {
     return initTexture('./textures/shark.gif')
+}
+
+function getReverseSharkTexture() {
+    return initTexture('./textures/reverse_shark.gif')
 }
 
 function getNaziSharkTexture() {
