@@ -41,7 +41,10 @@ class Bonus {
         const index = this.displayedBonuses.push(displayedBonus);
 
         setTimeout(() => {
-            this.displayedBonuses[index - 1].sprite.clear();
+            if (this.displayedBonuses[index - 1]) {
+                this.displayedBonuses[index - 1].sprite.clear();
+            }
+
             this.displayedBonuses = this.displayedBonuses.slice(index, 1);
         }, displayedBonus.duration);
     }

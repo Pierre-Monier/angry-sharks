@@ -7,8 +7,7 @@ function draw() {
 
     // dessin du vaisseau
     gl.useProgram(hero.model.shader());
-    hero.model.sendUniformVariables();
-    hero.model.draw();
+    hero.draw();
 
     // charge le shader des sprites
     gl.useProgram(Sprite.shader);
