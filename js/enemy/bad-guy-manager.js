@@ -11,19 +11,9 @@ class BadGuyManager {
 
     generateBadGuy() {
         const enemy = this.getEnemy();
+
         if (enemy) {
-
-            // enemy.sprite.position = [Math.random() - 0.5, Math.random() - 0.5, 0];
-
-            console.log('enemy', enemy)
-            var x = Math.random();
-            console.log("x gen",x);
-            if (x < 0.5) {
-                x = x - 2;
-            } else {
-                x = x +1;
-            }
-            enemy.sprite.position = [x, Math.random(), 0];
+            enemy.sprite.position = [this.getFirstXPosition(), Math.random(), 0];
             if (this.areSlowed) {
                 enemy.sprite.speed = 0.3;
             }
@@ -33,6 +23,15 @@ class BadGuyManager {
         setTimeout(() => {
             this.generateBadGuy();
         }, this.getEnemyGenerationDelay())
+    }
+
+    getFirstXPosition() {
+        const x = Math.random();
+        if (x < 0.5) {
+            return x - 3;
+        }
+
+        return x + 2;
     }
 
     getEnemyGenerationDelay() {
@@ -49,7 +48,7 @@ class BadGuyManager {
     }
 
     getEnemy() {
-        const x = this.getX()
+        const x = this.getRandomNumber()
         switch (true) {
             case x <= 33:
                 return new Seahorse()
@@ -78,7 +77,7 @@ class BadGuyManager {
         }, Bonus.slowBonusDuration)
     }
 
-    getX() {
+    getRandomNumber() {
         switch (hero.state) {
             case 1:
                 return Math.random() * (50 - 1) + 1

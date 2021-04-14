@@ -37,7 +37,6 @@ function startGame() {
     //canvas.addEventListener('mouseup', tbMouseUp, true);
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
-    setInterval(() => console.log(badGuyManager.badGuys.length), 1000);
     tick();
 }
 

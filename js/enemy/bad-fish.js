@@ -31,7 +31,6 @@ class BadFish {
         this.sprite.sendUniformVariables();
         this.sprite.draw();
         if (this.isHited) {
-            console.count('Drawing damage');
             this.damageSprite.setPosition(this.sprite.position[0], this.sprite.position[1], this.sprite.position[2] - 0.1);
             this.damageSprite.sendUniformVariables();
             this.damageSprite.draw();
