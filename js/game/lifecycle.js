@@ -7,12 +7,12 @@ function startGame() {
     canvas.setAttribute('style', 'display: block');
     initGL(canvas);
 
-    initBackgroundShader();
+    //initBackgroundShader();
     initModelShader();
     Sprite.initShader();
 
     //heightfield = new Heightfield();
-    background = new Background();
+    //background = new Background();
     hero = new Hero(new Model(getHeroModel()));
     badGuyGenerator = new BadGuyManager();
     bgParallax = new BackgroundParallaxe();

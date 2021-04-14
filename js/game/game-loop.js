@@ -82,7 +82,7 @@ function animate() {
         // si necessaire (en fonction du temps ecoul�)
         const elapsed = timeNow - lastTime;
         hero.model.setParameters(elapsed);
-        background.setParameters(elapsed);
+        bgParallax.setParameters(elapsed);
         hero.shoots.forEach((rocket) => rocket.setParameters(elapsed));
     }
 
