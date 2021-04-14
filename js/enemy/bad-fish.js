@@ -58,4 +58,10 @@ class BadFish {
             }, 500);
         }
     }
+
+    getReverseTexture(move) {
+        if (move < 0 ) {
+
+        }
+    }
 }

@@ -106,7 +106,7 @@ function checkCollision() {
             if (badGuy.isEatable) {
                 badGuy.looseLife();
             } else {
-                // hero.looseLife();
+                hero.looseLife();
             }
         }
     })

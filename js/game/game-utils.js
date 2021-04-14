@@ -145,6 +145,10 @@ function getSharkTexture() {
     return initTexture('./textures/shark.gif')
 }
 
+function getReverseSharkTexture() {
+    return initTexture('./textures/reverse_shark.gif')
+}
+
 function getNaziSharkTexture() {
     return initTexture('./textures/nazi-shark.png')
 }
