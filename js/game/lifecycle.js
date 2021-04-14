@@ -20,6 +20,8 @@ function startGame() {
     bonus = new Bonus();
     soundpool = new Soundpool();
 
+    soundpool.music.play();
+
     // la couleur de fond
     gl.clearColor(62 / 255, 121 / 255, 221 / 255, 1);
 
