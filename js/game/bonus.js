@@ -19,7 +19,7 @@ class Bonus {
     }
 
     bonusLoop() {
-        const timeout = Math.random() * (30000 - 10000) + 10000;
+        const timeout = Math.random() * (3000 - 1000) + 1000;
         const params = {
             ...Sprite.defaultParams,
             position: [Math.random() * (1 - (-1)) + (-1), -1, 0]
@@ -38,14 +38,13 @@ class Bonus {
         }
 
         const displayedBonus = this.data[bonusIndex](displayedParams)
-        const index = this.displayedBonuses.push(displayedBonus);
-
+        const newArrayLength = this.displayedBonuses.push(displayedBonus);
         setTimeout(() => {
-            if (this.displayedBonuses[index - 1]) {
-                this.displayedBonuses[index - 1].sprite.clear();
+            if (this.displayedBonuses[newArrayLength - 1]) {
+                this.displayedBonuses[newArrayLength - 1].sprite.clear();
             }
 
-            this.displayedBonuses = this.displayedBonuses.slice(index, 1);
+            this.displayedBonuses = this.displayedBonuses.filter((bonus) => bonus.tag !== displayedBonus.tag)
         }, displayedBonus.duration);
     }
 }

@@ -46,14 +46,14 @@ function draw() {
 
     //dessin des bonus
     bonus.bonuses.forEach((bonusItem, index) => {
-        if (bonusItem.sprite.position[1] < 1 && !bonusItem.isTaken) {
+        if (bonusItem.isTaken || bonusItem.sprite.position[1] > 1) {
+            bonusItem.sprite.clear();
+            bonus.bonuses.slice(index, 1);
+            bonus.bonuses = bonus.bonuses.filter((bonus, i) => i !== index);
+        } else {
             bonusItem.sprite.position[1] += 0.002;
             bonusItem.sprite.sendUniformVariables();
             bonusItem.sprite.draw();
-        } else {
-            console.log('bonus needed to be cleared');
-            bonusItem.sprite.clear();
-            bonus.bonuses = bonus.bonuses.slice(index + 1, 1);
         }
     })
 
@@ -115,7 +115,7 @@ function checkCollision() {
     // The hero/bonus collision
     bonus.bonuses.forEach((bonusItem) => {
         if (hero.collision2d(bonusItem.sprite)) {
-            console.log('Collision with bonus', bonus.bonuses);
+            bonusItem.isTaken = true;
             switch (bonusItem.tag) {
                 case "slow-enemy":
                     if (!badGuyGenerator.areSlowed) {
@@ -138,8 +138,6 @@ function checkCollision() {
                 default:
                     break;
             }
-
-            bonusItem.isTaken = true;
         }
     })
 }
