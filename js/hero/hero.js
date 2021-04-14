@@ -66,19 +66,19 @@ class Hero {
     switch (true) {
       case (this.points > 50 && this.points < 150 && this.state !== 2):
         this.state = 2;
-        this.model.scale += 0.1;
+        this.model.scale += 0.01;
         break;
 
       case (this.points > 150 && this.points < 250 && this.state !== 3):
         this.state = 3;
-        this.model.scale += 0.1;
+        this.model.scale += 0.01;
         break;
 
 
       case (this.points > 250 && this.points < 350 && this.state !== 4):
         // In this state we can do boss fight
         this.state = 4;
-        this.model.scale += 0.1;
+        this.model.scale += 0.01;
         break;
 
       default:
@@ -111,5 +111,10 @@ class Hero {
   addShootingBonus() {
     this.isShooting = true;
     setTimeout(() => this.isShooting = false, Bonus.killEnemyBonusDuration)
+  }
+
+  addBubbleBonus() {
+    console.log("TAKE THE BUBBLE");
+    this.addPoints(25);
   }
 }

@@ -165,7 +165,7 @@ function getKillEnemyBonusTexture() {
     return initTexture('./models/Bonus/gunBonus.png')
 }
 
-function getBubbleBonusTextures() {
+function getBubbleBonusTexture() {
     return initTexture('./models/Bonus/bubble.png')   
 }
 
