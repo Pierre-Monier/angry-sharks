@@ -16,6 +16,7 @@ class Mob extends Sprite {
         super(getTexture, spriteParams);
         this.xMove = (Math.random() * (Mob.EDGES.right - Mob.EDGES.left) + Mob.EDGES.left) / 100
         this.yMove = (Math.random() * (Mob.EDGES.bottom - Mob.EDGES.top) + Mob.EDGES.top) / 100
+        console.log(this.width);
         this.getReverseTexture(this.xMove);
         this.speed = 1;
     }
@@ -47,10 +48,18 @@ class Mob extends Sprite {
     }
 
     getReverseTexture(move) {
-        if (move > 0 ) {
-            this.texture = getReverseSharkTexture();
+        if (move > 0) {
+            if (this.width == 0.6) {
+                this.texture = getReverseSharkTexture();
+            } else {
+                this.texture = getSeaHorseTexture();
+            }
         } else {
-            this.texture = getSharkTexture();
+            if (this.width == 0.6) {
+                this.texture = getSharkTexture();
+            } else {
+                this.texture = getReverseSeaHorseTexture();
+            }
         }
     }
 }
