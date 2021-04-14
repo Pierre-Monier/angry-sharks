@@ -36,6 +36,8 @@ class Sprite {
         couleur: [1, 0, 0],
         time: 0.0,
         isOutSide: false,
+        isInside : false,
+        direction : false,
         offset: 0
     }
 

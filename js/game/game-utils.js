@@ -137,6 +137,30 @@ function getMobTexture() {
     return initTexture('./models/planes/plane_1/plane_1_blue.png')
 }
 
+function getSeaHorseTexture() {
+    return initTexture('./textures/seahorse.gif')
+}
+
+function getReverseSeaHorseTexture() {
+    return initTexture('./textures/reverse_seahorse.gif')
+}
+
+function getSharkTexture() {
+    return initTexture('./textures/shark.gif')
+}
+
+function getReverseSharkTexture() {
+    return initTexture('./textures/reverse_shark.gif')
+}
+
+function getNaziSharkTexture() {
+    return initTexture('./textures/nazi-shark.png')
+}
+
+function getReverseNaziSharkTexture() {
+    return initTexture('./textures/reverse_nazi-shark.png')
+}
+
 function getLifeTexture() {
     return initTexture('./models/lives/heart-pixel-art.png')
 }

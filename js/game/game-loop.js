@@ -32,13 +32,14 @@ function draw() {
     })
 
     // dessin des enemy,
-    badGuyGenerator.badGuys.forEach((badGuy, index) => {
+    badGuyManager.badGuys.forEach((badGuy, index) => {
         if (badGuy.life > 0) {
             badGuy.drawWithMovement();
         } else {
             hero.addPoints(badGuy.points);
             badGuy.sprite.clear();
-            badGuyGenerator.badGuys.splice(index, 1);
+            badGuy.damageSprite.clear();
+            badGuyManager.badGuys.splice(index, 1);
         }
     });
 
@@ -89,10 +90,10 @@ function animate() {
 
 function checkCollision() {
     hero.shoots.forEach((shoot) => {
-        badGuyGenerator.badGuys.forEach((badGuy) => {
+        badGuyManager.badGuys.forEach((badGuy) => {
             if (shoot.collision(badGuy.sprite)) {
                 if (hero.isShooting) {
-                    badGuyGenerator.removeBadGuyLife(badGuy);
+                    badGuy.looseLife();
                 } else {
                     badGuy.slowSpeed()
                 }
@@ -100,10 +101,10 @@ function checkCollision() {
         })
     })
 
-    badGuyGenerator.badGuys.forEach((badGuy) => {
+    badGuyManager.badGuys.forEach((badGuy) => {
         if (hero.collision2d(badGuy.sprite)) {
-            if (hero.state >= badGuy.state) {
-                badGuyGenerator.removeBadGuyLife(badGuy);
+            if (badGuy.isEatable) {
+                badGuy.looseLife();
             } else {
                 hero.looseLife();
             }
@@ -116,9 +117,9 @@ function checkCollision() {
             bonusItem.isTaken = true;
             switch (bonusItem.tag) {
                 case "slow-enemy":
-                    if (!badGuyGenerator.areSlowed) {
+                    if (!badGuyManager.areSlowed) {
                         bonus.addDisplayedBonus(0);
-                        badGuyGenerator.slowEnemies();
+                        badGuyManager.slowEnemies();
                     }
                     break
                 case "invincible":
