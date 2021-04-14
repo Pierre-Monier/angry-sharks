@@ -7,12 +7,15 @@ const edges = {
     left: -7.25
 }
 
+const red = [1, 0.2, 0.2];
+const blue = [0.2, 0.2, 1];
+
 function initModelShader() {
     modelShader = initShaders("model-vs", "model-fs");
-
-    // active ce shader
     gl.useProgram(modelShader);
+    // active ce shader
 
+    modelShader.maCouleur = gl.getUniformLocation(modelShader, "maCouleur");
     // adresse des variables de type uniform dans le shader
     modelShader.modelMatrixUniform = gl.getUniformLocation(modelShader, "uModelMatrix");
     modelShader.viewMatrixUniform = gl.getUniformLocation(modelShader, "uViewMatrix");
@@ -100,11 +103,15 @@ Model.prototype.handleLoadedObject = function (objData) {
     this.loaded = true;
 }
 
+Model.prototype.blink = function () {
+    this.maCouleur = (this.maCouleur === blue) ? red : blue;
+}
 
 Model.prototype.initParameters = function () {
     this.modelMatrix = mat4.identity();
     this.viewMatrix = mat4.identity();
     this.projMatrix = mat4.identity();
+    this.maCouleur = blue;
 
     // la caméra est positionné sur l'axe Z et regarde le point 0,0,0
     //dans l'ordre : cameraTarget, cameraPosition, Up
@@ -227,6 +234,7 @@ Model.prototype.sendUniformVariables = function () {
         var v = this.viewMatrix;
         var p = this.projMatrix;
 
+        gl.uniform3fv(modelShader.maCouleur, this.maCouleur);
         // envoie des matrices aux GPU
         gl.uniformMatrix4fv(modelShader.modelMatrixUniform, false, this.modelMatrix);
         gl.uniformMatrix4fv(modelShader.viewMatrixUniform, false, this.viewMatrix);
