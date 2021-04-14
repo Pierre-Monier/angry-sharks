@@ -57,7 +57,7 @@
   <script id="model-fs" type="x-shader/x-fragment">#version 300 es
     // *** le fragment shader ***
     precision mediump float; // precision des nombres flottant
-    
+    uniform vec3 maCouleur;
     in vec3 vNormal;
     out vec4 outColor;
     
@@ -72,7 +72,7 @@
       vec3 Kd = vec3(0.9,0.5,0.0);
       
       // un �clairage simple
-      vec3 diff = Kd*max(dot(n,l),0.0);
+      vec3 diff = maCouleur*max(dot(n,l),0.0);
       
       // que l'on affiche en sortie
       outColor = vec4(diff,1.0);

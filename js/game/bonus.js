@@ -10,7 +10,7 @@ class Bonus {
     static invincibleBonusDuration = 5000;
     static killEnemyBonusDuration = 5000;
     static slowBonusDuration = 5000;
-    static bubbleBonusDuration = 0;
+    static bubbleBonusDuration = 5000;
 
     constructor() {
         this.bonuses = [];
@@ -19,14 +19,14 @@ class Bonus {
     }
 
     bonusLoop() {
-        const timeout = Math.random() * (30000 - 10000) + 10000;
+        const timeout = Math.random() * (3000 - 1000) + 1000;
         const params = {
             ...Sprite.defaultParams,
             position: [Math.random() * (1 - (-1)) + (-1), -1, 0]
         }
 
         setTimeout(() => {
-            this.bonuses.push(this.data[getRandomInt(3)](params));
+            this.bonuses.push(this.data[getRandomInt(4)](params));
             this.bonusLoop()
         }, timeout)
     }
@@ -41,7 +41,10 @@ class Bonus {
         const index = this.displayedBonuses.push(displayedBonus);
 
         setTimeout(() => {
-            this.displayedBonuses[index - 1].sprite.clear();
+            if (this.displayedBonuses[index - 1]) {
+                this.displayedBonuses[index - 1].sprite.clear();
+            }
+
             this.displayedBonuses = this.displayedBonuses.slice(index, 1);
         }, displayedBonus.duration);
     }

@@ -7,8 +7,7 @@ function draw() {
 
     // dessin du vaisseau
     gl.useProgram(hero.model.shader());
-    hero.model.sendUniformVariables();
-    hero.model.draw();
+    hero.draw();
 
     // charge le shader des sprites
     gl.useProgram(Sprite.shader);
@@ -116,7 +115,7 @@ function checkCollision() {
     // The hero/bonus collision
     bonus.bonuses.forEach((bonusItem) => {
         if (hero.collision2d(bonusItem.sprite)) {
-            console.log('Collision with bonus', bonus.bonuses);
+            console.log(' with bonus', bonus.bonuses);
             switch (bonusItem.tag) {
                 case "slow-enemy":
                     if (!badGuyGenerator.areSlowed) {
@@ -126,15 +125,20 @@ function checkCollision() {
                     break
                 case "invincible":
                     if (!hero.isInvincible) {
-                        bonus.addDisplayedBonus(1)
+                        bonus.addDisplayedBonus(1);
                         hero.addInvincibleBonus();
                     }
                     break
                 case "kill-enemy":
                     if (!hero.isShooting) {
-                        bonus.addDisplayedBonus(2)
+                        bonus.addDisplayedBonus(2);
                         hero.addShootingBonus();
                     }
+                    break
+                case "bubble":
+                    console.log("bubble");
+                    bonus.addDisplayedBonus(3);
+                    hero.addBubbleBonus();
                     break
                 default:
                     break;

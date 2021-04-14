@@ -5,6 +5,7 @@ class Hero {
   points;
   isOutside;
   isHited;
+  isHitedIntervalId;
   isInvincible;
   state;
 
@@ -49,7 +50,7 @@ class Hero {
       soundpool.heroDammage.play();
       setTimeout(() => {
         this.isHited = false;
-      }, 500);
+      }, 2000);
     }
   }
 
@@ -66,19 +67,19 @@ class Hero {
     switch (true) {
       case (this.points > 50 && this.points < 150 && this.state !== 2):
         this.state = 2;
-        this.model.scale += 0.1;
+        this.model.scale += 0.01;
         break;
 
       case (this.points > 150 && this.points < 250 && this.state !== 3):
         this.state = 3;
-        this.model.scale += 0.1;
+        this.model.scale += 0.01;
         break;
 
 
       case (this.points > 250 && this.points < 350 && this.state !== 4):
         // In this state we can do boss fight
         this.state = 4;
-        this.model.scale += 0.1;
+        this.model.scale += 0.01;
         break;
 
       default:
@@ -111,5 +112,25 @@ class Hero {
   addShootingBonus() {
     this.isShooting = true;
     setTimeout(() => this.isShooting = false, Bonus.killEnemyBonusDuration)
+  }
+
+  draw() {
+    hero.model.sendUniformVariables();
+    if (this.isHited && !this.isHitedIntervalId) {
+      this.isHitedIntervalId = setInterval(() => {
+        hero.model.blink();
+      }, 100);
+    } else if (!this.isHited && this.isHitedIntervalId) {
+      clearInterval(this.isHitedIntervalId);
+      this.isHitedIntervalId = undefined;
+      this.model.maCouleur = blue;
+    }
+
+    hero.model.draw();
+  }
+
+  addBubbleBonus() {
+    console.log("TAKE THE BUBBLE");
+    this.addPoints(25);
   }
 }
