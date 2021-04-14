@@ -24,7 +24,7 @@ class Mob extends Sprite {
     }
 
     draw() {
-        if (!this.isInside && this.position[0] < Mob.EDGES.right && this.position[0] > Mob.EDGES.left && this.position[1] < Mob.EDGES.bottom && this.position[1] > Mob.EDGES.top) {
+        if (this.isInside == undefined && this.position[0] < Mob.EDGES.right && this.position[0] > Mob.EDGES.left && this.position[1] < Mob.EDGES.bottom && this.position[1] > Mob.EDGES.top) {
             this.isInside = true;
         } 
         if (this.loaded && this.isInside) {

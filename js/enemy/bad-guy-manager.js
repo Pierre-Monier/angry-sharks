@@ -18,6 +18,7 @@ class BadGuyManager {
             console.log('enemy', enemy)
             var x = Math.random();
             console.log("x gen",x);
+            // mob pop in right or left outside of canvas
             if (x < 0.5) {
                 x = x - 2;
             } else {
