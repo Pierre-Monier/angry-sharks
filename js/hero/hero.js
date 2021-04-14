@@ -87,8 +87,8 @@ class Hero {
     let y1 = box[1][1];
     let y2 = other.position[1];
 
-    let width = Math.abs(box[1][0] - box[0][0] + 0.1);
-    let height = Math.abs(box[1][1] - box[0][1] + 0.1);
+    let width = Math.abs(box[1][0] - box[0][0]);
+    let height = Math.abs(box[1][1] - box[0][1]);
 
     return x1 < x2 + width &&
       x1 + width > x2 &&
@@ -124,4 +124,5 @@ class Hero {
 
     hero.model.draw();
   }
+  
 }

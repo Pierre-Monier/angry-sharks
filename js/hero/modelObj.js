@@ -174,7 +174,7 @@ Model.prototype.isOutside = function () {
 }
 
 Model.prototype.getModelHead = function () {
-    const p = this.getBBox(); // boite englobante du vaisseau sur l'�cran
+    const p = this.getBBox(); // boite englobante du poisson héros sur l'�cran
     const angle = this.angle % 360;
 
     const x = (angle >= -90 && angle <= 45 || angle >= 90 && angle <= 180 || angle >= 280 || angle <= -280) ?
