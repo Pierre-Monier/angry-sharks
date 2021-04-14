@@ -170,6 +170,6 @@ function getBubbleBonusTexture() {
 }
 
 function getHeroModel() {
-    return './models/fish_exported/BlueGoldfish.obj';
+    return './models/simple_fish/Fish2.obj';
 }
 

@@ -66,15 +66,16 @@
       vec3 n = normalize(vNormal);
       
       // une direction de lumi�re quelconque
-      vec3 l = normalize(vec3(0.0,0.0,1.0));
+      vec3 l = normalize(vec3(0.5,0.5,1.0));
+      
+      // une couleur (ex. rouge)
+      vec3 Kd = vec3(0.9,0.5,0.0);
       
       // un �clairage simple
       vec3 diff = maCouleur*max(dot(n,l),0.0);
       
       // que l'on affiche en sortie
       outColor = vec4(diff,1.0);
-
-
     }
   </script>
   
