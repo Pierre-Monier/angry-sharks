@@ -12,6 +12,6 @@ class NaziShark extends BadFish {
             height: 1,
         }
 
-        super(getNaziSharkTexture, enemyParams, spriteParams);
+        super({regular: getNaziSharkTexture, reverse: getReverseNaziSharkTexture}, enemyParams, spriteParams);
     }
 }

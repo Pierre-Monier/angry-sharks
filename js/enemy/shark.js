@@ -12,6 +12,6 @@ class Shark extends BadFish {
             height: 0.6,
         }
 
-        super(getSharkTexture, enemyParams, spriteParams);
+        super({ regular: getSharkTexture, reverse: getReverseSharkTexture}, enemyParams, spriteParams);
     }
 }

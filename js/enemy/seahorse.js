@@ -13,6 +13,6 @@ class Seahorse extends BadFish {
             height: 0.2,
         }
 
-        super(getSeaHorseTexture, enemyParams, spriteParams);
+        super({regular: getSeaHorseTexture, reverse: getReverseSeaHorseTexture}, enemyParams, spriteParams);
     }
 }

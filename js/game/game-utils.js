@@ -157,6 +157,10 @@ function getNaziSharkTexture() {
     return initTexture('./textures/nazi-shark.png')
 }
 
+function getReverseNaziSharkTexture() {
+    return initTexture('./textures/reverse_nazi-shark.png')
+}
+
 function getLifeTexture() {
     return initTexture('./models/lives/heart-pixel-art.png')
 }
