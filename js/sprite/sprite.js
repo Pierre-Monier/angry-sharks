@@ -184,9 +184,9 @@ class Sprite {
         let y1 = this.position[1];
         let y2 = other.position[1];
 
-        return x1 < x2 + other.width &&
+        return x1 < x2 + other.width - other.width/2 &&
             x1 + this.width > x2 &&
-            y1 < y2 + other.height &&
+            y1 < y2 + other.height - other.height/2  &&
             y1 + this.height > y2;
     }
 
