@@ -51,7 +51,7 @@ class BadGuyManager {
         const x = this.getRandomNumber()
         switch (true) {
             case x <= 33:
-                return new Seahorse()
+                return new Shark()
             case x <= 66:
                 return new Shark()
             case x <= 75:

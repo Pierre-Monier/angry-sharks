@@ -157,6 +157,14 @@ function getReverseBlobfishTexture(){
     return initTexture('./textures/reverse_blobfish.png')
 }
 
+function getTurtleTexture(){
+    return initTexture('./textures/turtle.png')
+}
+
+function getReverseTurtleTexture(){
+    return initTexture('./textures/reverse_turtle.png')
+}
+
 function getSharkTexture() {
     return initTexture('./textures/shark.png')
 }
