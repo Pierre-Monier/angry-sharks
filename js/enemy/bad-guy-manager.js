@@ -11,9 +11,8 @@ class BadGuyManager {
 
     generateBadGuy() {
         const enemy = this.getEnemy();
-
         if (enemy) {
-            enemy.sprite.position = [this.getFirstXPosition(), Math.random(), 0];
+            enemy.sprite.position = [this.getFirstXPosition(), enemy.isHearthly ? -0.95 : Math.random(), 0];
             if (this.areSlowed) {
                 enemy.sprite.speed = 0.3;
             }
@@ -50,11 +49,13 @@ class BadGuyManager {
     getEnemy() {
         const x = this.getRandomNumber()
         switch (true) {
-            case x <= 33:
+            case x <= 25:
                 return new Seahorse()
-            case x <= 66:
+            case x <= 38:
+                return new Turtle();
+            case x <= 63:
                 return new Shark()
-            case x <= 75:
+            case x <= 78:
                 return new Blobfish()
             case x <= 100:
                 return new NaziShark()
