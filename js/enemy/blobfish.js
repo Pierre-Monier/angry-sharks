@@ -2,15 +2,16 @@ class Blobfish extends BadFish {
     constructor() {
         const enemyParams = {
             life: 1,
-            points: 25,
+            points: 100,
             state: 1,
             isEatable: true,
+            duration : 5000
         }
 
         const spriteParams = {
             ...Sprite.defaultParams,
-            width: 0.1,
-            height: 0.25,
+            width: 0.2,
+            height: 0.2,
             xMove : (Math.random() * (Mob.EDGES.right - Mob.EDGES.left) + Mob.EDGES.left) / 100,
             yMove : 0.0
         }

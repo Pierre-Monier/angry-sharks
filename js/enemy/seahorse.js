@@ -11,6 +11,8 @@ class Seahorse extends BadFish {
             ...Sprite.defaultParams,
             width: 0.1,
             height: 0.25,
+            xMove : (Math.random() * (Mob.EDGES.right - Mob.EDGES.left) + Mob.EDGES.left) / 100,
+            yMove : (Math.random() * (Mob.EDGES.bottom - Mob.EDGES.top) + Mob.EDGES.top) / 100
         }
 
         super({regular: getSeaHorseTexture, reverse: getReverseSeaHorseTexture}, enemyParams, spriteParams);

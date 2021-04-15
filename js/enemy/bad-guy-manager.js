@@ -54,6 +54,8 @@ class BadGuyManager {
                 return new Seahorse()
             case x <= 66:
                 return new Shark()
+            case x <= 75:
+                return new Blobfish()
             case x <= 100:
                 return new NaziShark()
             default:

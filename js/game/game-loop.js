@@ -36,10 +36,16 @@ function draw() {
         if (badGuy.life > 0 || badGuy.isHited) {
             badGuy.drawWithMovement();
         } else {
-            hero.addPoints(badGuy.points);
-            badGuy.sprite.clear();
-            badGuy.damageSprite.clear();
-            badGuyManager.badGuys.splice(index, 1);
+            if (!badGuy.isHited) {
+                badGuy.sprite.clear();
+                badGuy.damageSprite.clear();
+                badGuyManager.badGuys.splice(index, 1);
+            } else {
+                hero.addPoints(badGuy.points);
+                badGuy.sprite.clear();
+                badGuy.damageSprite.clear();
+                badGuyManager.badGuys.splice(index, 1);
+            }
         }
     });
 

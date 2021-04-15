@@ -8,7 +8,7 @@ class Rocket extends Sprite {
             ...Sprite.defaultParams,
             width: 0.1,
             height: 0.15,
-            position: [1, 0, 0],
+            position: [0, 0, 0],
         }
 
         const texture = isShooting ? getMissileTexture : getSplatTexture

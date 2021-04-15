@@ -23,6 +23,10 @@ class BadFish {
             height: 0.4
         }
 
+        if (enemyParams.duration) {
+            this.setDuration(enemyParams.duration);
+        }
+
         this.damageSprite = new Sprite(getExplosionTexture, damageSpriteParams);
         this.damageSprite.setNumberOfFrames(8);
     }
@@ -50,6 +54,12 @@ class BadFish {
         }
     }
 
+    setDuration(duration) {
+        setTimeout(() => {
+            this.life--;
+        }, duration);
+    }
+
     looseLife() {
         if (!this.isHited) {
             this.isHited = true;
@@ -57,12 +67,6 @@ class BadFish {
             setTimeout(() => {
                 this.isHited = false;
             }, 500);
-        }
-    }
-
-    getReverseTexture(move) {
-        if (move < 0 ) {
-
         }
     }
 }

@@ -149,6 +149,14 @@ function getReverseSeaHorseTexture() {
     return initTexture('./textures/reverse_seahorse.png')
 }
 
+function getBlobfishTexture(){
+    return initTexture('./textures/blobfish.png')
+}
+
+function getReverseBlobfishTexture(){
+    return initTexture('./textures/reverse_blobfish.png')
+}
+
 function getSharkTexture() {
     return initTexture('./textures/shark.png')
 }
