@@ -1,9 +1,10 @@
-class BadFish2 extends BadFish {
+class Shark extends BadFish {
     constructor() {
         const enemyParams = {
             life: 1,
             points: 50,
-            state: 2
+            state: 2,
+            isEatable: false,
         }
         const spriteParams = {
             ...Sprite.defaultParams,
@@ -11,6 +12,6 @@ class BadFish2 extends BadFish {
             height: 0.6,
         }
 
-        super(getMobTexture, enemyParams, spriteParams);
+        super({ regular: getSharkTexture, reverse: getReverseSharkTexture}, enemyParams, spriteParams);
     }
 }

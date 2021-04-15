@@ -5,12 +5,11 @@ class Bonus {
         (params) => { return { tag: 'slow-enemy', sprite: new Sprite(getSlowEnemyBonusTexture, params), isTaken: false, duration: Bonus.slowBonusDuration } },
         (params) => { return { tag: 'invincible', sprite: new Sprite(getInvincibleBonusTexure, params), isTaken: false, duration: Bonus.invincibleBonusDuration } },
         (params) => { return { tag: 'kill-enemy', sprite: new Sprite(getKillEnemyBonusTexture, params), isTaken: false, duration: Bonus.killEnemyBonusDuration } },
-        (params) => { return { tag: 'bubble', sprite: new Sprite(getBubbleBonusTexture, params), isTaken: false, duration: Bonus.bubbleBonusDuration } },
+        (params) => { return { tag: 'bubble', sprite: new Sprite(getBubbleBonusTexture, params), isTaken: false } },
     ]
-    static invincibleBonusDuration = 5000;
-    static killEnemyBonusDuration = 5000;
+    static invincibleBonusDuration = 10000;
+    static killEnemyBonusDuration = 1000;
     static slowBonusDuration = 5000;
-    static bubbleBonusDuration = 5000;
 
     constructor() {
         this.bonuses = [];
@@ -26,7 +25,7 @@ class Bonus {
         }
 
         setTimeout(() => {
-            this.bonuses.push(this.data[getRandomInt(4)](params));
+            this.bonuses.push(this.data[this.selectBonusIndex()](params));
             this.bonusLoop()
         }, timeout)
     }
@@ -38,14 +37,19 @@ class Bonus {
         }
 
         const displayedBonus = this.data[bonusIndex](displayedParams)
-        const index = this.displayedBonuses.push(displayedBonus);
-
+        const newArrayLength = this.displayedBonuses.push(displayedBonus);
         setTimeout(() => {
-            if (this.displayedBonuses[index - 1]) {
-                this.displayedBonuses[index - 1].sprite.clear();
+            if (this.displayedBonuses[newArrayLength - 1]) {
+                this.displayedBonuses[newArrayLength - 1].sprite.clear();
             }
 
-            this.displayedBonuses = this.displayedBonuses.slice(index, 1);
+            this.displayedBonuses = this.displayedBonuses.filter((bonus) => bonus.tag !== displayedBonus.tag)
         }, displayedBonus.duration);
+    }
+
+    selectBonusIndex() {
+        const x = getRandomInt(3);
+        // with this we got 1 chance out of 3 to have a improve bonus
+        return x === 2 ? getRandomInt(3) : 3;
     }
 }

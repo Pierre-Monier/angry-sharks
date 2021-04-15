@@ -125,7 +125,7 @@ Model.prototype.initParameters = function () {
 
     this.position = [0, 0, 1]; // position de l'objet dans l'espace
     this.rotation = 99; // angle de rotation en radian autour de l'axe Y
-    this.scale = 0.1; // mise à l'echelle (car l'objet est trop  gros par défaut)
+    this.scale = 0.05; // mise à l'echelle (car l'objet est trop  gros par défaut)
     // for collision we can't init to 0, but we use % 360 so it's ok
     this.angle = 360;
     this.slope = 2;
@@ -174,7 +174,7 @@ Model.prototype.isOutside = function () {
 }
 
 Model.prototype.getModelHead = function () {
-    const p = this.getBBox(); // boite englobante du vaisseau sur l'�cran
+    const p = this.getBBox(); // boite englobante du poisson héros sur l'�cran
     const angle = this.angle % 360;
 
     const x = (angle >= -90 && angle <= 45 || angle >= 90 && angle <= 180 || angle >= 280 || angle <= -280) ?

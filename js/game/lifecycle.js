@@ -14,7 +14,7 @@ function startGame() {
     //heightfield = new Heightfield();
     //background = new Background();
     hero = new Hero(new Model(getHeroModel()));
-    badGuyGenerator = new BadGuyManager();
+    badGuyManager = new BadGuyManager();
     bgParallax = new BackgroundParallaxe();
     score = new Score();
     bonus = new Bonus();
@@ -39,7 +39,6 @@ function startGame() {
     //canvas.addEventListener('mouseup', tbMouseUp, true);
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
-
     tick();
 }
 
