@@ -11,9 +11,8 @@ class BadGuyManager {
 
     generateBadGuy() {
         const enemy = this.getEnemy();
-
         if (enemy) {
-            enemy.sprite.position = [this.getFirstXPosition(), Math.random(), 0];
+            enemy.sprite.position = [this.getFirstXPosition(), enemy.isHearthly ? -0.95 : Math.random(), 0];
             if (this.areSlowed) {
                 enemy.sprite.speed = 0.3;
             }

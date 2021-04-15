@@ -36,7 +36,9 @@ function draw() {
         if (badGuy.life > 0 || badGuy.isHited) {
             badGuy.drawWithMovement();
         } else {
-            hero.addPoints(badGuy.points);
+            if (badGuy.duration != 0) {
+                hero.addPoints(badGuy.points);
+            }
             badGuy.sprite.clear();
             badGuy.damageSprite.clear();
             badGuyManager.badGuys.splice(index, 1);

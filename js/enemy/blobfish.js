@@ -2,7 +2,7 @@ class Blobfish extends BadFish {
     constructor() {
         const enemyParams = {
             life: 1,
-            points: 100,
+            points: 300,
             state: 1,
             isEatable: true,
             duration : 5000
@@ -13,7 +13,7 @@ class Blobfish extends BadFish {
             width: 0.2,
             height: 0.2,
             xMove : (Math.random() * (Mob.EDGES.right - Mob.EDGES.left) + Mob.EDGES.left) / 100,
-            yMove : 0.0
+            yMove : (Math.random() * (Mob.EDGES.right - Mob.EDGES.left) + Mob.EDGES.left) / 100,
         }
 
         super({regular: getBlobfishTexture, reverse: getReverseBlobfishTexture}, enemyParams, spriteParams);

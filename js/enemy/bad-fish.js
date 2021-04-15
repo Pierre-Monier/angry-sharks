@@ -5,7 +5,9 @@ class BadFish {
     state;
     isSlowed;
     isEatable;
+    isHearthly;
     isHited;
+    duration;
     damageSprite;
 
     constructor(getTexture, enemyParams, spriteParams) {
@@ -13,9 +15,11 @@ class BadFish {
         this.life = enemyParams.life;
         this.points = enemyParams.points;
         this.state = enemyParams.state;
+        this.isHearthly = enemyParams.isHearthly;
         this.isSlowed = false;
         this.isEatable = enemyParams.isEatable;
         this.isHited = false;
+        this.duration = enemyParams.duration;
 
         const damageSpriteParams = {
             ...spriteParams,
@@ -23,8 +27,8 @@ class BadFish {
             height: 0.4
         }
 
-        if (enemyParams.duration) {
-            this.setDuration(enemyParams.duration);
+        if (this.duration) {
+            this.setDuration();
         }
 
         this.damageSprite = new Sprite(getExplosionTexture, damageSpriteParams);
@@ -41,6 +45,15 @@ class BadFish {
             this.damageSprite.sendUniformVariables();
             this.damageSprite.draw();
         }
+        if (this.isHearthly) { // for turtle
+            if (this.sprite.offset*24%24 > 8 && this.sprite.offset*24%24 < 17) {
+                this.isEatable = false;
+                this.sprite.speed = 0;
+            } else { 
+                this.isEatable = true;
+                this.sprite.speed = 1;
+            }
+        }
     }
 
     slowSpeed() {
@@ -54,10 +67,11 @@ class BadFish {
         }
     }
 
-    setDuration(duration) {
+    setDuration() {
         setTimeout(() => {
             this.life--;
-        }, duration);
+            this.duration = 0;
+        }, this.duration);
     }
 
     looseLife() {
