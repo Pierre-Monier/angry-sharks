@@ -10,12 +10,9 @@ function startGame() {
     canvas.setAttribute('style', 'display: block');
     initGL(canvas);
 
-    //initBackgroundShader();
     initModelShader();
     Sprite.initShader();
 
-    //heightfield = new Heightfield();
-    //background = new Background();
     hero = new Hero(new Model(getHeroModel()));
     badGuyManager = new BadGuyManager();
     bgParallax = new BackgroundParallaxe();
@@ -45,14 +42,18 @@ function startGame() {
 function endGame() {
     const endMenu = document.getElementById("end-menu");
     const pointsText = document.getElementById("points");
+    const btn = document.querySelector('button[name=button]')
     const points = hero.points;
 
     endMenu.setAttribute('style', 'display: flex');
+
+    btn.innerHTML = '<img src="models/long-arrow-alt-left-solid.svg" alt="">Save your score and play again :)'
 
     pointsText.innerHTML = points;
 
     const canvas = document.getElementById("SpaceShip");
     canvas.setAttribute('style', 'display: none');
 
-    this.music.pause();
+    soundpool.music.pause();
+    soundpool.music.currentTime = 0;
 }

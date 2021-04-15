@@ -127,8 +127,6 @@ function displayStartMenu(isFromBtn = false) {
     const btn = document.querySelector('button[name=button]')
     if (isFromBtn && btn) {
         btn.innerHTML = '<img src="models/long-arrow-alt-left-solid.svg" alt="">Please wait...'
-    } else if (btn) {
-        btn.innerHTML = '<img src="models/long-arrow-alt-left-solid.svg" alt="">Save your score and play again :)'
     }
 
     const name = document.querySelector('input[name=name]').value
