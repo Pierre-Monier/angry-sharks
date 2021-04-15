@@ -26,11 +26,10 @@ class Mob extends Sprite {
         if (this.isInside) {
             this.position[0] += this.xMove * this.speed;
         } else {
-            const tmp = (this.position[0] > Mob.EDGES.right) ? -0.5 : 0.5;
-            this.position[0] += tmp * this.speed;
+            const tmp = (this.position[0] > Mob.EDGES.right) ? this.position[0] -= 0.01 : this.position[0] += 0.01;;
         }
-
         this.position[1] += this.yMove * this.speed;
+        
     }
 
     draw() {
