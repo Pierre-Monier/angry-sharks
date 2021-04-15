@@ -105,7 +105,8 @@ function checkCollision() {
         if (hero.collision2d(badGuy.sprite)) {
             if (badGuy.isEatable) {
                 badGuy.looseLife();
-            } else if (badGuy > 0) {
+            } else if (badGuy.life > 0) {
+                console.count('hero loose life')
                 hero.looseLife();
             }
         }

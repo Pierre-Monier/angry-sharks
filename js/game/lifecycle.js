@@ -1,6 +1,9 @@
 function startGame() {
     const menu = document.getElementById("menu");
+    const endMenu = document.getElementById("end-menu");
+
     menu.setAttribute('style', 'display: none');
+    endMenu.setAttribute('style', 'display: none');
 
     // initialisation du canvas et des objets OpenGL
     const canvas = document.getElementById("SpaceShip");
@@ -44,10 +47,22 @@ function startGame() {
 
 function endGame() {
     const menu = document.getElementById("menu");
-    menu.setAttribute('style', 'display: flex');
+    const endMenu = document.getElementById("end-menu");
+    const pointsText = document.getElementById("points");
+    const points = hero.points;
+
+    endMenu.setAttribute('style', 'display: flex');
+
+    pointsText.innerHTML = points;
 
     const canvas = document.getElementById("SpaceShip");
     canvas.setAttribute('style', 'display: none');
+}
 
-    document.onkeydown = handleMenuKeys;
+function displayStartMenu() {
+    const menu = document.getElementById("menu");
+    const endMenu = document.getElementById("end-menu");
+
+    endMenu.setAttribute('style', 'display: none');
+    menu.setAttribute('style', 'display: flex');
 }
