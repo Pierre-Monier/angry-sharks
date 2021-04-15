@@ -42,7 +42,7 @@ function startGame() {
 
 function endGame() {
     const menu = document.getElementById("menu");
-    menu.setAttribute('style', 'display: block');
+    menu.setAttribute('style', 'display: flex');
 
     const canvas = document.getElementById("SpaceShip");
     canvas.setAttribute('style', 'display: none');

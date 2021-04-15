@@ -8,7 +8,7 @@ const edges = {
 }
 
 const red = [1, 0.2, 0.2];
-const blue = [0.2, 0.2, 1];
+const blue = [0.2, 1, 1];
 
 function initModelShader() {
     modelShader = initShaders("model-vs", "model-fs");
