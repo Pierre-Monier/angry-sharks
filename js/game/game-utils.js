@@ -138,19 +138,19 @@ function getMobTexture() {
 }
 
 function getSeaHorseTexture() {
-    return initTexture('./textures/seahorse.gif')
+    return initTexture('./textures/seahorse.png')
 }
 
 function getReverseSeaHorseTexture() {
-    return initTexture('./textures/reverse_seahorse.gif')
+    return initTexture('./textures/reverse_seahorse.png')
 }
 
 function getSharkTexture() {
-    return initTexture('./textures/shark.gif')
+    return initTexture('./textures/shark.png')
 }
 
 function getReverseSharkTexture() {
-    return initTexture('./textures/reverse_shark.gif')
+    return initTexture('./textures/reverse_shark.png')
 }
 
 function getNaziSharkTexture() {

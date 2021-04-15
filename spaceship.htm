@@ -85,6 +85,7 @@
 
     uniform vec3 uPosition; // position du vaisseau
     uniform float xOffset;
+    uniform float spriteScale;
     out vec2 vTextureCoord; // on souhaite rasteriser la coordonnee
 
     void main(void) {
@@ -93,7 +94,7 @@
 
 
       // stockage de la coordonnee de texture
-      vTextureCoord = vec2(aVertexCoord.x + xOffset, aVertexCoord.y);
+      vTextureCoord = vec2(aVertexCoord.x * spriteScale + xOffset, aVertexCoord.y);
     }
   </script>
 
@@ -108,10 +109,13 @@
     out vec4 outColor;
 
     void main(void) {
+
       // affichage d'une texture
       vec2 coord = vTextureCoord;
+      vec4 finalText = texture(uTex,coord);
 
-      outColor = texture(uTex,coord);
+      if (finalText.w < 0.001) discard;
+      outColor = finalText;
     }
   </script>
 
@@ -355,6 +359,7 @@
         <button class="button" type="button" name="button" onclick="displayStartMenu()"><img src="models/long-arrow-alt-left-solid.svg" alt="">Back to the game</button>
       </div>
     </div>
+  </div>
 </body>
 
 </html>
