@@ -33,7 +33,7 @@ function draw() {
 
     // dessin des enemy,
     badGuyManager.badGuys.forEach((badGuy, index) => {
-        if (badGuy.life > 0) {
+        if (badGuy.life > 0 || badGuy.isHited) {
             badGuy.drawWithMovement();
         } else {
             hero.addPoints(badGuy.points);
@@ -105,7 +105,7 @@ function checkCollision() {
         if (hero.collision2d(badGuy.sprite)) {
             if (badGuy.isEatable) {
                 badGuy.looseLife();
-            } else {
+            } else if (badGuy > 0) {
                 hero.looseLife();
             }
         }
