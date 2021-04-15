@@ -1,18 +1,20 @@
 class Rocket extends Sprite {
     isOutSide;
+    isDeadly;
     phi = (hero.model.angle + 90) * (Math.PI / 180);
 
 
-    constructor(isShooting) {
+    constructor(isDeadly = false) {
         const params = {
             ...Sprite.defaultParams,
             width: 0.1,
-            height: 0.15,
+            height: 0.1,
             position: [0, 0, 0],
         }
 
-        const texture = isShooting ? getMissileTexture : getSplatTexture
+        const texture = isDeadly ? getMissileTexture : getSplatTexture
         super(texture, params);
+        this.isDeadly = isDeadly;
     }
 
     setParameters() {

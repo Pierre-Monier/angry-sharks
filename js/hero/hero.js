@@ -2,6 +2,7 @@ class Hero {
   model;
   shoots = [];
   lives;
+  ammos = [];
   points;
   isOutside;
   isHited;
@@ -13,6 +14,7 @@ class Hero {
   constructor(model) {
     this.model = model;
     this.loadLives();
+    this.addAmmos(3);
     this.points = 0;
     this.isOutside = false;
     this.isHited = false
@@ -36,10 +38,19 @@ class Hero {
   }
 
   shoot() {
-    const rocket = new Rocket(this.isShooting);
-    if (rocket.loaded) {
-      this.shoots.push(rocket);
-      rocket.position = hero.model.getModelHead();
+    if(this.ammos.length > 0) {
+      const rocket = new Rocket(true);
+      if (rocket.loaded) {
+        this.shoots.push(rocket);
+        rocket.position = hero.model.getModelHead();
+        this.ammos.pop();
+      }
+    } else {
+      const rocket = new Rocket(false);
+      if (rocket.loaded) {
+        this.shoots.push(rocket);
+        rocket.position = hero.model.getModelHead();
+      }
     }
   }
 
@@ -62,6 +73,18 @@ class Hero {
     this.points += points;
     this.updateHeroState();
     score.updateScore(hero.points);
+  }
+
+  addAmmos(number) {
+    for (let i = 0; i < number; i++) {
+      const ammo = new Ammo();
+      ammo.setPosition(
+        ammo.position[0] - this.ammos.length * 0.1,
+        ammo.position[1],
+        ammo.position[2]
+      );
+      this.ammos.push(ammo);
+    }
   }
 
   updateHeroState() {
