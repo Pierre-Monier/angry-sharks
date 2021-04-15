@@ -154,6 +154,7 @@ function displayStartMenu(isFromBtn = false) {
         menu.setAttribute('style', 'display: flex');
 
         displayTopPlayer();
+        document.onkeydown = startGame;
     });
 }
 

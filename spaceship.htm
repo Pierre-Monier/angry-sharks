@@ -131,6 +131,8 @@
     let soundpool;
 
     document.onkeydown = startGame;
+    displayTopPlayer()
+
   </script>
 
   <style type="text/css">
@@ -321,12 +323,6 @@
     }
   </style>
 </head>
-<script>
-  window.onload = () => {
-    displayTopPlayer()
-  }
-</script>
-
 
 <body>
   <canvas id="SpaceShip" width="1080" height="720" style="display: none"></canvas>

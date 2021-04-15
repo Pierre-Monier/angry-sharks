@@ -29,9 +29,3 @@ function handleKeys() {
 function handleMenuKeys() {
     startGame()
 }
-
-function mouseMove(event) {
-    // recup evenement souris
-    //var newx = 2.0*(event.clientX/gl.viewportWidth)-1.0;
-    //var newy = -(2.0*(event.clientY/gl.viewportHeight)-1.0);
-}

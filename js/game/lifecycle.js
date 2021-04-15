@@ -37,9 +37,6 @@ function startGame() {
     gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
     /* Mouse and keyboard interaction functions */
-    //canvas.addEventListener('mousedown', tbMouseDown, true);
-    //canvas.addEventListener('mousemove', mouseMove, true);
-    //canvas.addEventListener('mouseup', tbMouseUp, true);
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
     tick();
