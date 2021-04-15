@@ -106,7 +106,6 @@ function checkCollision() {
             if (badGuy.isEatable) {
                 badGuy.looseLife();
             } else if (badGuy.life > 0) {
-                console.count('hero loose life')
                 hero.looseLife();
             }
         }
