@@ -18,6 +18,7 @@ class Mob extends Sprite {
         this.xMove = (Math.random() * (Mob.EDGES.right - Mob.EDGES.left) + Mob.EDGES.left) / 100
         this.yMove = (Math.random() * (Mob.EDGES.bottom - Mob.EDGES.top) + Mob.EDGES.top) / 100
         this.textures = textures;
+        this.switchTexture(this.xMove);
         this.speed = 1;
     }
 
