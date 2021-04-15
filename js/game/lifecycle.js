@@ -57,6 +57,8 @@ function endGame() {
 
     const canvas = document.getElementById("SpaceShip");
     canvas.setAttribute('style', 'display: none');
+
+    this.music.pause();
 }
 
 function displayStartMenu() {
@@ -65,4 +67,9 @@ function displayStartMenu() {
 
     endMenu.setAttribute('style', 'display: none');
     menu.setAttribute('style', 'display: flex');
+
+    document.onkeydown = handleMenuKeys;
+
+    soundpool.music.pause();
+    soundpool.music.currentTime = 0;
 }
