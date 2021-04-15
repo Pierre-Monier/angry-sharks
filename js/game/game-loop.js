@@ -18,6 +18,12 @@ function draw() {
         life.draw();
     })
 
+    // dessin des munitions
+    hero.ammos.forEach((ammo) => {
+        ammo.sendUniformVariables();
+        ammo.draw();
+    })
+
     bgParallax.draw();
 
     // dessin des rockets
@@ -98,7 +104,7 @@ function checkCollision() {
     hero.shoots.forEach((shoot) => {
         badGuyManager.badGuys.forEach((badGuy) => {
             if (shoot.collision(badGuy.sprite)) {
-                if (hero.isShooting) {
+                if (shoot.isDeadly) {
                     badGuy.looseLife();
                 } else {
                     badGuy.slowSpeed()
@@ -136,10 +142,7 @@ function checkCollision() {
                     }
                     break
                 case "kill-enemy":
-                    if (!hero.isShooting) {
-                        bonus.addDisplayedBonus(2);
-                        hero.addShootingBonus();
-                    }
+                    hero.addAmmos(3);
                     break
                 case "bubble":
                     hero.addBubbleBonus();

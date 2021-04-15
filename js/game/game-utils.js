@@ -134,7 +134,11 @@ function getSplatTexture() {
 }
 
 function getMissileTexture() {
-    return initTexture('./models/planes/plane_1/plane_1_blue.png')
+    return initTexture('./textures/missile.png')
+}
+
+function getMissileUITexture() {
+    return initTexture('./textures/missile_ui.png')
 }
 
 function getExplosionTexture() {
