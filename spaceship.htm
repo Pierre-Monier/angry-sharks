@@ -85,6 +85,7 @@
 
     uniform vec3 uPosition; // position du vaisseau
     uniform float xOffset;
+    uniform float spriteScale;
     out vec2 vTextureCoord; // on souhaite rasteriser la coordonnee
 
     void main(void) {
@@ -93,7 +94,7 @@
 
 
       // stockage de la coordonnee de texture
-      vTextureCoord = vec2(aVertexCoord.x + xOffset, aVertexCoord.y);
+      vTextureCoord = vec2(aVertexCoord.x * spriteScale + xOffset, aVertexCoord.y);
     }
   </script>
 

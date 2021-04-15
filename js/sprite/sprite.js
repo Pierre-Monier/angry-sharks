@@ -10,6 +10,8 @@ class Sprite {
     position;
     time;
     offset = 0;
+    numberOfFrames = 1;
+    spriteScale = 1;
     loaded = false;
 
     constructor(getTexture, defaultParams = Sprite.defaultParams) {
@@ -71,6 +73,7 @@ class Sprite {
         // adresse des variables uniform dans le shader
         Sprite.shader.positionUniform = gl.getUniformLocation(Sprite.shader, "uPosition");
         Sprite.shader.xOffset = gl.getUniformLocation(Sprite.shader, "xOffset");
+        Sprite.shader.spriteScale = gl.getUniformLocation(Sprite.shader, "spriteScale");
         Sprite.shader.texUniform = gl.getUniformLocation(Sprite.shader, "uTex");
         Sprite.shader.couleurUniform = gl.getUniformLocation(Sprite.shader, "maCouleur");
         
@@ -131,6 +134,7 @@ class Sprite {
         if (this.loaded) {
             gl.uniform3fv(Sprite.shader.positionUniform, this.position);
             gl.uniform1f(Sprite.shader.xOffset, this.offset);
+            gl.uniform1f(Sprite.shader.spriteScale, this.spriteScale);
             gl.uniform3fv(Sprite.shader.couleurUniform, this.couleur);
 
             // how to send a texture:
@@ -184,5 +188,16 @@ class Sprite {
             x1 + this.width > x2 &&
             y1 < y2 + other.height &&
             y1 + this.height > y2;
+    }
+
+    setNumberOfFrames(int) {
+        this.numberOfFrames = int;
+        this.spriteScale = 1 / int;
+    }
+
+    setAnimationSpeed(milliseconds) {
+        setInterval(() => {
+            this.offset += this.spriteScale;
+        }, milliseconds)
     }
 }

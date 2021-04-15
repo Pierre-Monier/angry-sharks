@@ -13,5 +13,8 @@ class Shark extends BadFish {
         }
 
         super({ regular: getSharkTexture, reverse: getReverseSharkTexture}, enemyParams, spriteParams);
+
+        this.sprite.setNumberOfFrames(8);
+        this.sprite.setAnimationSpeed(200); // lower is faster
     }
 }

@@ -14,5 +14,8 @@ class Seahorse extends BadFish {
         }
 
         super({regular: getSeaHorseTexture, reverse: getReverseSeaHorseTexture}, enemyParams, spriteParams);
+
+        this.sprite.setNumberOfFrames(2);
+        this.sprite.setAnimationSpeed(200); // lower is faster
     }
 }
