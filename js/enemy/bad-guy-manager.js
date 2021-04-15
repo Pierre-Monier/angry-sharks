@@ -49,11 +49,13 @@ class BadGuyManager {
     getEnemy() {
         const x = this.getRandomNumber()
         switch (true) {
-            case x <= 33:
+            case x <= 25:
                 return new Seahorse()
-            case x <= 66:
+            case x <= 38:
+                return new Turtle();
+            case x <= 63:
                 return new Shark()
-            case x <= 75:
+            case x <= 78:
                 return new Blobfish()
             case x <= 100:
                 return new NaziShark()
