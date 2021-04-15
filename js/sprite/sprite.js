@@ -195,9 +195,22 @@ class Sprite {
         this.spriteScale = 1 / int;
     }
 
-    setAnimationSpeed(milliseconds) {
-        setInterval(() => {
-            this.offset += this.spriteScale;
-        }, milliseconds)
+    setAnimationSpeed(milliseconds, loop = true) {
+        if(loop) {
+            setInterval(this.nextFrame, milliseconds)
+        } else {
+            let animationState = 0;
+            setInterval(() => {
+                if(animationState < this.numberOfFrames) {
+                    animationState += 1;
+                    this.nextFrame();
+                }
+            }, milliseconds)
+        }
+        
+    }
+
+    nextFrame() {
+        this.offset += this.spriteScale;
     }
 }

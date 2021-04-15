@@ -133,8 +133,12 @@ function getSplatTexture() {
     return initTexture('./models/Bonus/Spnning-Orb/Blue/frame-1.png')
 }
 
-function getMobTexture() {
+function getMissileTexture() {
     return initTexture('./models/planes/plane_1/plane_1_blue.png')
+}
+
+function getExplosionTexture() {
+    return initTexture('./textures/explosion.png')
 }
 
 function getSeaHorseTexture() {

@@ -23,7 +23,8 @@ class BadFish {
             height: 0.4
         }
 
-        this.damageSprite = new Sprite(getMobTexture, damageSpriteParams);
+        this.damageSprite = new Sprite(getExplosionTexture, damageSpriteParams);
+        this.damageSprite.setNumberOfFrames(8);
     }
 
     drawWithMovement() {
@@ -32,6 +33,7 @@ class BadFish {
         this.sprite.draw();
         if (this.isHited) {
             this.damageSprite.setPosition(this.sprite.position[0], this.sprite.position[1], this.sprite.position[2] - 0.1);
+            this.damageSprite.setAnimationSpeed(300, false);
             this.damageSprite.sendUniformVariables();
             this.damageSprite.draw();
         }

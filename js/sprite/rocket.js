@@ -11,7 +11,7 @@ class Rocket extends Sprite {
             position: [1, 0, 0],
         }
 
-        const texture = isShooting ? getMobTexture : getSplatTexture
+        const texture = isShooting ? getMissileTexture : getSplatTexture
         super(texture, params);
     }
 
