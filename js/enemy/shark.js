@@ -8,8 +8,8 @@ class Shark extends BadFish {
         }
         const spriteParams = {
             ...Sprite.defaultParams,
-            width: 0.6,
-            height: 0.6,
+            width: 0.4,
+            height: 0.4,
         }
 
         super({ regular: getSharkTexture, reverse: getReverseSharkTexture}, enemyParams, spriteParams);
