@@ -108,10 +108,13 @@
     out vec4 outColor;
 
     void main(void) {
+
       // affichage d'une texture
       vec2 coord = vTextureCoord;
+      vec4 finalText = texture(uTex,coord);
 
-      outColor = texture(uTex,coord);
+      if (finalText.w < 0.001) discard;
+      outColor = finalText;
     }
   </script>
 
@@ -162,18 +165,23 @@
       color: white;
       font-family: "Arial";
     }
+
+    .menu-container p:last-child {
+      font-style: italic;
+    }
   </style>
 </head>
 
 
 <body>
   <canvas id="SpaceShip" width="1080" height="720" style="display: none"></canvas>
-    <div id="menu">
-      <div class="menu-container">
-        <h1>WELCOME TO THE "KILL THE SHARK NAZI" GAME !</h1>
-        <p>Press a key to destroy sharks ...</p>
-      </div>
+  <div id="menu">
+    <div class="menu-container">
+      <h1>WELCOME TO THE "KILL THE SHARK NAZI" GAME !</h1>
+      <p>Avoid the sharks, eat the seahorses and survive</p>
+      <p>Press a key to destroy sharks ...</p>
     </div>
+  </div>
 </body>
 
 </html>
