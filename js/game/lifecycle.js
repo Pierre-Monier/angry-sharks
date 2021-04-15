@@ -56,4 +56,6 @@ function endGame() {
 
     const canvas = document.getElementById("SpaceShip");
     canvas.setAttribute('style', 'display: none');
+
+    this.music.pause();
 }

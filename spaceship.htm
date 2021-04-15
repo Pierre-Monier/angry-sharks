@@ -18,6 +18,8 @@
   <script type="text/javascript" src="js/enemy/bad-guy-manager.js"></script>
   <script type="text/javascript" src="js/enemy/bad-fish.js"></script>
   <script type="text/javascript" src="js/enemy/seahorse.js"></script>
+  <script type="text/javascript" src="js/enemy/blobfish.js"></script>
+  <script type="text/javascript" src="js/enemy/turtle.js"></script>
   <script type="text/javascript" src="js/enemy/shark.js"></script>
   <script type="text/javascript" src="js/enemy/nazi-shark.js"></script>
   <script type="text/javascript" src="js/sprite/background-layer.js"></script>
@@ -236,13 +238,23 @@
       margin-bottom: 0;
     }
     .ennemies-menu .ennemies-menu-item img {
-      width: 50px;
-      height: 50px;
       margin-right: 10px;
     }
     .ennemies-menu .ennemies-menu-item p {
       color: white;
       text-align: left;
+    }
+    .ennemies-menu .ennemies-menu-item #seahorse {
+      width: 20px;
+      height: 40px;
+    }
+    .ennemies-menu .ennemies-menu-item #shark {
+      width: 60px;
+      height: 40px;
+    }
+    .ennemies-menu .ennemies-menu-item #nazi-shark {
+      width: 60px;
+      height: 40px;
     }
 
     #end-menu {
@@ -345,15 +357,15 @@
           </div>
           <div class="ennemies-menu">
             <div class="ennemies-menu-item">
-              <img src="textures/seahorse.gif" alt="">
+              <img id="seahorse" src="textures/seahorse.gif" alt="">
               <p>You can eat the seahorses to earn points</p>
             </div>
             <div class="ennemies-menu-item">
-              <img src="textures/shark.gif" alt="">
+              <img id="shark" src="textures/shark.gif" alt="">
               <p>You can't eat the sharks, but kill them with the gun bonus</p>
             </div>
             <div class="ennemies-menu-item">
-              <img src="textures/nazi-shark.png" alt="">
+              <img id="nazi-shark" src="textures/nazi-shark.png" alt="">
               <p>This is the boss (sac-à-PV)</p>
             </div>
           </div>

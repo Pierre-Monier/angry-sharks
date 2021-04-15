@@ -23,6 +23,10 @@ class BadFish {
             height: 0.4
         }
 
+        if (enemyParams.duration) {
+            this.setDuration(enemyParams.duration);
+        }
+
         this.damageSprite = new Sprite(getExplosionTexture, damageSpriteParams);
         this.damageSprite.setNumberOfFrames(8);
     }
@@ -33,7 +37,7 @@ class BadFish {
         this.sprite.draw();
         if (this.isHited) {
             this.damageSprite.setPosition(this.sprite.position[0], this.sprite.position[1], this.sprite.position[2] - 0.1);
-            this.damageSprite.setAnimationSpeed(300, false);
+            this.damageSprite.setAnimationSpeed(100, false);
             this.damageSprite.sendUniformVariables();
             this.damageSprite.draw();
         }
@@ -50,6 +54,12 @@ class BadFish {
         }
     }
 
+    setDuration(duration) {
+        setTimeout(() => {
+            this.life--;
+        }, duration);
+    }
+
     looseLife() {
         if (!this.isHited) {
             this.isHited = true;
@@ -57,12 +67,6 @@ class BadFish {
             setTimeout(() => {
                 this.isHited = false;
             }, 500);
-        }
-    }
-
-    getReverseTexture(move) {
-        if (move < 0 ) {
-
         }
     }
 }
