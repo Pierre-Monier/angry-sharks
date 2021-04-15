@@ -85,6 +85,7 @@
 
     uniform vec3 uPosition; // position du vaisseau
     uniform float xOffset;
+    uniform float spriteScale;
     out vec2 vTextureCoord; // on souhaite rasteriser la coordonnee
 
     void main(void) {
@@ -93,7 +94,7 @@
 
 
       // stockage de la coordonnee de texture
-      vTextureCoord = vec2(aVertexCoord.x + xOffset, aVertexCoord.y);
+      vTextureCoord = vec2(aVertexCoord.x * spriteScale + xOffset, aVertexCoord.y);
     }
   </script>
 
@@ -131,11 +132,30 @@
   </script>
 
   <style type="text/css">
+    /* @font-face {
+      font-family: "PixelArt";
+      src: url("font/pixel-art/pixelart.ttf?#iefix") format("truetype");
+    } */
+
+    @font-face {
+      font-family: 'Pixel-Art';
+      font-style: normal;
+      font-weight: normal;
+      src: url('font/pixel-art/pixelart.woff') format('woff'),
+           url("font/pixel-art/pixelart.ttf") format("truetype"),
+           url("font/pixel-art/pixelart.woff2") format("woff2");
+    }
+
     body {
       text-align: center;
       margin: 0;
       background: url("textures/underwater-fantasy-files/PNG/underwater-fantasy-preview.png") no-repeat center / cover;
       object-fit: cover;
+      line-height: 25px;
+    }
+
+    h1 {
+      display: flex;
     }
 
     #SpaceShip {
@@ -160,14 +180,132 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      max-width: 1000px;
+      max-width: 1100px;
       width: 100%;
       color: white;
-      font-family: "Arial";
+      font-family: "Pixel-Art";
+    }
+    .explain-menu {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+    }
+    .bonus-menu {
+      max-width: 400px;
+      width: 100%;
+      padding: 16px;
+      border: solid 1px white;
+      border-radius: 7px;
+      display: flex;
+      flex-direction: column;
+    }
+    .bonus-menu .bonus-menu-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .bonus-menu .bonus-menu-item:last-child {
+      margin-bottom: 0;
+    }
+    .bonus-menu .bonus-menu-item img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+    .bonus-menu .bonus-menu-item p {
+      color: white;
+      text-align: left;
+    }
+    .ennemies-menu {
+      max-width: 500px;
+      width: 100%;
+      padding: 16px;
+      border: solid 1px white;
+      border-radius: 7px;
+      display: flex;
+      flex-direction: column;
+    }
+    .ennemies-menu .ennemies-menu-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .ennemies-menu .ennemies-menu-item:last-child {
+      margin-bottom: 0;
+    }
+    .ennemies-menu .ennemies-menu-item img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+    .ennemies-menu .ennemies-menu-item p {
+      color: white;
+      text-align: left;
     }
 
-    .menu-container p:last-child {
-      font-style: italic;
+    #end-menu {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .end-menu-container {
+      padding: 32px;
+      border-radius: 7px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 1100px;
+      width: 100%;
+      color: white;
+      font-family: "Pixel-Art";
+    }
+
+    input {
+      padding: 16px;
+      background-color: transparent;
+      border-radius: 7px;
+      border: solid 1px white;
+      font-family: "Pixel-Art";
+      color: white;
+      outline: none;
+    }
+    ::placeholder {
+      color: lightgrey;
+      opacity: 1;
+    }
+
+    #points {
+      margin: 0 8px;
+    }
+
+    .button {
+      border: solid 1px #66D7D6;
+      border-radius: 7px;
+      padding: 16px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      transition: all .2s ease;
+      margin-top: 100px;
+      outline: none;
+      cursor: pointer;
+      font-family: "Pixel-Art";
+    }
+    .button:hover {
+      background-color: #66D7D6;
+    }
+    .button img {
+      width: 25px;
+      height: 25px;
+      margin-right: 8px;
     }
   </style>
 </head>
@@ -175,11 +313,51 @@
 
 <body>
   <canvas id="SpaceShip" width="1080" height="720" style="display: none"></canvas>
-  <div id="menu">
-    <div class="menu-container">
-      <h1>WELCOME TO THE "KILL THE SHARK NAZI" GAME !</h1>
-      <p>Avoid the sharks, eat the seahorses and survive</p>
-      <p>Press a key to destroy sharks ...</p>
+    <div id="menu">
+      <div class="menu-container">
+        <h1>WELCOME TO THE "KILL THE SHARK NAZI" GAME !</h1>
+        <p>Press a key to destroy sharks ...</p>
+
+        <div class="explain-menu">
+          <div class="bonus-menu">
+            <div class="bonus-menu-item">
+              <img src="models/Bonus/shieldBonus.png" alt="">
+              <p>You are invincible for 10 seconds</p>
+            </div>
+            <div class="bonus-menu-item">
+              <img src="models/Bonus/gunBonus.png" alt="">
+              <p>You can kill the sharks</p>
+            </div>
+            <div class="bonus-menu-item">
+              <img src="models/Bonus/slowBonus.png" alt="">
+              <p>All the ennemies are slower</p>
+            </div>
+          </div>
+          <div class="ennemies-menu">
+            <div class="ennemies-menu-item">
+              <img src="textures/seahorse.gif" alt="">
+              <p>You can eat the seahorses to earn points</p>
+            </div>
+            <div class="ennemies-menu-item">
+              <img src="textures/shark.gif" alt="">
+              <p>You can't eat the sharks, but kill them with the gun bonus</p>
+            </div>
+            <div class="ennemies-menu-item">
+              <img src="textures/nazi-shark.png" alt="">
+              <p>This is the boss (sac-à-PV)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="end-menu">
+      <div class="end-menu-container">
+        <h1>You made <div id="points"></div> points !</h1>
+        <p>Enter your name :</p>
+        <input type="text" name="" value="" placeholder="Pseudo">
+        <button class="button" type="button" name="button" onclick="displayStartMenu()"><img src="models/long-arrow-alt-left-solid.svg" alt="">Back to the game</button>
+      </div>
     </div>
   </div>
 </body>
