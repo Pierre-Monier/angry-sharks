@@ -3,7 +3,7 @@
 <head>
   <title>SpaceShip</title>
   <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-  
+
   <script type="text/javascript" src="js/gl-matrix.js"></script>
   <script type="text/javascript" src="js/game/game-utils.js"></script>
   <script type="text/javascript" src="js/fbo.js"></script>
@@ -26,7 +26,7 @@
   <script type="text/javascript" src="js/game/event.js"></script>
   <script type="text/javascript" src="js/game/lifecycle.js"></script>
   <script type="text/javascript" src="js/game/game-loop.js"></script>
-  
+
   <script id="model-vs" type="x-shader/x-vertex">#version 300 es
     // *** le vertex shader *** 
     layout(location=0) in vec3 aVertexPosition;
@@ -52,7 +52,7 @@
       vNormal = mat3(inverse(transpose(uViewMatrix * uModelMatrix)))*normalize(aVertexNormal);
     }
   </script>
-  
+
   <script id="model-fs" type="x-shader/x-fragment">#version 300 es
     // *** le fragment shader ***
     precision mediump float; // precision des nombres flottant
@@ -77,7 +77,7 @@
       outColor = vec4(diff,1.0);
     }
   </script>
-  
+
   <script id="splat-vs" type="x-shader/x-vertex">#version 300 es
     // *** le vertex shader *** 
     layout(location=0) in vec3 aVertexPosition; // la position du sommet 
@@ -96,7 +96,7 @@
       vTextureCoord = vec2(aVertexCoord.x + xOffset, aVertexCoord.y);
     }
   </script>
-  
+
   <script id="splat-fs" type="x-shader/x-fragment">#version 300 es
     // *** le fragment shader ***
     precision highp float; // precision des nombres flottant
@@ -108,13 +108,16 @@
     out vec4 outColor;
     
     void main(void) {
+
       // affichage d'une texture
       vec2 coord = vTextureCoord;
-      
-      outColor = texture(uTex,coord);
+      vec4 finalText = texture(uTex,coord);
+
+      if (finalText.w < 0.001) discard;
+      outColor = finalText;
     }
   </script>
-      
+
   <script type="text/javascript">
     let background;
     let hero;
@@ -126,29 +129,29 @@
 
     document.onkeydown = startGame;
   </script>
-      
+
   <style type="text/css">
     body {
       text-align: center;
       margin: 0;
-      
+
     }
-    
+
     #SpaceShip {
       border: none;
       width: 100%;
       height: 100%;
-      
+
     }
   </style>
 </head>
-    
-    
+
+
 <body>
   <canvas id="SpaceShip" width="1080" height="720" style="display: none"></canvas>
   <div id="menu">
     <p>Press a key to play</p>
   </div>
 </body>
-    
+
 </html>
