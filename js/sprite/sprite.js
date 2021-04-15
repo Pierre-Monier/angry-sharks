@@ -12,6 +12,7 @@ class Sprite {
     offset = 0;
     numberOfFrames = 1;
     spriteScale = 1;
+    animationHasStarted = false;
     loaded = false;
 
     constructor(getTexture, defaultParams = Sprite.defaultParams) {
@@ -197,17 +198,19 @@ class Sprite {
 
     setAnimationSpeed(milliseconds, loop = true) {
         if(loop) {
-            setInterval(this.nextFrame, milliseconds)
+            setInterval(() => {this.nextFrame()}, milliseconds)
         } else {
-            let animationState = 0;
-            setInterval(() => {
-                if(animationState < this.numberOfFrames) {
-                    animationState += 1;
-                    this.nextFrame();
-                }
-            }, milliseconds)
+            if (!this.animationHasStarted) {
+                let animationState = 0;
+                setInterval(() => {
+                    if(animationState < this.numberOfFrames) {
+                        animationState += 1;
+                        this.nextFrame();
+                    }
+                }, milliseconds)
+                this.animationHasStarted = true;
+            }
         }
-        
     }
 
     nextFrame() {
