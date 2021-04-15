@@ -46,7 +46,6 @@ function startGame() {
 }
 
 function endGame() {
-    const menu = document.getElementById("menu");
     const endMenu = document.getElementById("end-menu");
     const pointsText = document.getElementById("points");
     const points = hero.points;
@@ -57,12 +56,4 @@ function endGame() {
 
     const canvas = document.getElementById("SpaceShip");
     canvas.setAttribute('style', 'display: none');
-}
-
-function displayStartMenu() {
-    const menu = document.getElementById("menu");
-    const endMenu = document.getElementById("end-menu");
-
-    endMenu.setAttribute('style', 'display: none');
-    menu.setAttribute('style', 'display: flex');
 }

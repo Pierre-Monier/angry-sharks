@@ -22,7 +22,7 @@ function handleKeys() {
     }
 
     if (currentlyPressedKeys[80]) { // P
-        console.log('dev testing over here')
+        console.log('debug key');
     }
 }
 
