@@ -28,10 +28,10 @@ class BadGuyManager {
     getFirstXPosition() {
         const x = Math.random();
         if (x < 0.5) {
-            return x - 3;
+            return x - 2;
+        } else {
+            return x + 1;
         }
-
-        return x + 2;
     }
 
     getEnemyGenerationDelay() {

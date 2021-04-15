@@ -123,7 +123,55 @@ function mvPushMatrix() {
     mvMatrixStack.push(copy);
 }
 
+function displayStartMenu(isFromBtn = false) {
+    const btn = document.querySelector('button[name=button]')
+    if (isFromBtn && btn) {
+        btn.innerHTML = '<img src="models/long-arrow-alt-left-solid.svg" alt="">Please wait...'
+    } else if (btn) {
+        btn.innerHTML = '<img src="models/long-arrow-alt-left-solid.svg" alt="">Save your score and play again :)'
+    }
 
+    const name = document.querySelector('input[name=name]').value
+
+    fetch('https://us-central1-troisd.cloudfunctions.net/addScore', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        mode: "no-cors",
+        body: JSON.stringify({
+            'data': {
+                'name': name ? name : "unknown",
+                'score': hero.points
+            }
+        })
+    }).then(() => {
+        const menu = document.getElementById("menu");
+        const endMenu = document.getElementById("end-menu");
+
+        endMenu.setAttribute('style', 'display: none');
+        menu.setAttribute('style', 'display: flex');
+
+        displayTopPlayer();
+        document.onkeydown = startGame;
+    });
+}
+
+function displayTopPlayer() {
+    fetch('https://us-central1-troisd.cloudfunctions.net/getBestScores').then((res) => {
+        return res.json();
+    }).then((data) => {
+        const scores = document.querySelector('.scores');
+        scores.innerHTML = "";
+
+        data.forEach((score) => {
+            scores.innerHTML += `<div><span>${score.name}: </span> <span>${score.score}</span></div>`;
+        })
+    }).catch((err) => {
+        console.error(err)
+    });
+}
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -159,6 +207,14 @@ function getBlobfishTexture(){
 
 function getReverseBlobfishTexture(){
     return initTexture('./textures/reverse_blobfish.png')
+}
+
+function getTurtleTexture(){
+    return initTexture('./textures/turtle.png')
+}
+
+function getReverseTurtleTexture(){
+    return initTexture('./textures/reverse_turtle.png')
 }
 
 function getSharkTexture() {

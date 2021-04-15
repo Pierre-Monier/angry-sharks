@@ -1,28 +1,49 @@
 import * as functions from "firebase-functions";
-import * as fs from 'firebase-admin';
+import * as firebase from "firebase-admin";
+import * as fs from "fs";
+import * as path from "path";
 
-const serviceAccount = require('../lptroisd-firebase-adminsdk.json');
-
-fs.initializeApp({
-  credential: fs.credential.cert(serviceAccount)
+const serviceAccount = fs.readFileSync(
+    path.resolve(__dirname, "../lptroisd-firebase-adminsdk.json"),
+    "utf-8");
+firebase.initializeApp({
+  credential: firebase.credential.cert(JSON.parse(serviceAccount)),
 });
 
-const db = fs.firestore();
+const db = firebase.firestore();
 
-export const getBestScores = functions.https.onRequest(async (request, response) => {
-  const topScoresSnapshot = await db.collection('scores').orderBy("score", "desc").limit(5).get();
-  const topScores = topScoresSnapshot.docs.map((score) => score.data())
+export const getBestScores = functions.https.onRequest(
+    async (request, response) => {
+      response.header("Content-Type", "application/json");
+      response.header("Access-Control-Allow-Origin", "*");
+      response.header("Access-Control-Allow-Headers", "Content-Type");
 
-  response.send(topScores);
-});
+      if (request.method !== "GET") {
+        response.statusCode = 403;
+        response.send("Unauthorized");
+      }
+
+      const topScoresSnapshot = await db.collection("scores")
+          .orderBy("score", "desc")
+          .limit(5)
+          .get();
+      const topScores = topScoresSnapshot.docs.map((score) => score.data());
+
+      response.send(topScores);
+    });
 
 export const addScore = functions.https.onRequest((request, response) => {
-  const dataScore = request.body.data;
+  if (request.method !== "POST") {
+    response.statusCode = 403;
+    response.send("Unauthorized");
+  } else {
+    const body = JSON.parse(request.body);
 
-  db.collection('scores').add(dataScore).then(() => {
-    response.send('Score save :)');
-  }).catch(() => {
-    response.statusCode = 500;
-    response.send('An error occurred while adding the score :(');
-  })
+    db.collection("scores").add(body.data).then(() => {
+      response.send("Score save :)");
+    }).catch(() => {
+      response.statusCode = 500;
+      response.send("An error occurred while adding the score :(");
+    });
+  }
 });

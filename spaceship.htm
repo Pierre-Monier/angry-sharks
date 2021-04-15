@@ -20,6 +20,7 @@
   <script type="text/javascript" src="js/enemy/bad-fish.js"></script>
   <script type="text/javascript" src="js/enemy/seahorse.js"></script>
   <script type="text/javascript" src="js/enemy/blobfish.js"></script>
+  <script type="text/javascript" src="js/enemy/turtle.js"></script>
   <script type="text/javascript" src="js/enemy/shark.js"></script>
   <script type="text/javascript" src="js/enemy/nazi-shark.js"></script>
   <script type="text/javascript" src="js/sprite/background-layer.js"></script>
@@ -131,6 +132,8 @@
     let soundpool;
 
     document.onkeydown = startGame;
+    displayTopPlayer()
+
   </script>
 
   <style type="text/css">
@@ -322,14 +325,18 @@
   </style>
 </head>
 
-
 <body>
   <canvas id="SpaceShip" width="1080" height="720" style="display: none"></canvas>
     <div id="menu">
       <div class="menu-container">
         <h1>WELCOME TO THE "KILL THE SHARK NAZI" GAME !</h1>
+        <div class="scores-container">
+          <h2>Top player : </h2>
+          <div class="scores">
+            <p>loading...</p>
+          </div>
+        </div>
         <p>Press a key to destroy sharks ...</p>
-
         <div class="explain-menu">
           <div class="bonus-menu">
             <div class="bonus-menu-item">
@@ -367,8 +374,8 @@
       <div class="end-menu-container">
         <h1>You made <div id="points"></div> points !</h1>
         <p>Enter your name :</p>
-        <input type="text" name="" value="" placeholder="Pseudo">
-        <button class="button" type="button" name="button" onclick="displayStartMenu()"><img src="models/long-arrow-alt-left-solid.svg" alt="">Back to the game</button>
+        <input type="text" name="name" value="" placeholder="Pseudo">
+        <button class="button" type="button" name="button" onclick="displayStartMenu(true)"><img src="models/long-arrow-alt-left-solid.svg" alt="">Save your score and play again :)</button>
       </div>
     </div>
   </div>

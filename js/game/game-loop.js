@@ -42,16 +42,10 @@ function draw() {
         if (badGuy.life > 0 || badGuy.isHited) {
             badGuy.drawWithMovement();
         } else {
-            if (!badGuy.isHited) {
-                badGuy.sprite.clear();
-                badGuy.damageSprite.clear();
-                badGuyManager.badGuys.splice(index, 1);
-            } else {
-                hero.addPoints(badGuy.points);
-                badGuy.sprite.clear();
-                badGuy.damageSprite.clear();
-                badGuyManager.badGuys.splice(index, 1);
-            }
+            hero.addPoints(badGuy.points);
+            badGuy.sprite.clear();
+            badGuy.damageSprite.clear();
+            badGuyManager.badGuys.splice(index, 1);
         }
     });
 
@@ -118,7 +112,6 @@ function checkCollision() {
             if (badGuy.isEatable) {
                 badGuy.looseLife();
             } else if (badGuy.life > 0) {
-                console.count('hero loose life')
                 hero.looseLife();
             }
         }

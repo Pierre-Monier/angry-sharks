@@ -37,16 +37,12 @@ function startGame() {
     gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
     /* Mouse and keyboard interaction functions */
-    //canvas.addEventListener('mousedown', tbMouseDown, true);
-    //canvas.addEventListener('mousemove', mouseMove, true);
-    //canvas.addEventListener('mouseup', tbMouseUp, true);
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
     tick();
 }
 
 function endGame() {
-    const menu = document.getElementById("menu");
     const endMenu = document.getElementById("end-menu");
     const pointsText = document.getElementById("points");
     const points = hero.points;
@@ -59,17 +55,4 @@ function endGame() {
     canvas.setAttribute('style', 'display: none');
 
     this.music.pause();
-}
-
-function displayStartMenu() {
-    const menu = document.getElementById("menu");
-    const endMenu = document.getElementById("end-menu");
-
-    endMenu.setAttribute('style', 'display: none');
-    menu.setAttribute('style', 'display: flex');
-
-    document.onkeydown = handleMenuKeys;
-
-    soundpool.music.pause();
-    soundpool.music.currentTime = 0;
 }
