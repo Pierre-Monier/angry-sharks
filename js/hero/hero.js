@@ -2,7 +2,8 @@ class Hero {
   model;
   shoots = [];
   lives;
-  ammos = [];
+  ammos;
+  ammoSprite;
   points;
   isOutside;
   isHited;
@@ -20,6 +21,8 @@ class Hero {
     this.isHited = false
     this.isShooting = false;
     this.state = 1;
+    this.ammoSprite = new Ammo();
+    this.ammos = 3;
   }
 
   loadLives() {
@@ -38,12 +41,12 @@ class Hero {
   }
 
   shoot() {
-    if(this.ammos.length > 0) {
+    if(this.ammos > 0) {
       const rocket = new Rocket(true);
       if (rocket.loaded) {
         this.shoots.push(rocket);
         rocket.position = hero.model.getModelHead();
-        this.ammos.pop();
+        this.ammos--;
       }
     } else {
       const rocket = new Rocket(false);
@@ -76,15 +79,7 @@ class Hero {
   }
 
   addAmmos(number) {
-    for (let i = 0; i < number; i++) {
-      const ammo = new Ammo();
-      ammo.setPosition(
-        ammo.position[0] - this.ammos.length * 0.1,
-        ammo.position[1],
-        ammo.position[2]
-      );
-      this.ammos.push(ammo);
-    }
+    this.ammos += number;
   }
 
   updateHeroState() {
@@ -124,11 +119,6 @@ class Hero {
     setTimeout(() => this.isInvincible = false, Bonus.invincibleBonusDuration)
   }
 
-  addShootingBonus() {
-    this.isShooting = true;
-    setTimeout(() => this.isShooting = false, Bonus.killEnemyBonusDuration)
-  }
-
   addBubbleBonus() {
     this.addPoints(25);
   }
@@ -146,6 +136,11 @@ class Hero {
     }
 
     hero.model.draw();
+  }
+
+  drawAmmo() {
+    this.ammoSprite.sendUniformVariables();
+    this.ammoSprite.draw();
   }
   
 }

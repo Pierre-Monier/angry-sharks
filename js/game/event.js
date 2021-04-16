@@ -3,6 +3,7 @@ const currentlyPressedKeys = {};
 function handleKeyDown(event) {
     if (event.keyCode === 32) {
         hero.shoot();
+        score.updateAmmoNumber(hero.ammos);
     } else {
         currentlyPressedKeys[event.keyCode] = true;
     }

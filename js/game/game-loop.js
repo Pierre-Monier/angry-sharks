@@ -18,12 +18,6 @@ function draw() {
         life.draw();
     })
 
-    // dessin des munitions
-    hero.ammos.forEach((ammo) => {
-        ammo.sendUniformVariables();
-        ammo.draw();
-    })
-
     bgParallax.draw();
 
     // dessin des rockets
@@ -42,12 +36,12 @@ function draw() {
         if (badGuy.life > 0 || badGuy.isHited) {
             badGuy.drawWithMovement();
         } else {
-            if (badGuy.duration != 0) {
+            if (badGuy.duration !== 0) {
                 hero.addPoints(badGuy.points);
             }
             badGuy.sprite.clear();
             badGuy.damageSprite.clear();
-            badGuyManager.badGuys.splice(index, 1);
+            badGuyManager.badGuys = badGuyManager.badGuys.filter((e, i) => i !== index);
         }
     });
 
@@ -71,10 +65,17 @@ function draw() {
     })
 
     // dessin du score
-    score.sprites.forEach((number) => {
+    score.scoreSprites.forEach((number) => {
         number.sendUniformVariables();
         number.draw();
     });
+
+    score.ammoNumberSprites.forEach((number) => {
+        number.sendUniformVariables();
+        number.draw();
+    });
+
+    hero.drawAmmo();
 
     checkCollision();
 }
@@ -138,6 +139,7 @@ function checkCollision() {
                     break
                 case "kill-enemy":
                     hero.addAmmos(3);
+                    score.updateAmmoNumber(hero.ammos);
                     break
                 case "bubble":
                     hero.addBubbleBonus();
