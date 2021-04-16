@@ -54,8 +54,8 @@ class Hero {
     }
   }
 
-  shoot() {
-    if(this.ammos > 0) {
+  shoot(isAmmos = false) {
+    if(this.ammos > 0 && isAmmos) {
       const rocket = new Rocket(true);
       if (rocket.loaded) {
         this.shoots.push(rocket);
