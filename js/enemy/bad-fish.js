@@ -45,15 +45,6 @@ class BadFish {
             this.damageSprite.sendUniformVariables();
             this.damageSprite.draw();
         }
-        if (this.isHearthly) { // for turtle
-            if (this.sprite.offset*24%24 > 8 && this.sprite.offset*24%24 < 17) {
-                this.isEatable = false;
-                this.sprite.speed = 0;
-            } else { 
-                this.isEatable = true;
-                this.sprite.speed = 1;
-            }
-        }
     }
 
     slowSpeed() {
