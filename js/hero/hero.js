@@ -76,9 +76,11 @@ class Hero {
       this.isHited = true;
       this.lives.pop();
       soundpool.heroDammage.play();
-      setTimeout(() => {
-        this.isHited = false;
-      }, 2000);
+      if (this.lives.length > 0) {
+        setTimeout(() => {
+          this.isHited = false;
+        }, 2000);
+      }
     }
   }
 

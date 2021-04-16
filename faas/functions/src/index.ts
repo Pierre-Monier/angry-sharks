@@ -39,11 +39,15 @@ export const addScore = functions.https.onRequest((request, response) => {
   } else {
     const body = JSON.parse(request.body);
 
-    db.collection("scores").add(body.data).then(() => {
-      response.send("Score save :)");
-    }).catch(() => {
-      response.statusCode = 500;
-      response.send("An error occurred while adding the score :(");
-    });
+    if (body.data && Number.isInteger(body.data.score)) {
+      db.collection("scores").add(body.data).then(() => {
+        response.send("Score save :)");
+      }).catch(() => {
+        response.statusCode = 500;
+        response.send("An error occurred while adding the score :(");
+      });
+    } else {
+      response.send("Score was an invalid score");
+    }
   }
 });

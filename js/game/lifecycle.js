@@ -40,6 +40,8 @@ function startGame() {
 }
 
 function endGame() {
+    Object.freeze(hero);
+
     const endMenu = document.getElementById("end-menu");
     const pointsText = document.getElementById("points");
     const btn = document.querySelector('button[name=button]')
