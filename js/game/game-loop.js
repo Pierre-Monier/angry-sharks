@@ -130,13 +130,13 @@ function checkCollision() {
                     break
                 case "slow-enemy":
                     if (!badGuyManager.areSlowed) {
-                        bonus.addDisplayedBonus(0);
+                        bonus.addDisplayedBonus(1);
                         badGuyManager.slowEnemies();
                     }
                     break
                 case "invincible":
                     if (!hero.isInvincible) {
-                        bonus.addDisplayedBonus(1);
+                        bonus.addDisplayedBonus(2);
                         hero.addInvincibleBonus();
                     }
                     break
