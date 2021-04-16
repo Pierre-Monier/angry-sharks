@@ -1,8 +1,13 @@
 class Score {
-    sprites;
-    baseParam = {
+    scoreSprites;
+    ammoNumberSprites;
+    baseScoreParam = {
         ...Sprite.defaultParams,
         position: [-0.9, 0.9, 0.0],
+    };
+    baseAmmosParam = {
+        ...Sprite.defaultParams,
+        position: [0.825, -0.9, 0.0],
     };
     textureMethods = [
         () => initTexture('./textures/score/0.png'),
@@ -18,14 +23,26 @@ class Score {
     ];
 
     constructor() {
-        this.sprites = [new Sprite(this.textureMethods[0], this.baseParam)];
+        this.scoreSprites = [new Sprite(this.textureMethods[0], this.baseScoreParam)];
+        this.ammoNumberSprites = [new Sprite(this.textureMethods[hero.ammos], this.baseAmmosParam)];
     }
 
     updateScore(score) {
-        this.sprites = score.toString().split('').map((number, index) => {
+        this.scoreSprites = score.toString().split('').map((number, index) => {
             const params = {
                 ...Sprite.defaultParams,
                 position: [(-0.9 + (index / 10)), 0.9, 0.0],
+            }
+
+            return new Sprite(this.textureMethods[number], params);
+        });
+    }
+
+    updateAmmoNumber(ammoNumber) {
+        this.ammoNumberSprites = ammoNumber.toString().split('').reverse().map((number, index) => {
+            const params = {
+                ...Sprite.defaultParams,
+                position: [(0.825 - (index / 10)), -0.9, 0.0],
             }
 
             return new Sprite(this.textureMethods[number], params);

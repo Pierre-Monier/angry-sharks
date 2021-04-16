@@ -2,6 +2,9 @@ const currentlyPressedKeys = {};
 
 function handleKeyDown(event) {
     if (event.keyCode === 32) {
+        hero.shoot(true);
+        score.updateAmmoNumber(hero.ammos);
+    } else if (event.keyCode === 90) {
         hero.shoot();
     } else {
         currentlyPressedKeys[event.keyCode] = true;
@@ -22,6 +25,9 @@ function handleKeys() {
     }
 
     if (currentlyPressedKeys[80]) { // P
+        hero.ammos = 12;
+        score.updateAmmoNumber(hero.ammos);
+
         console.log('debug key');
     }
 }
