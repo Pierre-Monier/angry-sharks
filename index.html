@@ -196,6 +196,33 @@
       align-items: center;
       margin-top: 16px;
     }
+    .controls-menu {
+      max-width: 400px;
+      width: 100%;
+      padding: 16px;
+      border: solid 1px white;
+      border-radius: 7px;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+    .controls-menu .controls-menu-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .controls-menu .controls-menu-item:last-child {
+      margin-bottom: 0;
+    }
+    .controls-menu .controls-menu-item img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    .controls-menu .controls-menu-item p {
+      color: white;
+      text-align: left;
+    }
     .bonus-menu {
       max-width: 400px;
       width: 100%;
@@ -330,8 +357,19 @@
       margin-right: 8px;
     }
     .scores-container {
-      max-width: 400px;
+      max-width: 300px;
       width: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: solid 1px white;
+      border-radius: 0 0 0 7px;
+      border-top: 0;
+      border-right: 0;
+      padding: 16px;
+    }
+    .scores-container h1 {
+      margin-top: 0;
     }
   </style>
 </head>
@@ -343,22 +381,34 @@
         <h1>WELCOME TO THE "ANGRY SHARKS" GAME !</h1>
         <p>Press a key to destroy sharks ...</p>
         <div class="explain-menu">
-          <div class="bonus-menu">
-            <div class="bonus-menu-item">
-              <img src="models/Bonus/shieldBonus.png" alt="">
-              <p>You are invincible for 10 seconds</p>
+          <div class="left-container">
+            <div class="controls-menu mb-1">
+              <div class="controls-menu-item">
+                <img src="textures/missile_ui.png" alt="">
+                <p>You can kill the ennemies with Z</p>
+              </div>
+              <div class="controls-menu-item">
+                <img src="models/Bonus/Spnning-Orb/Blue/frame-1.png" alt="">
+                <p>You can slow down the ennemies with space</p>
+              </div>
             </div>
-            <div class="bonus-menu-item">
-              <img src="models/Bonus/gunBonus.png" alt="">
-              <p>You can kill the sharks</p>
-            </div>
-            <div class="bonus-menu-item">
-              <img src="models/Bonus/slowBonus.png" alt="">
-              <p>All the ennemies are slower</p>
+            <div class="bonus-menu">
+              <div class="bonus-menu-item">
+                <img src="models/Bonus/shieldBonus.png" alt="">
+                <p>You are invincible for 10 seconds</p>
+              </div>
+              <div class="bonus-menu-item">
+                <img src="models/Bonus/gunBonus.png" alt="">
+                <p>Gives you 3 ammos to kill the creatures</p>
+              </div>
+              <div class="bonus-menu-item">
+                <img src="models/Bonus/slowBonus.png" alt="">
+                <p>All the ennemies are slower</p>
+              </div>
             </div>
           </div>
           <div class="scores-container">
-            <h2>Top player : </h2>
+            <h2>Top players : </h2>
             <div class="scores">
               <p>loading...</p>
             </div>
