@@ -40,6 +40,20 @@ class Hero {
     this.lives = lives;
   }
 
+  addLife() {
+    if(this.lives.length < 5) {
+      const life = new Life();
+      life.setPosition(
+        life.position[0] - hero.lives.length * 0.1,
+        life.position[1],
+        life.position[2]
+      );
+      this.lives.push(life); 
+    } else {
+      this.addPoints(50);
+    }
+  }
+
   shoot() {
     if(this.ammos > 0) {
       const rocket = new Rocket(true);

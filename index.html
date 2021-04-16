@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>SpaceShip</title>
+  <title>Angry Sharks</title>
   <meta http-equiv="content-type" content="text/html; charset=windows-1252">
 
   <script type="text/javascript" src="js/gl-matrix.js"></script>
@@ -167,7 +167,6 @@
       border: none;
       width: 100%;
       height: 100%;
-
     }
 
     #menu {
@@ -255,6 +254,14 @@
       width: 60px;
       height: 40px;
     }
+    .ennemies-menu .ennemies-menu-item #turtle {
+      width: 60px;
+      height: 40px;
+    }
+    .ennemies-menu .ennemies-menu-item #blobfish {
+      width: 50px;
+      height: 30px;
+    }
     .ennemies-menu .ennemies-menu-item #nazi-shark {
       width: 60px;
       height: 40px;
@@ -322,6 +329,10 @@
       height: 25px;
       margin-right: 8px;
     }
+    .scores-container {
+      max-width: 400px;
+      width: 100%;
+    }
   </style>
 </head>
 
@@ -329,13 +340,7 @@
   <canvas id="SpaceShip" width="1080" height="720" style="display: none"></canvas>
     <div id="menu">
       <div class="menu-container">
-        <h1>WELCOME TO THE "KILL THE SHARK NAZI" GAME !</h1>
-        <div class="scores-container">
-          <h2>Top player : </h2>
-          <div class="scores">
-            <p>loading...</p>
-          </div>
-        </div>
+        <h1>WELCOME TO THE "ANGRY SHARKS" GAME !</h1>
         <p>Press a key to destroy sharks ...</p>
         <div class="explain-menu">
           <div class="bonus-menu">
@@ -352,6 +357,12 @@
               <p>All the ennemies are slower</p>
             </div>
           </div>
+          <div class="scores-container">
+            <h2>Top player : </h2>
+            <div class="scores">
+              <p>loading...</p>
+            </div>
+          </div>
           <div class="ennemies-menu">
             <div class="ennemies-menu-item">
               <img id="seahorse" src="textures/seahorse.gif" alt="">
@@ -360,6 +371,14 @@
             <div class="ennemies-menu-item">
               <img id="shark" src="textures/shark.gif" alt="">
               <p>You can't eat the sharks, but kill them with the gun bonus</p>
+            </div>
+            <div class="ennemies-menu-item">
+              <img id="turtle" src="textures/turtle.gif" alt="">
+              <p>You can only eat the turtles when they are out of their shells</p>
+            </div>
+            <div class="ennemies-menu-item">
+              <img id="blobfish" src="textures/blobfish.png" alt="">
+              <p>Eat the blobfish to receive 300 points</p>
             </div>
             <div class="ennemies-menu-item">
               <img id="nazi-shark" src="textures/nazi-shark.png" alt="">

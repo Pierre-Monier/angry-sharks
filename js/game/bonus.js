@@ -2,9 +2,11 @@ class Bonus {
     bonuses;
     displayedBonuses;
     data = [
+
+        (params) => { return { tag: 'life', sprite: new Sprite(getLifeTexture, params), isTaken: false, } },
         (params) => { return { tag: 'slow-enemy', sprite: new Sprite(getSlowEnemyBonusTexture, params), isTaken: false, duration: Bonus.slowBonusDuration } },
         (params) => { return { tag: 'invincible', sprite: new Sprite(getInvincibleBonusTexure, params), isTaken: false, duration: Bonus.invincibleBonusDuration } },
-        (params) => { return { tag: 'kill-enemy', sprite: new Sprite(getKillEnemyBonusTexture, params), isTaken: false, duration: Bonus.killEnemyBonusDuration } },
+        (params) => { return { tag: 'kill-enemy', sprite: new Sprite(getKillEnemyBonusTexture, params), isTaken: false, } },
         (params) => { return { tag: 'bubble', sprite: new Sprite(getBubbleBonusTexture, params), isTaken: false } },
     ]
     static invincibleBonusDuration = 10000;
@@ -50,6 +52,6 @@ class Bonus {
     selectBonusIndex() {
         const x = getRandomInt(3);
         // with this we got 1 chance out of 3 to have a improve bonus
-        return x === 2 ? getRandomInt(3) : 3;
+        return x === 2 ? getRandomInt(4) : 4;
     }
 }
