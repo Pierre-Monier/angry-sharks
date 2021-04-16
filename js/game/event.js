@@ -25,6 +25,9 @@ function handleKeys() {
     }
 
     if (currentlyPressedKeys[80]) { // P
+        hero.ammos = 12;
+        score.updateAmmoNumber(hero.ammos);
+
         console.log('debug key');
     }
 }

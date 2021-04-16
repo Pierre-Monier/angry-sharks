@@ -39,7 +39,7 @@ class Score {
     }
 
     updateAmmoNumber(ammoNumber) {
-        this.ammoNumberSprites = ammoNumber.toString().split('').map((number, index) => {
+        this.ammoNumberSprites = ammoNumber.toString().split('').reverse().map((number, index) => {
             const params = {
                 ...Sprite.defaultParams,
                 position: [(0.825 - (index / 10)), -0.9, 0.0],
