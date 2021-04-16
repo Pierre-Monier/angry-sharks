@@ -263,6 +263,10 @@ function getBubbleBonusTexture() {
     return initTexture('./models/Bonus/bubble.png')   
 }
 
+function getHeartBonusTexture() {
+    return initTexture('./models/Bonus/heart.png')       
+}
+
 function getHeroModel() {
     return './models/simple_fish/Fish2.obj';
 }
