@@ -124,6 +124,9 @@ function checkCollision() {
         if (hero.collision2d(bonusItem.sprite)) {
             bonusItem.isTaken = true;
             switch (bonusItem.tag) {
+                case "life":
+                    hero.addLife();
+                    break
                 case "slow-enemy":
                     if (!badGuyManager.areSlowed) {
                         bonus.addDisplayedBonus(0);
