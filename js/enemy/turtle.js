@@ -20,5 +20,17 @@ class Turtle extends BadFish {
 
         this.sprite.setNumberOfFrames(24);
         this.sprite.setAnimationSpeed(200); // lower is faster
+
+    }
+
+    drawWithMovement() {
+        super.drawWithMovement();
+            if (this.sprite.offset*24%24 > 8 && this.sprite.offset*24%24 < 17) {
+                this.isEatable = false;
+                this.sprite.speed = 0;
+            } else { 
+                this.isEatable = true;
+                this.sprite.speed = 1;
+            }
     }
 }
