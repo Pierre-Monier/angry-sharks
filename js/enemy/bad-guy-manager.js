@@ -36,9 +36,9 @@ class BadGuyManager {
     getEnemyGenerationDelay() {
         switch (hero.state) {
             case 1:
-                return 3000;
-            case 2:
                 return 2500;
+            case 2:
+                return 2200;
             case 3:
                 return 2000;
             default:
@@ -49,13 +49,13 @@ class BadGuyManager {
     getEnemy() {
         const x = this.getRandomNumber()
         switch (true) {
-            case x <= 25:
+            case x <= 29:
                 return new Seahorse()
-            case x <= 38:
+            case x <= 35:
                 return new Turtle();
-            case x <= 63:
+            case x <= 70:
                 return new Shark()
-            case x <= 78:
+            case x <=  75 :
                 return new Blobfish()
             case x <= 100:
                 return new NaziShark()
