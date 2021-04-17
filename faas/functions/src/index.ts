@@ -39,7 +39,11 @@ export const addScore = functions.https.onRequest((request, response) => {
   } else {
     const body = JSON.parse(request.body);
 
-    if (body.data && Number.isInteger(body.data.score)) {
+
+    if (body.data && Number.isInteger(body.data.score) &&
+        body.data.score < 20000 &&
+        body.data.name &&
+        body.data.name.length < 15) {
       db.collection("scores").add(body.data).then(() => {
         response.send("Score save :)");
       }).catch(() => {

@@ -131,7 +131,7 @@ function displayStartMenu(isFromBtn = false) {
 
     const name = document.querySelector('input[name=name]').value
 
-    fetch('https://us-central1-troisd.cloudfunctions.net/addScore', {
+    fetch('http://localhost:5001/troisd/us-central1/addScore', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
