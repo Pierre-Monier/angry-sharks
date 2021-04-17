@@ -25,8 +25,6 @@ function handleKeys() {
     }
 
     if (currentlyPressedKeys[80]) { // P
-        hero.points = 25000;
-        hero.lives = [];
         console.log('debug key');
     }
 }
