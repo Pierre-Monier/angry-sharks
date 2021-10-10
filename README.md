@@ -2,7 +2,7 @@
 
 *This project is a school project to discover the WebGL library*
 
-This is a game write with WebGL. You can play it [here](https://pierre-monier.github.io/lp_3d/).
+This is a game write with WebGL. You can play it [here](https://pierre-monier.github.io/angry-sharks/).
 
 You can run the game locally with `npx serve` if you have nodeJs on your computer. Every web server will do the work ;).
 
